@@ -77,16 +77,17 @@ button.sm{padding:4px 10px;font-size:12px}
 
 <div class="panel" id="detail"></div>
 <div class="panel"><h2>Mission manifest</h2><div class="row"><label class="note" for="prov">Provider</label><select id="prov"></select></div><div class="tbl-wrap" id="manifest"></div><div class="note">Target periods as publicly reported by NASA and operators (as of September 2026). Schedules change often and sources disagree; verify with the operator. Conflict risk: a reported mission within 150 km of the selected site whose target period overlaps the 30-day analysis window. Site coordinates are approximate and this is not an official deconfliction tool.</div></div>
-<div class="panel"><h2>Operating window finder</h2><div class="row"><button id="find">Find best windows for selected site</button></div><div class="tbl-wrap" id="windows"></div><div class="note">Scans the 12 months after the selected date. Each candidate is a 14-day surface operation period starting 00:00 UTC, ranked by the mean of Sun and Earth availability. Approximate ephemeris, spherical horizon, no terrain.</div></div>
+<div class="panel"><h2>Operating window finder</h2><div class="row"><button id="find">Find best windows for selected site</button></div><div class="tbl-wrap" id="windows"></div><div class="note">Scans the 12 months after the selected date. Each candidate is a 14-day surface operation period starting 00:00 UTC, ranked by the mean of Sun and Earth availability. Approximate ephemeris; LOLA terrain horizon when available, spherical otherwise.</div></div>
 <div class="panel" id="scenario"></div>
 <div class="panel" id="compare"></div>
 <div class="panel"><h2>NASA and partner resources</h2><div class="row">
 <a class="chip" href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons (ephemerides)</a>
 <a class="chip" href="https://quickmap.lroc.asu.edu/" target="_blank" rel="noopener">Quickmap (LRO / LOLA)</a>
 <a class="chip" href="https://trek.nasa.gov/moon/" target="_blank" rel="noopener">Moon Trek (3D)</a>
-<a class="chip" href="https://www.asc-csa.gc.ca/eng/astronomy/moon-exploration/" target="_blank" rel="noopener">CSA Moon Exploration</a></div>
-<div class="note">Horizons is queried live from the app (Docker). Quickmap and Moon Trek open to inspect site terrain; the LOLA horizon is not integrated yet.</div></div>
-<p class="note">Approximate analytical ephemerides (Meeus) and spherical horizon without LOLA terrain. Validate with JPL Horizons before operational use. Site coordinates are approximate.</p>
+<a class="chip" href="https://www.asc-csa.gc.ca/eng/astronomy/moon-exploration/" target="_blank" rel="noopener">CSA Moon Exploration</a>
+<a class="chip" href="https://threejs.org/" target="_blank" rel="noopener">Three.js (3D engine)</a></div>
+<div class="note">Data: JPL Horizons (ephemerides, queried live in the Docker version) and NASA Moon Trek (LRO WAC imagery tiles). Software: Three.js, an open-source 3D engine used only for rendering. Terrain horizons come from the Moon Trek LOLA elevation model (LRO_LOLA_DEM_Global_128ppd_v04, about 0.67 km per pixel, rays out to 200 km, Docker version). Quickmap and Moon Trek open to inspect site terrain at full resolution.</div></div>
+<p class="note">Approximate analytical ephemerides (Meeus). Horizons use LOLA terrain at about 0.67 km per pixel (spherical when the Docker proxy is absent), so small local features are not resolved. Validate with JPL Horizons before operational use. Site coordinates are approximate.</p>
 </div>
 <script>
 const R=Math.PI/180,HRS=720;
@@ -119,13 +120,15 @@ function look(t,lat,lon){const p=lat*R,b=t.lat*R,dl=(t.lon-lon)*R;
 return{el:Math.asin(Math.sin(p)*Math.sin(b)+Math.cos(p)*Math.cos(b)*Math.cos(dl))/R,
 az:(Math.atan2(Math.cos(b)*Math.sin(dl),Math.cos(p)*Math.sin(b)-Math.sin(p)*Math.cos(b)*Math.cos(dl))/R+360)%360}}
 
-function metrics(sun,ear,source){let dark=0,run=0;sun.forEach(x=>{run=x.el>0?0:run+1;dark=Math.max(dark,run)});
-const up=sun.filter(x=>x.el>0),sp=up.length/HRS*100,ep=ear.filter(x=>x.el>0).length/HRS*100,
-bp=sun.filter((x,i)=>x.el>0&&ear[i].el>0).length/HRS*100,ae=up.reduce((a,x)=>a+x.el,0)/Math.max(1,up.length);
+const hzAt=(hor,az)=>{if(!hor)return 0;const i=Math.floor(az),k=az-i;return hor[i%360]*(1-k)+hor[(i+1)%360]*k};
+const observe=(arr,hor)=>arr.map(o=>{const hz=hzAt(hor,o.az);return{...o,hz,up:o.el>hz}});
+function metrics(sun,ear,source){let dark=0,run=0;sun.forEach(x=>{run=x.up?0:run+1;dark=Math.max(dark,run)});
+const up=sun.filter(x=>x.up),sp=up.length/HRS*100,ep=ear.filter(x=>x.up).length/HRS*100,
+bp=sun.filter((x,i)=>x.up&&ear[i].up).length/HRS*100,ae=up.reduce((a,x)=>a+x.el,0)/Math.max(1,up.length);
 return{sun,ear,sp,ep,bp,dark,ae,source,score:Math.round((sp+ep)/2)}}
 function analyze(){const jd0=start/864e5+2440587.5;
 subs=Array.from({length:HRS},(_,h)=>subPoints(jd0+h/24));
-stats=SITES.map(s=>metrics(subs.map(p=>look(p.sun,s.lat,s.lon)),subs.map(p=>look(p.earth,s.lat,s.lon)),"Meeus (approx.)"))}
+stats=SITES.map(s=>metrics(observe(subs.map(p=>look(p.sun,s.lat,s.lon)),s.hor),observe(subs.map(p=>look(p.earth,s.lat,s.lon)),s.hor),"Meeus (approx.)"))}
 
 const utc=ms=>new Date(ms).toISOString().slice(0,16).replace("T"," ");
 async function horizons(body,s){const q=new URLSearchParams({format:"json",COMMAND:`'${body}'`,MAKE_EPHEM:"'YES'",EPHEM_TYPE:"'OBSERVER'",CENTER:"'coord@301'",COORD_TYPE:"'GEODETIC'",SITE_COORD:`'${s.lon},${s.lat},0'`,START_TIME:`'${utc(start)}'`,STOP_TIME:`'${utc(start+(HRS-1)*36e5)}'`,STEP_SIZE:"'1 h'",QUANTITIES:"'4'",CSV_FORMAT:"'YES'"});
@@ -135,11 +138,11 @@ return rows.map(l=>{const c=l.split(",");return{az:+c[3],el:+c[4]}})}
 async function validate(){const s=SITES[sel],box=document.getElementById("hzs");box.textContent="Querying JPL Horizons…";
 try{const[sun,ear]=await Promise.all([horizons("10",s),horizons("399",s)]),old=stats[sel],
 d=Math.max(...sun.map((x,i)=>Math.abs(x.el-old.sun[i].el)));
-stats[sel]=metrics(sun,ear,"JPL Horizons (en vivo)");stats[sel].diff=d;renderAll()}
+stats[sel]=metrics(observe(sun,s.hor),observe(ear,s.hor),"JPL Horizons (en vivo)");stats[sel].diff=d;renderAll()}
 catch(e){box.textContent="Horizons only responds in the Docker version (/horizons proxy). "+e.message}}
 
 const f=(n,d=0)=>n.toFixed(d);
-function until(arr,h){const up=arr[h].el>0;for(let i=h+1;i<HRS;i++)if((arr[i].el>0)!==up)return{up,h:i-h};return{up,h:null}}
+function until(arr,h){const up=arr[h].up;for(let i=h+1;i<HRS;i++)if(arr[i].up!==up)return{up,h:i-h};return{up,h:null}}
 function untilTxt(u,a,b){const x=u.h===null?"over "+Math.floor((HRS-0)/24)+" d":(u.h>=24?Math.floor(u.h/24)+" d "+u.h%24+" h":u.h+" h");
 return u.up?`${a} in ${x}`:`${b} in ${x}`}
 
@@ -148,54 +151,43 @@ return`<div class="card ${s.id===sel?"sel":""}" data-id="${s.id}">
 <span class="cmp ${cmp.has(s.id)?"on":""}" data-c="${s.id}">Compare</span><b>${s.name}</b><small>${s.tag} · ${f(s.lat,1)}°, ${f(s.lon,1)}°</small>
 <div class="chips"><span class="chip">Sun ${f(st.sp)}%</span><span class="chip">Earth ${f(st.ep)}%</span><span class="chip">Score ${st.score}</span></div></div>`}).join("")}
 
-function sky(sun,ear){const c=150,r=130,pos=o=>{const k=(90-Math.max(o.el,0))/90*r,a=o.az*R;return[c+k*Math.sin(a),c-k*Math.cos(a)]};
-const body=(o,col,rad,em)=>{const[x,y]=pos(o),up=o.el>0;return`<g opacity="${up?1:.3}"><circle cx="${x}" cy="${y}" r="${rad*2}" fill="${col}" opacity=".3"/><circle cx="${x}" cy="${y}" r="${rad}" fill="${col}"/></g>`};
+function sky(sun,ear,hor){const c=150,r=130,pos=o=>{const k=(90-Math.max(o.el,0))/90*r,a=o.az*R;return[c+k*Math.sin(a),c-k*Math.cos(a)]};
+const body=(o,col,rad)=>{const[x,y]=pos(o),up=o.up;return`<g opacity="${up?1:.3}"><circle cx="${x}" cy="${y}" r="${rad*2}" fill="${col}" opacity=".3"/><circle cx="${x}" cy="${y}" r="${rad}" fill="${col}"/></g>`};
+const mask=h=>{if(!h)return"";const ring=`M${c-r} ${c}a${r} ${r} 0 1 0 ${2*r} 0a${r} ${r} 0 1 0 ${-2*r} 0`,edge=Array.from(h,(v,a)=>{const k=(90-v)/90*r;return(a?"L":"M")+f(c+k*Math.sin(a*R),1)+" "+f(c-k*Math.cos(a*R),1)}).join("")+"Z";return`<path d="${ring}${edge}" fill-rule="evenodd" fill="#64748b" opacity=".55"/>`};
 let g="";[0,30,60].forEach(e=>g+=`<circle cx="${c}" cy="${c}" r="${(90-e)/90*r}" fill="none" stroke="#334155" stroke-dasharray="${e?4:0}"/>`);
-return`<svg viewBox="0 0 300 300"><defs><radialGradient id="sk"><stop offset="0" stop-color="#141b2a"/><stop offset="1" stop-color="#06080d"/></radialGradient></defs><circle cx="${c}" cy="${c}" r="${r}" fill="url(#sk)"/>${g}
+return`<svg viewBox="0 0 300 300"><defs><radialGradient id="sk"><stop offset="0" stop-color="#141b2a"/><stop offset="1" stop-color="#06080d"/></radialGradient></defs><circle cx="${c}" cy="${c}" r="${r}" fill="url(#sk)"/>${g}${mask(hor)}
 <g fill="#8590a3" font-size="13" text-anchor="middle"><text x="${c}" y="14">N</text><text x="${c}" y="296">S</text><text x="289" y="${c+5}">E</text><text x="11" y="${c+5}">W</text></g>${body(sun,"#d99a2b",9)}${body(ear,"#3b8fd9",7)}</svg>`}
 
 function timeline(st,h){const W=600,H=170,y=e=>H/2-e/92*(H/2-8),x=i=>i/(HRS-1)*W;
-let bands="",run=-1;st.sun.forEach((s,i)=>{if(s.el<=0&&run<0)run=i;if((s.el>0||i===HRS-1)&&run>=0){bands+=`<rect x="${x(run)}" y="0" width="${x(i)-x(run)}" height="${H}" fill="${cssv('--band')}" opacity=".7"/>`;run=-1}});
+let bands="",run=-1;st.sun.forEach((s,i)=>{if(!s.up&&run<0)run=i;if((s.up||i===HRS-1)&&run>=0){bands+=`<rect x="${x(run)}" y="0" width="${x(i)-x(run)}" height="${H}" fill="${cssv('--band')}" opacity=".7"/>`;run=-1}});
 const path=a=>a.map((p,i)=>(i?"L":"M")+f(x(i),1)+" "+f(y(p.el),1)).join("");
 return`<svg viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" rx="8" fill="${cssv('--inset')}"/>${bands}<line x1="0" x2="${W}" y1="${H/2}" y2="${H/2}" stroke="${cssv('--axis')}"/>
 <path d="${path(st.sun)}" fill="none" stroke="#d99a2b" stroke-width="2.5"/><path d="${path(st.ear)}" fill="none" stroke="#3b8fd9" stroke-width="2.5"/>
 <line x1="${x(h)}" x2="${x(h)}" y1="0" y2="${H}" stroke="${cssv('--txt')}" stroke-width="1.5"/></svg>`}
 
 function renderDetail(){const s=SITES[sel],st=stats[sel],h=+document.getElementById("t").value,sn=st.sun[h],ea=st.ear[h];
-document.getElementById("detail").innerHTML=`<h2>${s.name} <small style="color:var(--mut)">${s.tag}</small></h2><div class="cols"><div>${sky(sn,ea)}<div class="note">Amber: Sun · Blue: Earth · Center: zenith</div></div><div>
+document.getElementById("detail").innerHTML=`<h2>${s.name} <small style="color:var(--mut)">${s.tag}</small></h2><div class="cols"><div>${sky(sn,ea,s.hor)}<div class="note">Amber: Sun · Blue: Earth · Center: zenith${s.hor?" · Grey: terrain above the horizon":""}</div></div><div>
 <div class="kpis"><div class="kpi"><span>Sun elevation</span><b>${f(sn.el,1)}°</b></div><div class="kpi"><span>Earth elevation</span><b>${f(ea.el,1)}°</b></div>
-<div class="kpi"><span>${sn.el>0?"Sun up":"Sun down"}</span><b>${untilTxt(until(st.sun,h),"sunset","sunrise")}</b></div><div class="kpi"><span>${ea.el>0?"Earth visible":"No Earth"}</span><b>${untilTxt(until(st.ear,h),"Earthset","Earthrise")}</b></div>
+<div class="kpi"><span>${sn.up?"Sun up":"Sun down"}</span><b>${untilTxt(until(st.sun,h),"sunset","sunrise")}</b></div><div class="kpi"><span>${ea.up?"Earth visible":"No Earth"}</span><b>${untilTxt(until(st.ear,h),"Earthset","Earthrise")}</b></div>
 <div class="kpi"><span>Max darkness</span><b>${f(st.dark/24,1)} d</b></div><div class="kpi"><span>Avg sun elevation</span><b>${f(st.ae,1)}°</b></div></div>
-<div style="margin-top:12px">${timeline(st,h)}</div><div class="row" style="margin-top:8px"><button onclick="validate()">Load JPL Horizons data</button><span class="note" id="hzs">Source: ${st.source}${st.diff!==undefined?" · max diff vs approx.: "+f(st.diff,2)+"° (sun elevation)":""}</span></div><div class="note">30 days. Amber: Sun elevation. Blue: Earth elevation. Shaded: lunar night.</div></div></div>`}
+<div style="margin-top:12px">${timeline(st,h)}</div><div class="row" style="margin-top:8px"><button onclick="validate()">Load JPL Horizons data</button><span class="note" id="hzs">Source: ${st.source} · Horizon: ${hzState}${st.diff!==undefined?" · max diff vs approx.: "+f(st.diff,2)+"° (sun elevation)":""}</span></div><div class="note">30 days. Amber: Sun elevation. Blue: Earth elevation. Shaded: lunar night.</div></div></div>`}
 
 function renderCompare(){const ids=[...cmp];const rows=[["Power (Sun above horizon)",x=>x.sp,"%","#d99a2b"],["Communication (Earth above horizon)",x=>x.ep,"%","#3b8fd9"],["Sun and Earth simultaneously",x=>x.bp,"%","#0b3d91"]];
 document.getElementById("compare").innerHTML=`<h2>Site comparison</h2>`+(ids.length?rows.map(([t,fn,u,c])=>`<b>${t}</b>`+ids.map(i=>`<div class="note">${SITES[i].name} · ${f(fn(stats[i]))}${u}</div><div class="bar"><i style="width:${fn(stats[i])}%;background:${c}"></i></div>`).join("")).join("")+`<b>Longest night</b>`+ids.map(i=>`<div class="note">${SITES[i].name} · ${f(stats[i].dark/24,1)} days</div><div class="bar"><i style="width:${Math.min(100,stats[i].dark/HRS*100)}%;background:#8a98ad"></i></div>`).join(""):`<div class="note">Select up to three sites with Compare on the cards.</div>`)}
 
 function clock(){const h=+document.getElementById("t").value;document.getElementById("clock").textContent=new Date(start+h*36e5).toISOString().replace("T"," ").slice(0,16)+" UTC · +"+f(h/24,1)+" d"}
 
-const CES="https://cdn.jsdelivr.net/npm/cesium@1.120.0/Build/Cesium/";
-let cv=null,M,pts={},hud;
-const load=(tag,attrs)=>new Promise((ok,no)=>{const e=document.createElement(tag);Object.assign(e,attrs,{onload:ok,onerror:no});document.head.appendChild(e)});
+const trek=(layer,ext)=>(z,x,y)=>`/trek/${layer}/1.0.0/default/default028mm/${z}/${y}/${x}.${ext}`;
+let moon=null,hzState="loading LOLA terrain…";
 async function init3D(){try{
-if(!(await fetch("/trek/0/0/0.jpg")).ok)throw new Error("sin proxy");
-window.CESIUM_BASE_URL=CES;
-await load("link",{rel:"stylesheet",href:CES+"Widgets/widgets.css"});await load("script",{src:CES+"Cesium.js"});
-M=Cesium.Ellipsoid.MOON;
-cv=new Cesium.Viewer("moon3d",{baseLayer:false,baseLayerPicker:false,geocoder:false,homeButton:false,sceneModePicker:false,navigationHelpButton:false,animation:false,timeline:false,fullscreenButton:false,infoBox:false,selectionIndicator:false,skyAtmosphere:false,globe:new Cesium.Globe(M),mapProjection:new Cesium.GeographicProjection(M)});
-cv.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({url:"/trek/{z}/{y}/{x}.jpg",tilingScheme:new Cesium.GeographicTilingScheme({ellipsoid:M}),maximumLevel:7,tileWidth:256,tileHeight:256,credit:"NASA/GSFC/ASU LRO WAC · Moon Trek"}));
-const g=cv.scene.globe;g.enableLighting=true;g.showGroundAtmosphere=false;g.baseColor=Cesium.Color.BLACK;
-cv.scene.sun.show=false;cv.scene.moon.show=false;cv.scene.screenSpaceCameraController.minimumZoomDistance=800;cv.clock.shouldAnimate=false;
-const dot=(c,t,px)=>cv.entities.add({point:{pixelSize:px,color:Cesium.Color.fromCssColorString(c),outlineColor:Cesium.Color.WHITE,outlineWidth:2,disableDepthTestDistance:Infinity},label:{text:t,font:"700 13px sans-serif",pixelOffset:new Cesium.Cartesian2(0,-18),fillColor:Cesium.Color.WHITE,outlineColor:Cesium.Color.BLACK,outlineWidth:3,style:Cesium.LabelStyle.FILL_AND_OUTLINE,disableDepthTestDistance:Infinity,distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,14e6)}});
-SITES.forEach(s=>{dot("#e6e9ef",s.name,8).position=Cesium.Cartesian3.fromDegrees(s.lon,s.lat,2000,M)});
-pts.sun=dot("#d99a2b","Subsolar point",16);pts.earth=dot("#3b8fd9","Sub-Earth point",14);
-hud=document.createElement("div");hud.className="hud";document.getElementById("moon3d").appendChild(hud);
-document.getElementById("m3note").textContent="Texture: LRO WAC (Moon Trek, same LRO source as Quickmap). Zoom in: higher-resolution tiles load. Terminator and markers computed for the selected time.";
-fly(0.5);update3D()}catch(e){document.getElementById("m3note").textContent="3D Moon requires the Docker version (/trek proxy to NASA Moon Trek)."}}
-function fly(d){if(!cv)return;const s=SITES[sel];cv.camera.flyTo({destination:Cesium.Cartesian3.fromDegrees(s.lon,s.lat,s.lat<-80?900000:2500000,M),duration:d===undefined?2:d})}
-function update3D(){if(!cv)return;const h=+document.getElementById("t").value,p=subs[h],v=(o,k)=>Cesium.Cartesian3.fromDegrees(o.lon,o.lat,k,M);
-pts.sun.position=v(p.sun,3000);pts.earth.position=v(p.earth,3000);
-cv.scene.light=new Cesium.DirectionalLight({direction:Cesium.Cartesian3.negate(Cesium.Cartesian3.normalize(v(p.sun,0),new Cesium.Cartesian3()),new Cesium.Cartesian3())});
-const st=stats[sel];hud.textContent=`${SITES[sel].name} | Sun ${f(st.sun[h].el,1)}° | Earth ${f(st.ear[h].el,1)}°`}
+moon=(await import("./moon.js")).createMoon(document.getElementById("moon3d"),{sites:SITES,tileUrl:trek("LRO_WAC_Mosaic_Global_303ppd_v02","jpg"),demUrl:trek("LRO_LOLA_DEM_Global_128ppd_v04","png")});
+await moon.ready;
+document.getElementById("m3note").textContent="Texture: LRO WAC with LOLA relief (Moon Trek, same LRO source as Quickmap), rendered with Three.js. Drag to rotate, scroll or pinch to zoom. Terminator and markers computed for the selected time.";
+fly();update3D()}catch(e){moon=null;document.getElementById("moon3d").replaceChildren();document.getElementById("m3note").textContent="3D Moon requires the Docker version (/trek proxy to NASA Moon Trek)."}}
+async function initHorizons(){try{const hs=await(await import("./horizon.js")).computeHorizons(SITES,trek("LRO_LOLA_DEM_Global_128ppd_v04","png"));SITES.forEach((s,i)=>s.hor=hs[i]);hzState="LOLA terrain";analyze();renderAll()}catch(e){hzState="spherical";renderDetail()}}
+function fly(){if(moon)moon.flyTo(sel)}
+function update3D(){if(!moon)return;const h=+document.getElementById("t").value,p=subs[h],st=stats[sel];
+moon.select(sel);moon.update({sun:p.sun,earth:p.earth,text:`${SITES[sel].name} | Sun ${f(st.sun[h].el,1)}° | Earth ${f(st.ear[h].el,1)}°`})}
 function tick(){renderDetail();renderScenario();clock();update3D()}
 
 const cssv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
@@ -216,7 +208,8 @@ tag=d!==null&&d<=150&&ov?'<span class="bd warn">Conflict risk</span>':ov?'<span 
 return`<tr><td><b>${m.n}</b><div class="note" style="margin:0">${m.st}</div></td><td>${m.p}<div class="note" style="margin:0">${m.l} ${m.v}</div></td><td>${m.site}</td><td class="mono">${m.from.slice(0,7)} to ${m.to.slice(0,7)}</td><td class="mono">${d===null?"n/a":f(d)+" km"}</td><td>${tag}</td><td><button class="sm" data-go="${m.from}">Go to</button></td></tr>`}).join("");
 document.getElementById("manifest").innerHTML=`<table><tr><th>Mission</th><th>Operator / launch</th><th>Landing site</th><th>Target period</th><th>Distance</th><th>Status</th><th></th></tr>${rows}</table>`}
 function findWindows(){const s=SITES[sel],N=365,SP=336,H=N*24+SP,jd0=start/864e5+2440587.5,sun=new Float32Array(H),ear=new Float32Array(H);
-for(let h=0;h<H;h++){const p=subPoints(jd0+h/24);sun[h]=look(p.sun,s.lat,s.lon).el;ear[h]=look(p.earth,s.lat,s.lon).el}
+const margin=t=>{const o=look(t,s.lat,s.lon);return o.el-hzAt(s.hor,o.az)};
+for(let h=0;h<H;h++){const p=subPoints(jd0+h/24);sun[h]=margin(p.sun);ear[h]=margin(p.earth)}
 const cs=[0],ce=[0],cb=[0];for(let h=0;h<H;h++){cs.push(cs[h]+(sun[h]>0));ce.push(ce[h]+(ear[h]>0));cb.push(cb[h]+(sun[h]>0&&ear[h]>0))}
 const all=[];for(let d=0;d<N;d++){const a=d*24,b=a+SP;let dk=0,run=0;for(let h=a;h<b;h++){run=sun[h]>0?0:run+1;dk=Math.max(dk,run)}
 const sp=(cs[b]-cs[a])/SP*100,ep=(ce[b]-ce[a])/SP*100;all.push({d,sp,ep,bp:(cb[b]-cb[a])/SP*100,dk,score:(sp+ep)/2})}
@@ -271,6 +264,7 @@ document.getElementById("t").value=new Date().getUTCHours();
 recompute();
 init3D();
 loadScenario();
+initHorizons();
 </script>
 </body>
 </html>
