@@ -7,13 +7,14 @@ const CAM_Z = 160;
 const CLOUD_DRIFT = -0.06;
 const FOCUS_MS = 1800;
 const HOLD_MS = 1400;
+const DRAG_THRESHOLD = 6;
 
 export function createLanding(container, mission) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.setClearColor(0x02050b, 1);
   const canvas = renderer.domElement;
-  canvas.style.cssText = "display:block;width:100%;height:100%;touch-action:none;cursor:grab";
+  canvas.style.cssText = "display:block;width:100%;height:100%;cursor:grab";
   container.appendChild(canvas);
 
   const scene = new THREE.Scene();
@@ -130,29 +131,54 @@ export function createLanding(container, mission) {
   }
 
   const raycaster = new THREE.Raycaster();
+  const surface = container.parentElement;
+  const listeners = new AbortController();
+  const { signal } = listeners;
+  surface.style.touchAction = "none";
+  let press = null;
   let drag = null;
-  canvas.addEventListener("pointerdown", (e) => {
-    if (focus !== null) return;
+  let swallowClick = false;
+
+  const pickBody = (e) => {
     const r = canvas.getBoundingClientRect();
     raycaster.setFromCamera(new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1), camera);
-    const onMoon = raycaster.intersectObject(moonGroup, true).length > 0;
-    canvas.setPointerCapture(e.pointerId);
-    drag = { body: onMoon ? moonSpin : earth.spin, x: e.clientX, y: e.clientY };
-    canvas.style.cursor = "grabbing";
-  });
-  canvas.addEventListener("pointermove", (e) => {
-    if (drag === null) return;
+    return raycaster.intersectObject(moonGroup, true).length > 0 ? moonSpin : earth.spin;
+  };
+  const release = () => {
+    if (drag !== null) {
+      swallowClick = true;
+      setTimeout(() => { swallowClick = false; }, 50);
+    }
+    press = null;
+    drag = null;
+    canvas.style.cursor = "grab";
+  };
+
+  surface.addEventListener("pointerdown", (e) => {
+    if (focus !== null || e.button > 0 || e.target.closest("input, select, label, form")) return;
+    press = { id: e.pointerId, body: pickBody(e), x: e.clientX, y: e.clientY };
+  }, { signal });
+  surface.addEventListener("pointermove", (e) => {
+    if (press === null) return;
+    if (drag === null) {
+      if (Math.hypot(e.clientX - press.x, e.clientY - press.y) < DRAG_THRESHOLD) return;
+      drag = { body: press.body, x: press.x, y: press.y };
+      surface.setPointerCapture(press.id);
+      canvas.style.cursor = "grabbing";
+    }
     drag.body.rotation.y += (e.clientX - drag.x) * 0.006;
     drag.body.rotation.x += (e.clientY - drag.y) * 0.006;
     drag.x = e.clientX;
     drag.y = e.clientY;
-  });
-  const release = () => {
-    drag = null;
-    canvas.style.cursor = "grab";
-  };
-  canvas.addEventListener("pointerup", release);
-  canvas.addEventListener("pointercancel", release);
+  }, { signal });
+  surface.addEventListener("pointerup", release, { signal });
+  surface.addEventListener("pointercancel", release, { signal });
+  surface.addEventListener("click", (e) => {
+    if (!swallowClick) return;
+    swallowClick = false;
+    e.stopPropagation();
+    e.preventDefault();
+  }, { capture: true, signal });
 
   let raf = 0;
   let last = performance.now();
@@ -173,6 +199,8 @@ export function createLanding(container, mission) {
     focusSite,
     dispose() {
       cancelAnimationFrame(raf);
+      listeners.abort();
+      surface.style.touchAction = "";
       observer.disconnect();
       scene.traverse((o) => {
         if (o.geometry) o.geometry.dispose();

@@ -2,11 +2,227 @@ import * as THREE from "./vendor/three.module.min.js";
 import { createMoon, createTextureLoader } from "./bodies.js";
 
 const CATEGORIES = [
-  { id: "all", name: "All" },
-  { id: "attractions", name: "Attractions" },
-  { id: "food", name: "Food" },
-  { id: "events", name: "Events" }
+  { id: "all", name: "All", icon: "grid" },
+  { id: "attractions", name: "Attractions", icon: "star" },
+  { id: "food", name: "Food", icon: "fork" },
+  { id: "events", name: "Events", icon: "ticket" }
 ];
+
+const ICONS = {
+  bag: '<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 13h16"/>',
+  grid: '<rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"/>',
+  star: '<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 17l-5.2 2.7 1-5.9-4.3-4.1 5.9-.8z"/>',
+  fork: '<path d="M7 3v7a2 2 0 0 0 2 2v9M11 3v7a2 2 0 0 1-2 2M17 21V3c-2 1-3 4-3 7s1 4 3 4"/>',
+  ticket: '<path d="M3.5 8.5V7a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2v-3.5a2.5 2.5 0 0 0 0-5z"/><path d="M14 5v14"/>',
+  clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  hourglass: '<path d="M7 4h10M7 20h10M8 4c0 4 4 5 4 8s-4 4-4 8M16 4c0 4-4 5-4 8s4 4 4 8"/>',
+  nav: '<path d="M20 4L4 11l7 2 2 7z"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>'
+};
+
+const icon = (name) => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
+
+const artVars = (id) => {
+  let h = 0;
+  for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return `--ex:${18 + (h % 62)}%;--ey:${26 + ((h >> 8) % 22)}%`;
+};
+
+const gauss = () => Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(2 * Math.PI * Math.random());
+
+const BAND_ANGLE = 0.3;
+
+const bandPoint = (w, h, t) => {
+  const half = 0.62 * Math.hypot(w, h);
+  return { x: w * 0.55 + t * half * Math.cos(BAND_ANGLE), y: h * 0.3 + t * half * Math.sin(BAND_ANGLE) };
+};
+
+const STAR_COLORS = [[0.78, 0.86, 1], [1, 1, 1], [1, 0.9, 0.78], [0.82, 0.76, 1]];
+
+const STAR_VERT = `
+attribute float aSize;
+attribute float aPhase;
+attribute vec3 aColor;
+uniform float uTime;
+uniform float uPx;
+varying vec3 vColor;
+varying float vAlpha;
+void main() {
+  vColor = aColor;
+  vAlpha = 0.8 + 0.2 * sin(uTime * (0.35 + aPhase * 0.4) + aPhase * 6.2831);
+  gl_PointSize = aSize * uPx;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}`;
+
+const STAR_FRAG = `
+varying vec3 vColor;
+varying float vAlpha;
+void main() {
+  float d = length(gl_PointCoord - 0.5) * 2.0;
+  if (d > 1.0) discard;
+  gl_FragColor = vec4(vColor, exp(-d * d * 5.0) * vAlpha);
+}`;
+
+const GLOW_VERT = `
+varying vec3 vN;
+void main() {
+  vN = normalize(normalMatrix * normal);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}`;
+
+const GLOW_FRAG = `
+uniform vec2 uSun;
+varying vec3 vN;
+void main() {
+  float edge = pow(clamp(-vN.z / 0.35, 0.0, 1.0), 2.4);
+  float lit = 0.25 + 0.75 * smoothstep(-0.4, 0.8, dot(normalize(vN.xy + 1e-5), uSun));
+  float k = edge * lit * 0.8;
+  gl_FragColor = vec4(vec3(0.62, 0.7, 1.0) * k, k);
+}`;
+
+function paintNebula(canvas, w, h, dpr) {
+  canvas.width = Math.round(w * dpr);
+  canvas.height = Math.round(h * dpr);
+  const g = canvas.getContext("2d");
+  g.scale(dpr, dpr);
+  const base = g.createLinearGradient(0, 0, 0, h);
+  base.addColorStop(0, "#03050f");
+  base.addColorStop(0.55, "#050818");
+  base.addColorStop(1, "#02030a");
+  g.fillStyle = base;
+  g.fillRect(0, 0, w, h);
+  g.globalCompositeOperation = "lighter";
+  const blob = (x, y, r, rgb, a) => {
+    const grad = g.createRadialGradient(x, y, 0, x, y, r);
+    grad.addColorStop(0, `rgba(${rgb},${a})`);
+    grad.addColorStop(1, `rgba(${rgb},0)`);
+    g.fillStyle = grad;
+    g.fillRect(x - r, y - r, 2 * r, 2 * r);
+  };
+  blob(w * 0.78, h * 0.18, w * 0.38, "92,64,210", 0.16);
+  blob(w * 0.12, h * 0.42, w * 0.3, "40,96,200", 0.12);
+  blob(w * 0.9, h * 0.85, w * 0.34, "150,60,190", 0.09);
+  blob(w * 0.45, h * 0.05, w * 0.28, "60,70,190", 0.1);
+  for (let i = 0; i <= 40; i++) {
+    const p = bandPoint(w, h, -1 + i / 20);
+    blob(p.x, p.y, h * 0.26, "150,140,255", 0.045);
+    blob(p.x, p.y, h * 0.12, "215,200,255", 0.035);
+  }
+}
+
+function buildStars(w, h) {
+  const field = Math.round((w * h) / 1400);
+  const total = field + Math.round(field * 0.55);
+  const position = new Float32Array(total * 3);
+  const size = new Float32Array(total);
+  const phase = new Float32Array(total);
+  const color = new Float32Array(total * 3);
+  const sigma = h * 0.09;
+  for (let i = 0; i < total; i++) {
+    const inBand = i >= field;
+    let x = Math.random() * w;
+    let y = Math.random() * h;
+    if (inBand) {
+      const t = Math.max(-1, Math.min(1, gauss() * 0.45));
+      const p = bandPoint(w, h, t);
+      const offset = gauss() * sigma;
+      x = p.x - Math.sin(BAND_ANGLE) * offset;
+      y = p.y + Math.cos(BAND_ANGLE) * offset;
+    }
+    position.set([x, h - y, 0], i * 3);
+    size[i] = inBand ? 1 + Math.pow(Math.random(), 3) * 1.4
+      : Math.random() < 0.012 ? 7 + Math.random() * 6
+      : 1.2 + Math.pow(Math.random(), 3) * 2.4;
+    phase[i] = Math.random();
+    const tint = STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)];
+    const brightness = (0.55 + 0.45 * Math.random()) * (inBand ? 0.8 : 1);
+    color.set(tint.map((c) => c * brightness), i * 3);
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.BufferAttribute(position, 3));
+  geometry.setAttribute("aSize", new THREE.BufferAttribute(size, 1));
+  geometry.setAttribute("aPhase", new THREE.BufferAttribute(phase, 1));
+  geometry.setAttribute("aColor", new THREE.BufferAttribute(color, 3));
+  return geometry;
+}
+
+function createBackdrop(root) {
+  const host = root.querySelector(".tp-stage");
+  const nebula = host.querySelector(".tp-nebula");
+  const canvas = host.querySelector(".tp-space");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(0, 1, 1, 0, -2000, 2000);
+  const starMaterial = new THREE.ShaderMaterial({
+    uniforms: { uTime: { value: 0 }, uPx: { value: 1 } },
+    vertexShader: STAR_VERT,
+    fragmentShader: STAR_FRAG,
+    transparent: true,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+  const stars = new THREE.Points(new THREE.BufferGeometry(), starMaterial);
+  stars.position.z = -1000;
+  stars.frustumCulled = false;
+  scene.add(stars);
+  const sunDirection = new THREE.Vector3(0.9, 0.55, 0.45).normalize();
+  scene.add(new THREE.AmbientLight(0x8a93c8, 0.22));
+  const sun = new THREE.DirectionalLight(0xfff4e6, 2.8);
+  sun.position.copy(sunDirection);
+  scene.add(sun);
+  const textures = createTextureLoader(renderer);
+  const moon = createMoon(textures.load);
+  moon.root.rotation.set(0.2, 0, -0.25);
+  moon.root.add(new THREE.Mesh(new THREE.SphereGeometry(1.07, 64, 48), new THREE.ShaderMaterial({
+    uniforms: { uSun: { value: new THREE.Vector2(sunDirection.x, sunDirection.y).normalize() } },
+    vertexShader: GLOW_VERT,
+    fragmentShader: GLOW_FRAG,
+    side: THREE.BackSide,
+    blending: THREE.AdditiveBlending,
+    transparent: true,
+    depthWrite: false
+  })));
+  scene.add(moon.root);
+
+  const resize = () => {
+    const w = host.clientWidth;
+    const h = host.clientHeight;
+    if (!w || !h) return;
+    const dpr = Math.min(devicePixelRatio, 2);
+    const compact = w < 960;
+    const radius = compact ? w * 0.95 : Math.min(w * 0.42, h * 0.95);
+    const visibleHeight = h * (compact ? 0.16 : 0.36);
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(w, h, false);
+    camera.right = w;
+    camera.top = h;
+    camera.updateProjectionMatrix();
+    starMaterial.uniforms.uPx.value = dpr;
+    stars.geometry.dispose();
+    stars.geometry = buildStars(w, h);
+    paintNebula(nebula, w, h, dpr);
+    moon.root.scale.setScalar(radius);
+    moon.root.position.set(compact ? w * 0.5 : w * 0.2, visibleHeight - radius, 0);
+  };
+  new ResizeObserver(resize).observe(host);
+  resize();
+
+  let last = performance.now();
+  const loop = (now) => {
+    requestAnimationFrame(loop);
+    const dt = Math.min((now - last) / 1000, 0.1);
+    last = now;
+    if (root.getClientRects().length === 0) return;
+    if (!still) {
+      starMaterial.uniforms.uTime.value = now / 1000;
+      moon.spin.rotation.y += 0.014 * dt;
+    }
+    renderer.render(scene, camera);
+  };
+  requestAnimationFrame(loop);
+}
 
 const SORTS = {
   recommended: (a, b) => b.score - a.score,
@@ -55,7 +271,6 @@ export function createExplorer(root, { launchSites, sky }) {
   let bases = new Map();
   let venues = new Map();
   const windows = new Map();
-  let moonFrame = 0;
 
   const currentMs = () => Date.parse(`${state.date}T${pad(state.hour)}:00:00Z`);
 
@@ -118,35 +333,42 @@ export function createExplorer(root, { launchSites, sky }) {
       const count = n.id === "trip" ? ` <span class="tp-count">${state.trip.length}</span>` : "";
       return `<button data-nav="${n.id}" class="${state.view === n.id || (state.view === "detail" && n.id === "explore") ? "on" : ""}">${n.name}${count}</button>`;
     }).join("");
-    return `<header class="tp-top"><div class="tp-brand">OrbitPass <span>Tourist</span></div><nav class="tp-nav">${tabs}</nav></header>`;
+    return `<header class="tp-top"><nav class="tp-nav">${tabs}</nav></header>`;
   }
 
   function sidebar() {
     const launch = launchSites.map((l, i) => `<option value="${i}" ${state.launch === i ? "selected" : ""}>${esc(l.name)}</option>`).join("");
+    const tabs = CATEGORIES.map((c) => `<button data-cat="${c.id}" class="${state.cat === c.id ? "on" : ""}">${icon(c.icon)}<span>${c.name}</span></button>`).join("");
+    const ratings = [[0, "Any rating"], [4, "4.0 and up"], [4.5, "4.5 and up"]].map(([v, t]) => `<option value="${v}" ${state.min === v ? "selected" : ""}>${t}</option>`).join("");
     return `<aside class="tp-side">
-  <div class="tp-tabs">${CATEGORIES.map((c) => `<button data-cat="${c.id}" class="${state.cat === c.id ? "on" : ""}">${c.name}</button>`).join("")}</div>
-  <label>Date<input type="date" id="tp-date" value="${state.date}"></label>
-  <label>Local time<select id="tp-hour">${hourOptions()}</select></label>
+  <div class="tp-side-head">${icon("bag")}<h2>Tourist</h2></div>
+  <div class="tp-tabs">${tabs}</div>
+  <div class="tp-pair">
+    <label>Date<input type="date" id="tp-date" value="${state.date}"></label>
+    <label>Local time<select id="tp-hour">${hourOptions()}</select></label>
+  </div>
   <label>Arrival (launch site)<select id="tp-launch">${launch}</select></label>
   <label>Destination base<select id="tp-base">${baseOptions()}</select></label>
-  <label>Search<span class="tp-search"><input type="search" id="tp-q" value="${esc(state.q)}" placeholder="Venue, type or base"><button data-search="1">Search</button></span></label>
-  <label>Minimum rating<select id="tp-min">${[[0, "Any rating"], [4, "4.0 and up"], [4.5, "4.5 and up"]].map(([v, t]) => `<option value="${v}" ${state.min === v ? "selected" : ""}>${t}</option>`).join("")}</select></label>
-  <label class="tp-check"><input type="checkbox" id="tp-open" ${state.openOnly ? "checked" : ""}> Available at selected time only</label>
+  <label>Keyword<input type="search" id="tp-q" value="${esc(state.q)}" placeholder="Venue, type or base"></label>
+  <label>Minimum rating<select id="tp-min">${ratings}</select></label>
+  <label class="tp-check"><span>Available at selected time only</span><input type="checkbox" id="tp-open" ${state.openOnly ? "checked" : ""}></label>
+  <button class="tp-cta" data-search="1">${icon("search")}<span>Search</span></button>
   <div class="tp-note">Transfer from ${esc(launchSites[state.launch].name)}: about ${data.meta.transferDays} days.</div>
 </aside>`;
   }
 
   function card(v, a) {
     const b = bases.get(v.base);
-    return `<article class="tp-card">
-  <div class="tp-art ${v.group}"><span class="tp-type">${esc(v.type)}</span><span class="tp-art-name">${esc(GROUP_LABEL[v.group])}</span></div>
+    return `<article class="tp-card" data-open="${v.id}">
+  <div class="tp-art ${v.group}" style="${artVars(v.id)}"><span class="tp-type">${esc(v.type)}</span><span class="tp-art-name">${esc(GROUP_LABEL[v.group])}</span></div>
   <div class="tp-body">
-    <div class="tp-row"><b class="tp-name">${esc(v.name)}</b><span class="tp-rating">★ ${v.rating.toFixed(1)} <small>(${v.reviews.toLocaleString("en-US")})</small></span></div>
+    <div class="tp-row"><b class="tp-name">${esc(v.name)}</b><span class="tp-rating"><i>★</i> ${v.rating.toFixed(1)} <small>(${v.reviews.toLocaleString("en-US")})</small></span></div>
     <div class="tp-sub">${esc(b.name)} · ${esc(b.program)}</div>
     <p>${esc(v.description)}</p>
-    <div class="tp-chips"><span>${esc(v.hours)}</span><span>${durationText(v.durationMin)}</span><span>${v.distanceKm} km from base</span></div>
-    <div class="tp-row tp-foot">${availabilityBadge(a)}<span class="tp-price">from <b>${usd(v.priceUsd)}</b></span><button class="tp-link" data-open="${v.id}">View details →</button></div>
+    <div class="tp-meta"><span>${icon("clock")}${esc(v.hours)}</span><span>${icon("hourglass")}${durationText(v.durationMin)}</span><span>${icon("nav")}${v.distanceKm} km from base</span></div>
+    <div class="tp-row tp-foot">${availabilityBadge(a)}<span class="tp-price">from <b>${usd(v.priceUsd)}</b></span></div>
   </div>
+  <button class="tp-go" data-open="${v.id}" aria-label="View details of ${esc(v.name)}">${icon("arrow")}</button>
 </article>`;
   }
 
@@ -155,12 +377,13 @@ export function createExplorer(root, { launchSites, sky }) {
     const items = filtered();
     const cat = CATEGORIES.find((c) => c.id === state.cat).name;
     const base = state.base === "all" ? "All lunar bases" : bases.get(state.base).name;
+    const sorts = [["recommended", "Recommended"], ["rating", "Highest rated"], ["reviews", "Most reviewed"], ["price", "Lowest price"], ["distance", "Nearest to base"]];
     return `<div class="tp-layout">${sidebar()}
-  <section class="tp-main">
-    <div class="tp-bar"><div><b>${items.length} results</b> for <span class="tp-accent">${cat}</span> · ${esc(base)} · ${state.date} ${pad(state.hour)}:00 UTC</div>
-      <label class="tp-sort">Sort by <select id="tp-sort">${[["recommended", "Recommended"], ["rating", "Highest rated"], ["reviews", "Most reviewed"], ["price", "Lowest price"], ["distance", "Nearest to base"]].map(([v, t]) => `<option value="${v}" ${state.sort === v ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>
-    <div class="tp-grid">${items.length ? items.map(({ v }) => card(v, availability(v, ms))).join("") : `<div class="tp-empty">No venues match these filters.</div>`}</div>
-  </section></div>`;
+  <section class="tp-main"><div class="tp-results">
+    <div class="tp-bar"><div class="tp-bar-title"><span class="tp-title">${items.length} results for <span class="tp-accent">${cat}</span></span><span class="tp-sub">${esc(base)} · ${state.date} ${pad(state.hour)}:00 UTC</span></div>
+      <label class="tp-sort">Sort by <select id="tp-sort">${sorts.map(([v, t]) => `<option value="${v}" ${state.sort === v ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>
+    <div class="tp-feed">${items.length ? items.map(({ v }) => card(v, availability(v, ms))).join("") : `<div class="tp-empty">No venues match these filters.</div>`}</div>
+  </div></section></div>`;
   }
 
   function detailView() {
@@ -235,7 +458,7 @@ export function createExplorer(root, { launchSites, sky }) {
       const max = Math.max(...vs.map((v) => v.priceUsd));
       const top = vs.slice().sort(SORTS.rating)[0];
       return `<article class="tp-card tp-base">
-  <div class="tp-art ${b.status === "Apollo landing site" ? "food" : "events"}"><span class="tp-type">${esc(b.status)}</span><span class="tp-art-name">${esc(b.mission)}</span></div>
+  <div class="tp-art ${b.status === "Apollo landing site" ? "food" : "events"}" style="${artVars(b.id)}"><span class="tp-type">${esc(b.status)}</span><span class="tp-art-name">${esc(b.mission)}</span></div>
   <div class="tp-body">
     <div class="tp-row"><b class="tp-name">${esc(b.name)}</b><span class="tp-rating">★ ${avg.toFixed(2)}</span></div>
     <div class="tp-sub">${esc(b.program)} · ${b.lat.toFixed(2)}°, ${b.lon.toFixed(2)}°</div>
@@ -268,49 +491,8 @@ ${state.trip.length ? `<table class="tp-table"><tr><th>Experience</th><th>When</
   }
 
   function shell() {
-    root.innerHTML = `<div class="tp"><div class="tp-head"></div><div class="tp-view"></div>
-<div class="tp-moon"><canvas></canvas><div class="tp-moon-label"><span>Live lunar view</span> · lighting from the selected date</div></div>
-<div class="tp-foot-note">${esc(data.meta.disclaimer)}</div></div>`;
-  }
-
-  function moon() {
-    const host = root.querySelector(".tp-moon");
-    const canvas = host.querySelector("canvas");
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
-    camera.position.set(0, 0, 6.2);
-    scene.add(new THREE.AmbientLight(0xffffff, 0.12));
-    const sun = new THREE.DirectionalLight(0xffffff, 2.4);
-    sun.position.set(-4, 2, 5);
-    scene.add(sun);
-    const textures = createTextureLoader(renderer);
-    const body = createMoon(textures.load);
-    body.root.scale.setScalar(1.7);
-    body.root.position.set(0, -1.1, 0);
-    body.spin.rotation.z = 0.2;
-    scene.add(body.root);
-    const resize = () => {
-      const w = host.clientWidth || 1;
-      const h = host.clientHeight || 1;
-      renderer.setSize(w, h, false);
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-    };
-    new ResizeObserver(resize).observe(host);
-    resize();
-    let last = performance.now();
-    const loop = (now) => {
-      requestAnimationFrame(loop);
-      const dt = Math.min((now - last) / 1000, 0.1);
-      last = now;
-      if (host.offsetParent === null) return;
-      body.spin.rotation.y += 0.05 * dt;
-      body.root.position.y = -1.1 + Math.sin(now / 1800) * 0.04;
-      renderer.render(scene, camera);
-    };
-    requestAnimationFrame(loop);
+    root.innerHTML = `<div class="tp-stage"><canvas class="tp-nebula"></canvas><canvas class="tp-space"></canvas></div>
+<div class="tp"><div class="tp-head"></div><div class="tp-view"></div><div class="tp-foot-note">${esc(data.meta.disclaimer)}</div></div>`;
   }
 
   function bind() {
@@ -392,7 +574,7 @@ ${state.trip.length ? `<table class="tp-table"><tr><th>Experience</th><th>When</
     shell();
     bind();
     render();
-    moon();
+    createBackdrop(root);
   }
 
   init();
