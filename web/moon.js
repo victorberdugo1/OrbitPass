@@ -27,6 +27,7 @@ const float RELIEF_SPAN = 0.004;
 uniform samplerCube uMap;
 uniform samplerCube uHeight;
 uniform vec3 uSun;
+uniform vec3 uEarth;
 uniform float uRelief;
 varying vec3 vObj;
 void main() {
@@ -38,7 +39,8 @@ void main() {
   float dh2 = textureCube(uHeight, normalize(n + RELIEF_SPAN * t2)).r - textureCube(uHeight, normalize(n - RELIEF_SPAN * t2)).r;
   vec3 relief = normalize(n - uRelief * (dh1 * t1 + dh2 * t2) / (2.0 * RELIEF_SPAN));
   float day = pow(smoothstep(-0.12, 0.3, dot(relief, uSun)), 0.7);
-  vec3 color = albedo * (0.035 + 1.75 * day);
+  float earthshine = 0.08 * max(dot(normalize(vObj), uEarth), 0.0);
+  vec3 color = albedo * (0.035 + 1.75 * day + earthshine);
   gl_FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0);
 }`;
 
@@ -132,6 +134,40 @@ async function buildCube(renderer, tileUrl, { minLevel, topLevel, onRefine, onPr
   return target;
 }
 
+async function fallbackCube(renderer, url, onRefine) {
+  const img = await loadImage(url);
+  const canvas = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(-1, 0, 0, 1, img.width, 0);
+  ctx.drawImage(img, 0, 0);
+  const atlas = new THREE.CanvasTexture(canvas);
+  atlas.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  const target = new THREE.WebGLCubeRenderTarget(img.width / 2, { generateMipmaps: true, minFilter: THREE.LinearMipmapLinearFilter });
+  target.fromEquirectangularTexture(renderer, atlas);
+  atlas.dispose();
+  onRefine(target.texture);
+  return target;
+}
+
+export function createLunarSurface(renderer, tileUrl, fallbackUrl) {
+  const uniforms = {
+    uMap: { value: null },
+    uHeight: { value: new THREE.WebGLCubeRenderTarget(1).texture },
+    uSun: { value: new THREE.Vector3(0, 0, 1) },
+    uEarth: { value: new THREE.Vector3() },
+    uRelief: { value: 0 }
+  };
+  const material = new THREE.ShaderMaterial({ uniforms, vertexShader: SURFACE_VERT, fragmentShader: SURFACE_FRAG });
+  const onRefine = (texture) => {
+    uniforms.uMap.value = texture;
+  };
+  const ready = buildCube(renderer, tileUrl, { minLevel: MIN_LEVEL, topLevel: MIN_LEVEL, onRefine, onProgress: () => {} })
+    .catch(() => fallbackCube(renderer, fallbackUrl, onRefine));
+  return { material, uniforms, ready };
+}
+
 export function createMoon(container, { sites, tileUrl, demUrl }) {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -152,6 +188,7 @@ export function createMoon(container, { sites, tileUrl, demUrl }) {
     uMap: { value: null },
     uHeight: { value: new THREE.WebGLCubeRenderTarget(1).texture },
     uSun: { value: new THREE.Vector3(0, 0, 1) },
+    uEarth: { value: new THREE.Vector3() },
     uRelief: { value: RELIEF_SCALE }
   };
   moon.add(

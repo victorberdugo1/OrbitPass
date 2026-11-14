@@ -172,36 +172,113 @@ button.ghost:hover{border-color:var(--acc)}
 button.qopt{background:var(--inset);color:var(--txt);border:1px solid var(--line);text-align:left;font-weight:400}
 button.qopt.right{border-color:var(--ok);color:var(--ok)}
 button.qopt.wrong{border-color:var(--warn);color:var(--warn)}
-.ex-head{margin-bottom:12px}
-.ex-layout{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:20px;align-items:start}
-@media(max-width:860px){.ex-layout{grid-template-columns:1fr}}
-.ex-side{background:var(--inset);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:12px;position:sticky;top:12px}
-.ex-side label{display:block;font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
-.ex-side select,.ex-side input{width:100%;min-width:0}
-.ex-side .ex-search input{flex:1 1 auto;width:auto}
-.ex-side input[type=checkbox]{width:auto;margin:0}
-.ex-side .ex-open{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut);text-transform:none;letter-spacing:0;margin:0}
-.ex-tabs{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:3px}
-.ex-tabs button{flex:1;background:transparent;color:var(--mut);padding:6px 8px;font-size:12px}
-.ex-tabs button.on{background:var(--acc);color:#fff}
-.ex-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.ex-accent{color:var(--acc);font-weight:600}
-.ex-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:start;background:var(--inset);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px}
-.ex-card p{margin:4px 0 10px}
-.ex-name{font-size:16px}
-.ex-rate{font-weight:600;white-space:nowrap}
-.ex-rate small{color:var(--mut);font-weight:400}
-.ex-type{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 8px;color:#fff;background:#0b7a8c}
-.ex-type.food{background:#b5651d}
-.ex-type.events{background:#7c3aed}
-.ex-action{align-self:center}
-.ex-detail{border:1px solid var(--line);border-radius:10px;padding:18px;background:var(--panel);margin-bottom:14px}
-.ex-bars{display:grid;gap:8px}
-.ex-bars>div{display:grid;grid-template-columns:52px minmax(0,1fr) 40px;align-items:center;gap:8px;font-size:12px;color:var(--mut)}
-.ex-revs{display:grid;gap:8px;margin-top:8px}
-.ex-rev{background:var(--inset);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13px}
-.ex-detail .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
-@media(max-width:640px){.ex-detail .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.ex-card{grid-template-columns:1fr}.ex-action{align-self:start}}
+.tp-wrap{padding:0;border:0;background:transparent;box-shadow:none}
+.tp{background:#070b14;color:#e6e9ef;border-radius:16px;overflow:hidden;font-size:14px}
+.tp-top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 22px;border-bottom:1px solid #1b2436;flex-wrap:wrap}
+.tp-brand{font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.tp-brand span{color:#59e3f7}
+.tp-nav{display:flex;gap:6px;flex-wrap:wrap}
+.tp-nav button{background:transparent;color:#9aa6bd;border:1px solid transparent;padding:7px 14px;border-radius:999px;font-weight:500}
+.tp-nav button.on{background:#1b2640;color:#fff;border-color:#2c3a5c}
+.tp-count{background:#8b5cf6;color:#fff;border-radius:999px;padding:0 7px;font-size:11px;margin-left:4px}
+.tp-view{padding:20px 22px}
+.tp-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:22px;align-items:start}
+@media(max-width:860px){.tp-layout{grid-template-columns:1fr}}
+.tp-side{background:#0d1424;border:1px solid #1b2436;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;position:sticky;top:12px}
+.tp-side label,.tp-book label{display:flex;flex-direction:column;gap:5px;font-size:11px;color:#8b98b2;text-transform:uppercase;letter-spacing:.06em}
+.tp-side select,.tp-side input[type=date],.tp-side input[type=search],.tp-book select,.tp-book input{width:100%;background:#0a1020;color:#e6e9ef;border:1px solid #243150;border-radius:8px;padding:8px 10px;font:inherit;text-transform:none;letter-spacing:0}
+.tp-side .tp-check{flex-direction:row;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-size:13px;color:#9aa6bd}
+.tp-side .tp-check input{width:auto}
+.tp-search{display:flex;gap:6px}
+.tp-search input{flex:1;min-width:0}
+.tp-tabs{display:flex;gap:4px;background:#0a1020;border:1px solid #243150;border-radius:10px;padding:3px}
+.tp-tabs button{flex:1;background:transparent;color:#8b98b2;border:0;padding:7px 4px;border-radius:7px;font-size:12px}
+.tp-tabs button.on{background:#8b5cf6;color:#fff}
+.tp button{font:inherit;cursor:pointer}
+.tp-search button,.tp-reserve{background:linear-gradient(180deg,#8b5cf6,#6d3ff0);color:#fff;border:0;border-radius:10px;padding:9px 14px;font-weight:600}
+.tp-reserve:disabled{background:#1b2436;color:#8b98b2;cursor:default}
+.tp-note{font-size:12px;color:#7c8aa5;line-height:1.5}
+.tp-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;color:#9aa6bd}
+.tp-bar b{color:#fff}
+.tp-accent{color:#c4a5ff;font-weight:600}
+.tp-sort{display:flex;align-items:center;gap:8px;font-size:13px;color:#9aa6bd}
+.tp-sort select{background:#0d1424;color:#e6e9ef;border:1px solid #243150;border-radius:8px;padding:6px 8px;font:inherit}
+.tp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.tp-card{background:#0d1424;border:1px solid #1b2436;border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.tp-art{height:140px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(135deg,#0b5566,#082536 60%,#0a1020)}
+.tp-art.food{background:linear-gradient(135deg,#7a4312,#2a1a0c 60%,#0a1020)}
+.tp-art.events{background:linear-gradient(135deg,#5b21b6,#1f1243 60%,#0a1020)}
+.tp-art .tp-type,.tp-hero .tp-type{align-self:flex-start;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600}
+.tp-art-name{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#bcd0e6}
+.tp-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.tp-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.tp-name{font-size:16px;color:#fff}
+.tp-rating{color:#f5c451;font-weight:600;white-space:nowrap}
+.tp-rating small{color:#7c8aa5;font-weight:400}
+.tp-sub{color:#7c8aa5;font-size:12px}
+.tp-body p{margin:0;color:#c3cde0;line-height:1.5}
+.tp-chips{display:flex;flex-wrap:wrap;gap:6px}
+.tp-chips span{font-size:12px;color:#9aa6bd;border:1px solid #243150;border-radius:6px;padding:2px 8px}
+.tp-foot{margin-top:auto;padding-top:6px;align-items:center}
+.tp-badge{font-size:11px;font-weight:600;border-radius:999px;padding:3px 9px;border:1px solid}
+.tp-badge.ok{color:#4ade80;border-color:#166534}
+.tp-badge.warn{color:#f87171;border-color:#7f1d1d}
+.tp-price{color:#9aa6bd;font-size:13px}
+.tp-price b{color:#fff;font-size:15px}
+.tp-link{background:transparent;color:#c4a5ff;border:0;padding:0;font-weight:600}
+.tp-empty{padding:40px;text-align:center;color:#7c8aa5;border:1px dashed #243150;border-radius:14px}
+.tp-crumb button{background:transparent;color:#c4a5ff;border:0;padding:0 0 12px;font-weight:600}
+.tp-hero{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;border-radius:16px;padding:26px;background:linear-gradient(135deg,#0b5566,#082536 55%,#0a1020);border:1px solid #1b2436}
+.tp-hero.food{background:linear-gradient(135deg,#7a4312,#2a1a0c 55%,#0a1020)}
+.tp-hero.events{background:linear-gradient(135deg,#5b21b6,#1f1243 55%,#0a1020)}
+@media(max-width:860px){.tp-hero{grid-template-columns:1fr}}
+.tp-hero h1{margin:10px 0 6px;font-size:30px;color:#fff;letter-spacing:0;text-transform:none}
+.tp-hero p{color:#dbe4f2;line-height:1.6;max-width:62ch}
+.tp-rating-line{display:flex;align-items:center;gap:10px;margin:8px 0;color:#dbe4f2}
+.tp-rating-line b{color:#fff}
+.tp-rating-line span:last-child{color:#9aa6bd}
+.tp-rating-line.big b{font-size:22px}
+.tp-stars{color:#f5c451;letter-spacing:2px;font-size:13px}
+.tp-book{background:#0b1220;border:1px solid #2c3a5c;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px;align-self:start}
+.tp-book-title{font-weight:700;color:#fff;font-size:16px}
+.tp-total{display:flex;justify-content:space-between;align-items:center;color:#9aa6bd;border-top:1px solid #243150;padding-top:12px}
+.tp-total b{color:#fff;font-size:20px}
+.tp-reserve{width:100%;padding:12px}
+.tp-features{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:16px 0;background:#0d1424;border:1px solid #1b2436;border-radius:14px;padding:14px}
+@media(max-width:860px){.tp-features{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tp-features div{display:flex;flex-direction:column;gap:3px;text-align:center}
+.tp-features span{color:#fff;font-weight:600}
+.tp-features small{color:#7c8aa5;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.tp-cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px}
+@media(max-width:860px){.tp-cols{grid-template-columns:1fr}}
+.tp-panel{background:#0d1424;border:1px solid #1b2436;border-radius:14px;padding:18px;margin-bottom:16px}
+.tp-wide{margin-top:0}
+.tp-panel h3{margin:14px 0 8px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8b98b2}
+.tp-panel h3:first-child{margin-top:0}
+.tp-list{margin:0;padding-left:18px;color:#c3cde0;line-height:1.7}
+.tp-menu{width:100%;border-collapse:collapse}
+.tp-menu td{padding:10px 0;border-bottom:1px solid #1b2436;vertical-align:top}
+.tp-num{text-align:right;font-weight:600;color:#fff;white-space:nowrap}
+.tp-avail{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+.tp-bars{display:grid;gap:8px;margin-bottom:12px}
+.tp-bars>div{display:grid;grid-template-columns:52px minmax(0,1fr) 40px;gap:8px;align-items:center;font-size:12px;color:#8b98b2}
+.tp-bar-track{height:6px;border-radius:3px;background:#1b2436;overflow:hidden}
+.tp-bar-track i{display:block;height:100%;background:#8b5cf6}
+.tp-review{border-top:1px solid #1b2436;padding:12px 0}
+.tp-review p{margin:6px 0 0;color:#c3cde0;line-height:1.5}
+.tp-minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.tp-mini{background:#0a1020;border:1px solid #1b2436;border-radius:10px;padding:12px;text-align:left;color:#e6e9ef;display:flex;flex-direction:column;gap:4px}
+.tp-mini span{color:#7c8aa5;font-size:12px}
+.tp-page h2{margin:0 0 4px;color:#fff;font-size:22px}
+.tp-page .tp-sub{display:block;margin-bottom:16px;font-size:13px}
+.tp-table{width:100%;border-collapse:collapse;background:#0d1424;border-radius:14px;overflow:hidden}
+.tp-table th,.tp-table td{padding:12px 14px;border-bottom:1px solid #1b2436;text-align:left;vertical-align:top}
+.tp-table th{font-size:11px;color:#8b98b2;text-transform:uppercase;letter-spacing:.06em}
+.tp-moon{position:relative;height:200px;border-top:1px solid #1b2436;background:radial-gradient(ellipse at 50% 120%,#1b2a4a 0%,#070b14 60%)}
+.tp-moon canvas{display:block;width:100%;height:100%}
+.tp-moon-label{position:absolute;left:22px;bottom:14px;color:#9aa6bd;font-size:12px;letter-spacing:.06em}
+.tp-moon-label span{color:#c4a5ff}
+.tp-foot-note{padding:12px 22px;color:#5f6d86;font-size:11px;border-top:1px solid #1b2436}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -209,10 +286,10 @@ button.qopt.wrong{border-color:var(--warn);color:var(--warn)}
 <section id="flight-panel" data-for="education"><div id="flight-stage"></div></section>
 <div class="wrap">
 <div class="top"><div><h1>Orbit<span>Pass</span></h1>
-<p class="sub" data-for="tourism business">Lunar landing site comparison: solar power and direct-to-Earth communication windows</p>
+<p class="sub" data-for="business">Lunar landing site comparison: solar power and direct-to-Earth communication windows</p>
 <p class="sub" data-for="education">Learn how a mission travels from Earth to the Moon</p></div><div class="row"><button class="ghost" id="mission-change" data-for="education">Change mission</button><button class="ghost" id="profile-btn">Profile</button></div></div>
 
-<div class="panel" data-for="tourism business">
+<div class="panel" data-for="business">
 <div class="row">
 <input type="date" id="date">
 <input type="range" id="t" min="0" max="719" value="0">
@@ -221,15 +298,15 @@ button.qopt.wrong{border-color:var(--warn);color:var(--warn)}
 <div class="note" id="clock"></div>
 </div>
 
-<div class="panel" data-for="tourism business"><h2>Moon, live illumination</h2><div id="moon3d"></div><div class="note" id="m3note">3D Moon requires the Docker version (/trek proxy to NASA Moon Trek).</div></div>
+<div class="panel" data-for="business"><h2>Moon, live illumination</h2><div id="moon3d"></div><div class="note" id="m3note">3D Moon requires the Docker version (/trek proxy to NASA Moon Trek).</div></div>
 
-<div class="panel" data-for="tourism business"><h2>Sites</h2><div class="grid" id="sites"></div></div>
+<div class="panel" data-for="business"><h2>Sites</h2><div class="grid" id="sites"></div></div>
 
-<div class="panel" id="explore" data-for="tourism"><div id="explore-root"></div></div>
-<div class="panel" id="experiences" data-for="tourism"><h2>Experiences <span class="bd">Synthetic 2050 scenario</span></h2><div id="exp-tools"></div><div id="exp-year"></div><div id="exp-results"></div><div id="exp-trip"></div><div class="note">Venues, operators, prices and reviews are fictional mock data. Sky conditions use the same ephemeris as the rest of the app, with a spherical horizon at each venue.</div></div>
+<div class="tp-wrap" id="explore" data-for="tourism"><div id="explore-root"></div></div>
+
 <div class="panel" id="mission-info" data-for="education"><h2>Mission plan</h2><div id="flight-info"></div></div>
 <div class="panel" id="learn" data-for="education"><h2>Learn</h2><div class="grid" id="lessons"></div><h2 style="margin-top:20px">Quick quiz</h2><div id="quiz"></div></div>
-<div class="panel" id="detail" data-for="tourism business"></div>
+<div class="panel" id="detail" data-for="business"></div>
 <div class="panel" data-for="business"><h2>Mission manifest</h2><div class="row"><label class="note" for="prov">Provider</label><select id="prov"></select></div><div class="tbl-wrap" id="manifest"></div><div class="note">Target periods as publicly reported by NASA and operators (as of September 2026). Schedules change often and sources disagree; verify with the operator. Conflict risk: a reported mission within 150 km of the selected site whose target period overlaps the 30-day analysis window. Site coordinates are approximate and this is not an official deconfliction tool.</div></div>
 <div class="panel" data-for="business"><h2>Operating window finder</h2><div class="row"><button id="find">Find best windows for selected site</button></div><div class="tbl-wrap" id="windows"></div><div class="note">Scans the 12 months after the selected date. Each candidate is a 14-day surface operation period starting 00:00 UTC, ranked by the mean of Sun and Earth availability. Approximate ephemeris; LOLA terrain horizon when available, spherical otherwise.</div></div>
 <div class="panel" id="scenario" data-for="business"></div>
@@ -247,7 +324,7 @@ button.qopt.wrong{border-color:var(--warn);color:var(--warn)}
 <a class="chip" href="https://www.asc-csa.gc.ca/eng/astronomy/moon-exploration/" target="_blank" rel="noopener">CSA Moon Exploration</a>
 <a class="chip" href="https://threejs.org/" target="_blank" rel="noopener">Three.js (3D engine)</a></div>
 <div class="note">Data: JPL Horizons (ephemerides, queried live in the Docker version) and NASA Moon Trek (LRO WAC imagery tiles). Software: Three.js, an open-source 3D engine used only for rendering. Terrain horizons come from the Moon Trek LOLA elevation model (LRO_LOLA_DEM_Global_128ppd_v04, about 0.67 km per pixel, rays out to 200 km, Docker version). Quickmap and Moon Trek open to inspect site terrain at full resolution.</div></div>
-<p class="note" data-for="tourism business">Approximate analytical ephemerides (Meeus). Horizons use LOLA terrain at about 0.67 km per pixel (spherical when the Docker proxy is absent), so small local features are not resolved. Validate with JPL Horizons before operational use. Site coordinates are approximate.</p>
+<p class="note" data-for="business">Approximate analytical ephemerides (Meeus). Horizons use LOLA terrain at about 0.67 km per pixel (spherical when the Docker proxy is absent), so small local features are not resolved. Validate with JPL Horizons before operational use. Site coordinates are approximate.</p>
 </div>
 <div class="overlay" id="welcome" hidden></div>
 <script src="ephemeris.js"></script>

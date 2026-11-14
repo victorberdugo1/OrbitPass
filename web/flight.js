@@ -1,19 +1,15 @@
 import * as THREE from "./vendor/three.module.min.js";
-import { createEarth, createMoon, createTextureLoader, glowTexture, starField, surfaceDir } from "./bodies.js";
+import { createEarth, createTextureLoader, glowTexture, starField, surfaceDir } from "./bodies.js";
+import { createLunarSurface } from "./moon.js";
+import { FOCUS_FOV, FOCUS_RADII, RAD, RE, TRANSFER_S, UNIT, V3, clamp, moonAt, moonNormal, moonPos, moonVel, sitePos, smooth, toWorld, earthBasis, launchInstant } from "./astro.js";
 
-const V3 = THREE.Vector3;
-const RAD = Math.PI / 180;
 const MU_E = 398600.4418;
 const MU_M = 4902.8001;
-const RE = 6371;
 const RM = 1737.4;
 const LEO_ALT = 185;
 const LLO_ALT = 100;
-const UNIT = 1000;
-const OBLIQUITY = 23.4393 * RAD;
 const ASCENT_S = 540;
 const DOWNRANGE = 20 * RAD;
-const TRANSFER_S = 3.5 * 86400;
 const TRANSFER_GAP = 8 * RAD;
 const DESCENT_S = 720;
 const HOLD_S = 3600;
@@ -21,17 +17,14 @@ const DESCENT_DV = 1.9;
 const ASCENT_DV = 9.4;
 const WALL = { ascent: 16, parking: 12, transfer: 34, lunar: 12, descent: 22, landed: 8 };
 const LABEL = { ascent: "Launch and ascent", parking: "Parking orbit", transfer: "Translunar coast", lunar: "Lunar orbit", descent: "Powered descent", landed: "Landed" };
-const SPEEDS = [0.5, 1, 2, 4];
+const SPEEDS = [0.5, 1, 2, 4, 8];
+const DEFAULT_SPEED = 4;
 const WORLD_UP = new V3(0, 1, 0);
+const INTRO_WALL = 4;
+const FLIGHT_FOV = 40;
+const MOON_FALLBACK = "assets/moon.jpg";
+const moonTile = (z, x, y) => `/trek/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/default/default028mm/${z}/${y}/${x}.jpg`;
 
-const jd = (t) => t / 86400 + 2440587.5;
-const ecl = (a) => new V3(a[0], a[2], -a[1]);
-const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
-const smooth = (x) => {
-  const t = clamp(x, 0, 1);
-  return t * t * (3 - 2 * t);
-};
-const toWorld = (b, v) => b[0].clone().multiplyScalar(v.x).addScaledVector(b[1], v.y).addScaledVector(b[2], v.z);
 const toLocal = (b, v) => new V3(v.dot(b[0]), v.dot(b[1]), v.dot(b[2]));
 
 function slerp(a, b, w) {
@@ -42,21 +35,8 @@ function slerp(a, b, w) {
   return a.clone().multiplyScalar(Math.sin((1 - w) * ang) / s).addScaledVector(b, Math.sin(w * ang) / s);
 }
 
-function moonAt(t) {
-  const s = moonState(jd(t));
-  return { pos: ecl(s.pos), pole: ecl(s.pole), lon: s.lon, sun: ecl(s.sun) };
-}
 
-const moonPos = (t) => moonAt(t).pos;
-const moonVel = (t) => moonPos(t + 30).sub(moonPos(t - 30)).multiplyScalar(1 / 60);
-const moonNormal = (t) => moonPos(t).cross(moonVel(t)).normalize();
 
-function earthBasis(t) {
-  const th = (280.46061837 + 360.98564736629 * (jd(t) - 2451545)) * RAD;
-  const x = new V3(Math.cos(th), -Math.sin(th) * Math.sin(OBLIQUITY), -Math.sin(th) * Math.cos(OBLIQUITY));
-  const y = new V3(0, Math.cos(OBLIQUITY), -Math.sin(OBLIQUITY));
-  return [x, y, x.clone().cross(y)];
-}
 
 function moonBasis(m) {
   const y = m.pole.clone().normalize();
@@ -65,7 +45,6 @@ function moonBasis(m) {
   return [x, y, x.clone().cross(y)];
 }
 
-const sitePos = (t, site) => toWorld(earthBasis(t), surfaceDir(site.lat, site.lon)).multiplyScalar(RE);
 
 function stumpffC(z) {
   if (z > 1e-6) return (1 - Math.cos(Math.sqrt(z))) / z;
@@ -155,16 +134,6 @@ function propagate(p0, v0, total) {
   };
 }
 
-function launchInstant(startMs, site) {
-  const t0 = startMs / 1000;
-  const n = moonNormal(t0 + 86400 + TRANSFER_S / 2);
-  let best = { t: t0, miss: Infinity };
-  for (let s = 0; s < 86400; s += 60) {
-    const miss = Math.abs(sitePos(t0 + s, site).normalize().dot(n));
-    if (miss < best.miss) best = { t: t0 + s, miss };
-  }
-  return best.t;
-}
 
 function inPlane(n, v, angle) {
   return v.clone().multiplyScalar(Math.cos(angle)).addScaledVector(n.clone().cross(v), Math.sin(angle));
@@ -329,7 +298,7 @@ function planTable(plan, sky) {
 }
 
 export function createFlight({ stage, info }, mission) {
-  stage.innerHTML = `<div class="fl-kpis"></div><div class="row fl-bar"><button class="sm" data-fl="play">Pause</button><select data-fl="speed">${SPEEDS.map((s) => `<option value="${s}"${s === 1 ? " selected" : ""}>${s}×</option>`).join("")}</select><input type="range" data-fl="scrub" min="0" max="1000" value="0"><button class="sm ghost" data-fl="replay">Replay</button></div>`;
+  stage.innerHTML = `<div class="fl-kpis"></div><div class="row fl-bar"><button class="sm" data-fl="play">Pause</button><select data-fl="speed">${SPEEDS.map((s) => `<option value="${s}"${s === DEFAULT_SPEED ? " selected" : ""}>${s}×</option>`).join("")}</select><input type="range" data-fl="scrub" min="0" max="1000" value="0"><button class="sm ghost" data-fl="replay">Replay</button></div>`;
   info.innerHTML = `<div class="tbl-wrap fl-plan"></div>
 <div class="note">Real data: Moon and Sun positions and Earth rotation from analytical ephemerides (Meeus), Moon orientation from optical libration, site coordinates from NASA/LRO. Trajectory: two-body Lambert transfer from a ${LEO_ALT} km parking orbit to a ${LLO_ALT} km lunar orbit (patched conics, impulsive burns); ascent, lunar orbit and descent are scripted. Not for operational use.</div>`;
   const kpiBox = stage.querySelector(".fl-kpis");
@@ -347,7 +316,7 @@ export function createFlight({ stage, info }, mission) {
 
   const scene = new THREE.Scene();
   scene.add(starField(2500));
-  const camera = new THREE.PerspectiveCamera(40, 1, 0.001, 4000);
+  const camera = new THREE.PerspectiveCamera(FLIGHT_FOV, 1, 0.001, 4000);
   camera.up.copy(WORLD_UP);
   const sunLight = new THREE.DirectionalLight(0xffffff, 2.6);
   scene.add(sunLight, new THREE.AmbientLight(0xffffff, 0.16));
@@ -356,9 +325,13 @@ export function createFlight({ stage, info }, mission) {
   const sunDir = new V3(1, 0, 0);
   const earth = createEarth(textures.load, sunDir);
   earth.root.scale.setScalar(RE / UNIT);
-  const moon = createMoon(textures.load);
-  moon.root.scale.setScalar(RM / UNIT);
-  scene.add(earth.root, moon.root);
+  const moonSurface = createLunarSurface(renderer, moonTile, MOON_FALLBACK);
+  const moonRoot = new THREE.Group();
+  moonRoot.add(new THREE.Mesh(new THREE.SphereGeometry(1, 128, 96), moonSurface.material));
+  moonRoot.scale.setScalar(RM / UNIT);
+  scene.add(earth.root, moonRoot);
+  const introPos = sitePos(plan.tL, plan.launch).normalize().multiplyScalar((FOCUS_RADII * RE) / UNIT);
+  const introLook = new V3();
 
   const craft = new THREE.Group();
   const body = new THREE.Mesh(new THREE.ConeGeometry(0.25, 1, 12), new THREE.MeshBasicMaterial({ color: 0xffffff }));
@@ -400,7 +373,7 @@ export function createFlight({ stage, info }, mission) {
   let framed = false;
   let wall = 0;
   let playing = true;
-  let speed = 1;
+  let speed = DEFAULT_SPEED;
   let raf = 0;
   let last = performance.now();
   let t = plan.tL;
@@ -469,11 +442,14 @@ export function createFlight({ stage, info }, mission) {
 
     const eb = earthBasis(t);
     earth.root.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(eb[0], eb[1], eb[2]));
-    moon.root.position.copy(m.pos).multiplyScalar(1 / UNIT);
-    moon.root.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(...moonBasis(m)));
+    const mb = moonBasis(m);
+    moonRoot.position.copy(m.pos).multiplyScalar(1 / UNIT);
+    moonRoot.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(...mb));
+    moonSurface.uniforms.uSun.value.copy(toLocal(mb, m.sun)).normalize();
+    moonSurface.uniforms.uEarth.value.copy(toLocal(mb, m.pos.clone().negate())).normalize();
     sunDir.copy(m.sun);
     sunLight.position.copy(m.sun).multiplyScalar(500);
-    ring.position.copy(moon.root.position);
+    ring.position.copy(moonRoot.position);
     ring.visible = at.phase.id === "lunar";
 
     const fade = (halo, center, radius) => {
@@ -483,28 +459,32 @@ export function createFlight({ stage, info }, mission) {
       halo.material.opacity = smooth((d / radius - 20) / 40) * 0.8;
     };
     fade(earthHalo, earth.root.position, RE / UNIT);
-    fade(moonHalo, moon.root.position, RM / UNIT);
+    fade(moonHalo, moonRoot.position, RM / UNIT);
 
     craft.position.copy(sc);
     const heading = plan.state(t + (at.phase.id === "ascent" ? 1 : 30)).pos.multiplyScalar(1 / UNIT).sub(sc);
     if (heading.lengthSq() > 1e-12) craft.lookAt(sc.clone().add(heading));
 
     const want = desiredCamera(at.phase, st, t);
+    const intro = smooth(wall / INTRO_WALL);
+    const goalPos = introPos.clone().lerp(want.pos, intro);
+    const goalLook = introLook.clone().lerp(want.look, intro);
     if (!framed) {
-      camPos.copy(want.pos);
-      camLook.copy(want.look);
+      camPos.copy(introPos);
+      camLook.copy(introLook);
       framed = true;
     }
     const ease = 1 - Math.exp(-dt * 2.2);
-    camPos.lerp(want.pos, ease);
-    camLook.lerp(want.look, ease);
+    camPos.lerp(goalPos, ease);
+    camLook.lerp(goalLook, ease);
     camera.up.lerp(want.up || WORLD_UP, ease).normalize();
     camera.position.copy(camPos);
     camera.lookAt(camLook);
     const toCraft = camPos.distanceTo(sc);
-    camera.near = clamp(Math.min(nearestSurface(camPos, new V3(), moon.root.position), toCraft) * 0.2, 0.0002, 5);
+    camera.fov = FOCUS_FOV + (FLIGHT_FOV - FOCUS_FOV) * intro;
+    camera.near = clamp(Math.min(nearestSurface(camPos, new V3(), moonRoot.position), toCraft) * 0.2, 0.0002, 5);
     camera.updateProjectionMatrix();
-    craft.scale.setScalar(Math.max(toCraft * 0.012, 0.00005));
+    craft.scale.setScalar(Math.max(toCraft * 0.012 * Math.tan((camera.fov * RAD) / 2) / Math.tan((FLIGHT_FOV * RAD) / 2), 0.00005));
     const burn = at.phase.id === "ascent" || at.phase.id === "descent" || Math.abs(t - plan.tTLI) < 240 || Math.abs(t - plan.tA) < 240;
     marker.material.opacity = burn ? 1 : 0.55;
     marker.scale.setScalar(burn ? 5 : 3);
