@@ -55,12 +55,51 @@ td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
 .bd.warn{color:var(--warn);border-color:var(--warn)}.bd.ok{color:var(--ok);border-color:var(--ok)}
 button.sm{padding:4px 10px;font-size:12px}
 .note{color:var(--mut);font-size:12px;margin-top:8px}
+
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+
+#welcome{position:fixed;inset:0;z-index:50;background:#02050b;color:#fff;overflow:hidden;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#welcome[hidden]{display:none}
+#welcome button{font-family:inherit}
+.ln-stage{position:absolute;inset:0}
+.ln-ui{position:absolute;inset:0;pointer-events:none}
+.ln-ui>*{pointer-events:auto}
+.ln-logo{position:absolute;top:max(14px,env(safe-area-inset-top));right:22px}
+.ln-logo svg{height:46px;width:auto;display:block}
+.ln-cards{position:absolute;left:4%;right:4%;bottom:4%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3%}
+.ln-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;cursor:pointer;padding:22px;min-height:120px;border-radius:26px;border:1px solid rgba(160,200,255,.45);background:rgba(10,20,40,.45);backdrop-filter:blur(10px);transition:transform .15s,border-color .15s}
+.ln-card:hover,.ln-card:focus-visible{transform:translateY(-4px);border-color:#fff;outline:none}
+.ln-card svg.ico{width:44px;height:44px;stroke:#d9e8ff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ln-card h3{margin:0;font-size:clamp(22px,2.2vw,32px);font-weight:500}
+@media(max-width:900px){
+.ln-logo{right:16px}
+.ln-logo svg{height:36px}
+.ln-cards{grid-template-columns:1fr;gap:10px;bottom:3%}
+.ln-card{flex-direction:row;min-height:0;padding:14px 18px;border-radius:18px}
+.ln-card svg.ico{width:32px;height:32px}
+.ln-card h3{font-size:20px}
+}
+button.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+button.ghost:hover{border-color:var(--acc)}
+.explist{display:grid;gap:12px;margin-top:10px}
+.exp{background:var(--inset);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:16px}
+@media(max-width:640px){.exp{grid-template-columns:1fr}.price{text-align:left!important}}
+.price{text-align:right}
+.price b{display:block;font:600 22px ui-monospace,SFMono-Regular,Menlo,monospace}
+.dots i{display:inline-block;width:11px;height:11px;border-radius:50%;border:1.5px solid var(--acc);margin-right:2px;vertical-align:-1px}
+.dots i.f{background:var(--acc)}
+.dots i.h{background:linear-gradient(90deg,var(--acc) 50%,transparent 50%)}
+.qopts{display:grid;gap:8px;margin-top:10px}
+button.qopt{background:var(--inset);color:var(--txt);border:1px solid var(--line);text-align:left;font-weight:400}
+button.qopt.right{border-color:var(--ok);color:var(--ok)}
+button.qopt.wrong{border-color:var(--warn);color:var(--warn)}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="top"><h1>Orbit<span>Pass</span></h1>
-<p class="sub">Lunar landing site comparison: solar power and direct-to-Earth communication windows</p></div>
+<div class="top"><div><h1>Orbit<span>Pass</span></h1>
+<p class="sub">Lunar landing site comparison: solar power and direct-to-Earth communication windows</p></div><button class="ghost" id="profile-btn">Profile</button></div>
 
 <div class="panel">
 <div class="row">
@@ -75,12 +114,14 @@ button.sm{padding:4px 10px;font-size:12px}
 
 <div class="panel"><h2>Sites</h2><div class="grid" id="sites"></div></div>
 
+<div class="panel" id="experiences" data-for="tourism"><h2>Experiences <span class="bd">Synthetic 2050 scenario</span></h2><div id="exp-tools"></div><div id="exp-year"></div><div id="exp-results"></div><div id="exp-trip"></div><div class="note">Venues, operators, prices and reviews are fictional mock data. Sky conditions use the same ephemeris as the rest of the app, with a spherical horizon at each venue.</div></div>
+<div class="panel" id="learn" data-for="education"><h2>Learn</h2><div class="grid" id="lessons"></div><h2 style="margin-top:20px">Quick quiz</h2><div id="quiz"></div></div>
 <div class="panel" id="detail"></div>
-<div class="panel"><h2>Mission manifest</h2><div class="row"><label class="note" for="prov">Provider</label><select id="prov"></select></div><div class="tbl-wrap" id="manifest"></div><div class="note">Target periods as publicly reported by NASA and operators (as of September 2026). Schedules change often and sources disagree; verify with the operator. Conflict risk: a reported mission within 150 km of the selected site whose target period overlaps the 30-day analysis window. Site coordinates are approximate and this is not an official deconfliction tool.</div></div>
-<div class="panel"><h2>Operating window finder</h2><div class="row"><button id="find">Find best windows for selected site</button></div><div class="tbl-wrap" id="windows"></div><div class="note">Scans the 12 months after the selected date. Each candidate is a 14-day surface operation period starting 00:00 UTC, ranked by the mean of Sun and Earth availability. Approximate ephemeris; LOLA terrain horizon when available, spherical otherwise.</div></div>
-<div class="panel" id="scenario"></div>
-<div class="panel" id="compare"></div>
-<div class="panel"><h2>NASA and partner resources</h2><div class="row">
+<div class="panel" data-for="business"><h2>Mission manifest</h2><div class="row"><label class="note" for="prov">Provider</label><select id="prov"></select></div><div class="tbl-wrap" id="manifest"></div><div class="note">Target periods as publicly reported by NASA and operators (as of September 2026). Schedules change often and sources disagree; verify with the operator. Conflict risk: a reported mission within 150 km of the selected site whose target period overlaps the 30-day analysis window. Site coordinates are approximate and this is not an official deconfliction tool.</div></div>
+<div class="panel" data-for="business"><h2>Operating window finder</h2><div class="row"><button id="find">Find best windows for selected site</button></div><div class="tbl-wrap" id="windows"></div><div class="note">Scans the 12 months after the selected date. Each candidate is a 14-day surface operation period starting 00:00 UTC, ranked by the mean of Sun and Earth availability. Approximate ephemeris; LOLA terrain horizon when available, spherical otherwise.</div></div>
+<div class="panel" id="scenario" data-for="business"></div>
+<div class="panel" id="compare" data-for="education business"></div>
+<div class="panel" data-for="education business"><h2>NASA and partner resources</h2><div class="row">
 <a class="chip" href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons (ephemerides)</a>
 <a class="chip" href="https://quickmap.lroc.asu.edu/" target="_blank" rel="noopener">Quickmap (LRO / LOLA)</a>
 <a class="chip" href="https://trek.nasa.gov/moon/" target="_blank" rel="noopener">Moon Trek (3D)</a>
@@ -89,6 +130,8 @@ button.sm{padding:4px 10px;font-size:12px}
 <div class="note">Data: JPL Horizons (ephemerides, queried live in the Docker version) and NASA Moon Trek (LRO WAC imagery tiles). Software: Three.js, an open-source 3D engine used only for rendering. Terrain horizons come from the Moon Trek LOLA elevation model (LRO_LOLA_DEM_Global_128ppd_v04, about 0.67 km per pixel, rays out to 200 km, Docker version). Quickmap and Moon Trek open to inspect site terrain at full resolution.</div></div>
 <p class="note">Approximate analytical ephemerides (Meeus). Horizons use LOLA terrain at about 0.67 km per pixel (spherical when the Docker proxy is absent), so small local features are not resolved. Validate with JPL Horizons before operational use. Site coordinates are approximate.</p>
 </div>
+<div class="overlay" id="welcome" hidden></div>
+<script src="profiles.js"></script>
 <script>
 const R=Math.PI/180,HRS=720;
 const SITES=[
@@ -188,7 +231,7 @@ async function initHorizons(){try{const hs=await(await import("./horizon.js")).c
 function fly(){if(moon)moon.flyTo(sel)}
 function update3D(){if(!moon)return;const h=+document.getElementById("t").value,p=subs[h],st=stats[sel];
 moon.select(sel);moon.update({sun:p.sun,earth:p.earth,text:`${SITES[sel].name} | Sun ${f(st.sun[h].el,1)}° | Earth ${f(st.ear[h].el,1)}°`})}
-function tick(){renderDetail();renderScenario();clock();update3D()}
+function tick(){renderDetail();renderScenario();clock();update3D();renderProfile()}
 
 const cssv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const MISSIONS=[
@@ -242,7 +285,7 @@ el.innerHTML=head+`<div class="tbl-wrap"><table><tr><th>Base</th><th>Pads in use
 <div class="tbl-wrap" style="margin-top:0"><table><tr><th>Time (UTC)</th><th>Event</th><th>Flight</th><th>Vehicle</th><th>Pad</th><th>ETA</th><th>Status</th></tr>${board}</table></div></div>`+foot}
 async function loadScenario(){try{const r=await fetch("data/scenario2050.json");if(!r.ok)throw new Error("missing");SC=await r.json()}catch(e){const n=document.getElementById("scenario-data");if(n)SC=JSON.parse(n.textContent)}
 if(SC){SC.flightsByBase={};SC.bases.forEach(b=>SC.flightsByBase[b.id]=[]);SC.flights.forEach(x=>SC.flightsByBase[x.base].push(x))}renderScenario()}
-function renderAll(){renderSites();renderDetail();renderCompare();renderManifest();renderWindows();renderScenario();clock();update3D()}
+function renderAll(){renderSites();renderDetail();renderCompare();renderManifest();renderWindows();renderScenario();clock();update3D();renderProfile()}
 function recompute(){start=Date.parse(document.getElementById("date").value+"T00:00:00Z");analyze();renderAll()}
 
 document.getElementById("sites").addEventListener("click",e=>{const c=e.target.closest("[data-c]");
