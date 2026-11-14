@@ -50,18 +50,51 @@ void main() {
   gl_FragColor = vec4(0.3, 0.65, 1.0, 1.0) * i * 1.2;
 }`;
 
+export const surfaceDir = (lat, lon) => {
+  const p = (lat * Math.PI) / 180;
+  const l = (lon * Math.PI) / 180;
+  return new THREE.Vector3(Math.cos(p) * Math.cos(l), Math.sin(p), -Math.cos(p) * Math.sin(l));
+};
+
+export function glowTexture() {
+  const c = document.createElement("canvas");
+  c.width = c.height = 64;
+  const g = c.getContext("2d");
+  const grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grad.addColorStop(0, "rgba(255,255,255,1)");
+  grad.addColorStop(0.3, "rgba(120,220,255,0.8)");
+  grad.addColorStop(1, "rgba(0,0,0,0)");
+  g.fillStyle = grad;
+  g.fillRect(0, 0, 64, 64);
+  return new THREE.CanvasTexture(c);
+}
+
 export function createTextureLoader(renderer) {
   const loader = new THREE.TextureLoader();
   const aniso = renderer.capabilities.getMaxAnisotropy();
   const textures = [];
+  const pending = [];
   return {
     load(url, apply, srgb) {
-      loader.load(url, (t) => {
-        t.anisotropy = aniso;
-        if (srgb) t.colorSpace = THREE.SRGBColorSpace;
-        textures.push(t);
-        apply(t);
-      });
+      pending.push(
+        new Promise((resolve) =>
+          loader.load(
+            url,
+            (t) => {
+              t.anisotropy = aniso;
+              if (srgb) t.colorSpace = THREE.SRGBColorSpace;
+              textures.push(t);
+              apply(t);
+              resolve();
+            },
+            undefined,
+            resolve
+          )
+        )
+      );
+    },
+    ready() {
+      return Promise.all(pending);
     },
     dispose() {
       textures.forEach((t) => t.dispose());
@@ -97,7 +130,8 @@ export function createEarth(load, sun) {
   load(ASSETS.night, (t) => (material.uniforms.uNight.value = t));
 
   const cloudMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity: 0.6, depthWrite: false });
-  spin.add(new THREE.Mesh(new THREE.SphereGeometry(1.012, 72, 54), cloudMaterial));
+  const clouds = new THREE.Mesh(new THREE.SphereGeometry(1.012, 72, 54), cloudMaterial);
+  spin.add(clouds);
   load(ASSETS.clouds, (t) => {
     cloudMaterial.alphaMap = t;
     cloudMaterial.needsUpdate = true;
@@ -109,7 +143,7 @@ export function createEarth(load, sun) {
       new THREE.ShaderMaterial({ vertexShader: GLOW_VERT, fragmentShader: GLOW_FRAG, side: THREE.BackSide, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false })
     )
   );
-  return { root, spin, placeholder };
+  return { root, spin, clouds, placeholder };
 }
 
 export function createMoon(load) {

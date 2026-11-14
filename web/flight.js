@@ -1,5 +1,5 @@
 import * as THREE from "./vendor/three.module.min.js";
-import { createEarth, createMoon, createTextureLoader, starField } from "./bodies.js";
+import { createEarth, createMoon, createTextureLoader, glowTexture, starField, surfaceDir } from "./bodies.js";
 
 const V3 = THREE.Vector3;
 const RAD = Math.PI / 180;
@@ -31,7 +31,6 @@ const smooth = (x) => {
   const t = clamp(x, 0, 1);
   return t * t * (3 - 2 * t);
 };
-const surfaceDir = (lat, lon) => new V3(Math.cos(lat * RAD) * Math.cos(lon * RAD), Math.sin(lat * RAD), -Math.cos(lat * RAD) * Math.sin(lon * RAD));
 const toWorld = (b, v) => b[0].clone().multiplyScalar(v.x).addScaledVector(b[1], v.y).addScaledVector(b[2], v.z);
 const toLocal = (b, v) => new V3(v.dot(b[0]), v.dot(b[1]), v.dot(b[2]));
 
@@ -329,15 +328,13 @@ function planTable(plan, sky) {
   return `<table>${rows.map(([k, v]) => `<tr><td>${k}</td><td class="mono">${v}</td></tr>`).join("")}</table>`;
 }
 
-export function createFlight(container, mission) {
-  container.innerHTML = `<div class="fl-stage"></div>
-<div class="row fl-bar"><button class="sm" data-fl="play">Pause</button><select data-fl="speed">${SPEEDS.map((s) => `<option value="${s}"${s === 1 ? " selected" : ""}>${s}×</option>`).join("")}</select><input type="range" data-fl="scrub" min="0" max="1000" value="0"><button class="sm ghost" data-fl="replay">Replay</button></div>
-<div class="kpis fl-kpis"></div><div class="tbl-wrap fl-plan"></div>
+export function createFlight({ stage, info }, mission) {
+  stage.innerHTML = `<div class="row fl-bar"><button class="sm" data-fl="play">Pause</button><select data-fl="speed">${SPEEDS.map((s) => `<option value="${s}"${s === 1 ? " selected" : ""}>${s}×</option>`).join("")}</select><input type="range" data-fl="scrub" min="0" max="1000" value="0"><button class="sm ghost" data-fl="replay">Replay</button></div>`;
+  info.innerHTML = `<div class="kpis fl-kpis"></div><div class="tbl-wrap fl-plan"></div>
 <div class="note">Real data: Moon and Sun positions and Earth rotation from analytical ephemerides (Meeus), Moon orientation from optical libration, site coordinates from NASA/LRO. Trajectory: two-body Lambert transfer from a ${LEO_ALT} km parking orbit to a ${LLO_ALT} km lunar orbit (patched conics, impulsive burns); ascent, lunar orbit and descent are scripted. Not for operational use.</div>`;
-  const stage = container.querySelector(".fl-stage");
-  const kpiBox = container.querySelector(".fl-kpis");
+  const kpiBox = info.querySelector(".fl-kpis");
   const plan = planMission(mission);
-  container.querySelector(".fl-plan").innerHTML = planTable(plan, mission.sky);
+  info.querySelector(".fl-plan").innerHTML = planTable(plan, mission.sky);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -366,18 +363,7 @@ export function createFlight(container, mission) {
   const craft = new THREE.Group();
   const body = new THREE.Mesh(new THREE.ConeGeometry(0.25, 1, 12), new THREE.MeshBasicMaterial({ color: 0xffffff }));
   body.geometry.rotateX(Math.PI / 2);
-  const flameTexture = (() => {
-    const c = document.createElement("canvas");
-    c.width = c.height = 64;
-    const g = c.getContext("2d");
-    const grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-    grad.addColorStop(0, "rgba(255,255,255,1)");
-    grad.addColorStop(0.3, "rgba(120,220,255,0.8)");
-    grad.addColorStop(1, "rgba(0,0,0,0)");
-    g.fillStyle = grad;
-    g.fillRect(0, 0, 64, 64);
-    return new THREE.CanvasTexture(c);
-  })();
+  const flameTexture = glowTexture();
   const marker = new THREE.Sprite(new THREE.SpriteMaterial({ map: flameTexture, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
   marker.scale.setScalar(5);
   const halo = (color) => {
@@ -418,6 +404,7 @@ export function createFlight(container, mission) {
   let raf = 0;
   let last = performance.now();
   let t = plan.tL;
+  let wasFinished = false;
   const tile = (k, v) => `<div class="kpi"><span>${k}</span><b>${v}</b></div>`;
   const earthDv = () => ASCENT_DV * smooth((t - plan.tL) / ASCENT_S) + (t >= plan.tTLI ? plan.dvTLI : 0);
 
@@ -475,6 +462,9 @@ export function createFlight(container, mission) {
     const dt = Math.min((now - last) / 1000, 0.1);
     last = now;
     if (playing) wall = Math.min(plan.wallTotal, wall + dt * speed);
+    const finished = wall >= plan.wallTotal;
+    if (finished && !wasFinished) mission.onLanded();
+    wasFinished = finished;
     const at = phaseAt(plan, wall);
     t = at.t;
     const st = plan.state(t);
@@ -552,18 +542,18 @@ export function createFlight(container, mission) {
     renderer.render(scene, camera);
   }
 
-  const playBtn = container.querySelector('[data-fl="play"]');
-  const scrub = container.querySelector('[data-fl="scrub"]');
+  const playBtn = stage.querySelector('[data-fl="play"]');
+  const scrub = stage.querySelector('[data-fl="scrub"]');
   playBtn.addEventListener("click", () => {
     playing = !playing;
     playBtn.textContent = playing ? "Pause" : "Play";
   });
-  container.querySelector('[data-fl="speed"]').addEventListener("change", (e) => (speed = +e.target.value));
+  stage.querySelector('[data-fl="speed"]').addEventListener("change", (e) => (speed = +e.target.value));
   scrub.addEventListener("input", () => {
     wall = (+scrub.value / 1000) * plan.wallTotal;
     framed = false;
   });
-  container.querySelector('[data-fl="replay"]').addEventListener("click", () => {
+  stage.querySelector('[data-fl="replay"]').addEventListener("click", () => {
     wall = 0;
     framed = false;
     playing = true;
@@ -571,9 +561,11 @@ export function createFlight(container, mission) {
   });
 
   raf = requestAnimationFrame(frame);
+  const ready = textures.ready().then(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
 
   return {
     plan,
+    ready,
     dispose() {
       cancelAnimationFrame(raf);
       scene.traverse((o) => {
@@ -585,7 +577,8 @@ export function createFlight(container, mission) {
       flameTexture.dispose();
       renderer.dispose();
       renderer.forceContextLoss();
-      container.replaceChildren();
+      stage.replaceChildren();
+      info.replaceChildren();
     }
   };
 }

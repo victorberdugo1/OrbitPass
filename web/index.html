@@ -44,7 +44,7 @@ a.chip:hover{border-color:var(--acc);color:var(--acc)}
 .kpi b{font:600 18px ui-monospace,SFMono-Regular,Menlo,monospace}
 .bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin:4px 0 12px}.bar i{display:block;height:100%}
 svg{width:100%;height:auto;display:block}
-#moon3d,.fl-stage{height:min(62vh,560px);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:relative;background:#000}
+#moon3d{height:min(62vh,560px);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:relative;background:#000}
 .hud{position:absolute;left:10px;top:10px;z-index:5;background:var(--hudbg);color:#e6e9ef;border:1px solid #1e2736;border-radius:6px;padding:5px 10px;font:12px ui-monospace,SFMono-Regular,Menlo,monospace;pointer-events:none}
 .tbl-wrap{overflow-x:auto;margin-top:10px}
 table{width:100%;border-collapse:collapse;font-size:13px}
@@ -60,18 +60,47 @@ button.sm{padding:4px 10px;font-size:12px}
 
 #welcome{position:fixed;inset:0;z-index:50;background:#02050b;color:#fff;overflow:hidden;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 #welcome[hidden]{display:none}
+#welcome:not([hidden]){animation:ln-in .45s ease}
+#welcome.ln-leaving{opacity:0;transition:opacity .9s ease;pointer-events:none}
+@keyframes ln-in{from{opacity:0}}
+.ln-mission{transition:opacity .5s ease}
+.ln-launching .ln-mission{opacity:0;pointer-events:none}
+.ln-site{position:absolute;left:0;top:0;pointer-events:none;white-space:nowrap;opacity:0;transition:opacity .6s ease;padding:6px 12px;border-radius:8px;border:1px solid rgba(89,227,247,.55);background:rgba(6,40,56,.55);backdrop-filter:blur(6px);font-size:13px;letter-spacing:.06em}
+.ln-site small{display:block;font-size:10px;letter-spacing:.2em;color:#9fd8e4}
+.ln-site.on{opacity:1}
 #welcome button{font-family:inherit}
 .ln-stage{position:absolute;inset:0}
-.ln-ui{position:absolute;inset:0;pointer-events:none}
+.ln-ui{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-end;gap:clamp(10px,3vh,28px);padding:0 4% max(4%,env(safe-area-inset-bottom))}
 .ln-ui>*{pointer-events:auto}
-.fl-bar{margin-top:10px}
+#flight-panel{position:relative;height:100vh;height:100dvh;background:#02050b;color:#fff;overflow:hidden}
+#flight-stage{position:absolute;inset:0}
+#flight-stage .hud{top:64px;left:16px}
+.fl-bar{position:absolute;left:50%;bottom:max(20px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(720px,calc(100% - 32px));z-index:5;padding:10px 14px;border-radius:16px;border:1px solid rgba(160,200,255,.35);background:rgba(10,24,48,.55);backdrop-filter:blur(14px);color:#fff}
+.fl-bar select{background:rgba(8,18,36,.6);color:#fff;border-color:rgba(160,200,255,.35)}
+.fl-bar button.ghost{color:#fff;border-color:rgba(160,200,255,.45)}
+.fl-bar input[type=range]{flex:1 1 140px;min-width:0}
+body[data-profile=education] .top{position:absolute;top:0;left:0;right:0;z-index:6;margin:0;padding:max(14px,env(safe-area-inset-top)) 16px 0;border:0;align-items:center;flex-wrap:nowrap}
+body[data-profile=education] .top h1{color:#fff}
+body[data-profile=education] .top h1 span{color:#59e3f7}
+body[data-profile=education] .top .sub{display:none}
+body[data-profile=education] .top button.ghost{color:#fff;border-color:rgba(160,200,255,.45);background:rgba(10,24,48,.45);backdrop-filter:blur(10px)}
+body[data-profile=education] .top .row{flex-wrap:nowrap;gap:8px}
+@media(max-width:640px){
+body[data-profile=education] .top{gap:8px}
+body[data-profile=education] .top h1{font-size:16px;letter-spacing:.16em}
+body[data-profile=education] .top button.ghost{padding:6px 8px;font-size:11px}
+}
+body.flying{overflow:hidden}
+body.flying .panel{display:none}
+body[data-profile=education] .panel{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
 .fl-kpis{margin-top:10px}
 .fl-plan td:first-child{color:var(--mut);white-space:nowrap}
 @media(min-width:760px){.fl-kpis{grid-template-columns:repeat(3,1fr)}}
 .ln-logo{position:absolute;top:max(14px,env(safe-area-inset-top));right:22px}
 .ln-logo svg{height:46px;width:auto;display:block}
 .ln-cards[hidden]{display:none}
-.ln-mission{position:absolute;left:4%;top:50%;transform:translateY(-50%);width:min(440px,92%);display:flex;flex-direction:column;gap:14px;padding:22px 24px 24px;border-radius:26px;border:1px solid rgba(160,200,255,.45);background:rgba(10,24,48,.55);backdrop-filter:blur(14px)}
+.ln-mission{position:absolute;left:4%;top:50%;transform:translateY(-50%);width:min(440px,92%);display:flex;flex-direction:column;gap:14px;padding:22px 24px 24px;border-radius:26px;border:1px solid rgba(160,200,255,.45);background:rgba(10,24,48,.55);backdrop-filter:blur(14px);max-height:calc(100% - 28px);overflow-y:auto}
 .ln-mission[hidden]{display:none}
 .ln-mission header{display:flex;align-items:center;gap:14px}
 .ln-mission h3{margin:0;font-size:clamp(26px,2.4vw,34px);font-weight:600}
@@ -86,7 +115,7 @@ button.sm{padding:4px 10px;font-size:12px}
 .ln-field select option{color:#000}
 .ln-go{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px;border-radius:18px;border:1px solid #4fd0ff;background:linear-gradient(180deg,#1aa5e8,#0a63b8);color:#fff;font-size:20px;font-weight:600;cursor:pointer}
 .ln-go svg{stroke:#fff}
-.ln-cards{position:absolute;left:4%;right:4%;bottom:4%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3%}
+.ln-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3%}
 .ln-card{position:relative;text-align:left;color:#fff;cursor:pointer;padding:22px 26px;min-height:150px;border-radius:26px;border:1px solid rgba(89,227,247,.55);background:linear-gradient(180deg,rgba(40,140,160,.38),rgba(8,36,52,.55));backdrop-filter:blur(10px);transition:transform .15s,border-color .15s}
 .ln-card:hover,.ln-card:focus-visible{transform:translateY(-4px);border-color:#59e3f7;outline:none}
 .ln-card svg.ico{width:44px;height:44px;stroke:#d9f7ff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;margin-right:14px}
@@ -94,11 +123,7 @@ button.sm{padding:4px 10px;font-size:12px}
 .ln-card p{margin:14px 0 0;font-size:15px;line-height:1.45;color:#d6eef5;max-width:90%}
 .ln-card .go{position:absolute;right:22px;top:24px;width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2}
 .ln-card .last{position:absolute;right:22px;bottom:16px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#59e3f7}
-.ln-moon-info{position:absolute;right:2.5%;top:17%;width:190px;padding:14px 16px;background:rgba(6,40,56,.5);border:1px solid rgba(89,227,247,.55);border-radius:6px;backdrop-filter:blur(6px)}
-.ln-moon-info b{display:block;letter-spacing:.12em;font-size:14px;margin-bottom:8px}
-.ln-moon-info div{display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:4px 0;border-top:1px solid rgba(89,227,247,.2)}
-.ln-moon-info span{color:#9fd8e4}
-.ln-tag{position:absolute;right:4%;bottom:34%;text-align:center;padding:12px 26px}
+.ln-tag{position:relative;align-self:flex-end;text-align:center;padding:12px 26px}
 .ln-tag[hidden]{display:none}
 .ln-tag small{display:block;letter-spacing:.38em;font-size:12px;color:#bfe9f2;margin-bottom:6px}
 .ln-tag b{font-size:clamp(20px,2.6vw,38px);font-weight:600;white-space:nowrap}
@@ -107,11 +132,11 @@ button.sm{padding:4px 10px;font-size:12px}
 .ln-tag::after{right:0;bottom:0;border-left:0;border-top:0}
 @media(max-width:900px){
 .ln-logo{right:16px}
-.ln-mission{left:4%;right:4%;top:auto;bottom:3%;width:auto;transform:none;gap:10px;padding:16px}
+.ln-ui{padding-bottom:max(3%,env(safe-area-inset-bottom))}
+.ln-mission{left:4%;right:4%;top:auto;bottom:max(3%,env(safe-area-inset-bottom));width:auto;transform:none;gap:10px;padding:16px;max-height:calc(100% - 72px)}
 .ln-logo svg{height:36px}
-.ln-cards{grid-template-columns:1fr;gap:10px;bottom:3%}
-.ln-moon-info{display:none}
-.ln-tag{right:50%;transform:translateX(50%);bottom:auto;top:49%;padding:8px 16px}
+.ln-cards{grid-template-columns:1fr;gap:10px}
+.ln-tag{align-self:center;padding:8px 16px}
 .ln-tag small{font-size:10px;letter-spacing:.25em}
 .ln-tag b{font-size:19px}
 .ln-card{min-height:0;padding:14px 18px;border-radius:18px}
@@ -119,6 +144,19 @@ button.sm{padding:4px 10px;font-size:12px}
 .ln-card h3{font-size:20px}
 .ln-card p{margin:6px 0 0;font-size:13px}
 .ln-card .last{display:none}
+}
+@media(max-height:600px){
+.ln-logo svg{height:32px}
+.ln-mission{gap:8px;padding:14px 18px}
+.ln-go{padding:10px;font-size:18px}
+.ln-tag{padding:6px 16px}
+.ln-card{min-height:0;padding:12px 18px;border-radius:18px}
+.ln-card svg.ico{width:30px;height:30px;margin-right:10px}
+.ln-card h3{font-size:18px}
+.ln-card p{margin:6px 0 0;font-size:13px}
+}
+@media(max-height:600px) and (min-width:560px){
+.ln-cards{grid-template-columns:repeat(3,1fr);gap:10px}
 }
 button.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
 button.ghost:hover{border-color:var(--acc)}
@@ -138,10 +176,11 @@ button.qopt.wrong{border-color:var(--warn);color:var(--warn)}
 </style>
 </head>
 <body>
+<section id="flight-panel" data-for="education"><div id="flight-stage"></div></section>
 <div class="wrap">
 <div class="top"><div><h1>Orbit<span>Pass</span></h1>
 <p class="sub" data-for="tourism business">Lunar landing site comparison: solar power and direct-to-Earth communication windows</p>
-<p class="sub" data-for="education">Learn how a mission travels from Earth to the Moon</p></div><button class="ghost" id="profile-btn">Profile</button></div>
+<p class="sub" data-for="education">Learn how a mission travels from Earth to the Moon</p></div><div class="row"><button class="ghost" id="mission-change" data-for="education">Change mission</button><button class="ghost" id="profile-btn">Profile</button></div></div>
 
 <div class="panel" data-for="tourism business">
 <div class="row">
@@ -157,7 +196,7 @@ button.qopt.wrong{border-color:var(--warn);color:var(--warn)}
 <div class="panel" data-for="tourism business"><h2>Sites</h2><div class="grid" id="sites"></div></div>
 
 <div class="panel" id="experiences" data-for="tourism"><h2>Experiences <span class="bd">Synthetic 2050 scenario</span></h2><div id="exp-tools"></div><div id="exp-year"></div><div id="exp-results"></div><div id="exp-trip"></div><div class="note">Venues, operators, prices and reviews are fictional mock data. Sky conditions use the same ephemeris as the rest of the app, with a spherical horizon at each venue.</div></div>
-<div class="panel" id="flight-panel" data-for="education"><div class="row" style="justify-content:space-between;margin-bottom:12px"><h2 style="margin:0">Mission simulation</h2><button class="sm ghost" id="mission-change">Change mission</button></div><div id="flight"></div></div>
+<div class="panel" id="mission-info" data-for="education"><h2>Mission plan</h2><div id="flight-info"></div></div>
 <div class="panel" id="learn" data-for="education"><h2>Learn</h2><div class="grid" id="lessons"></div><h2 style="margin-top:20px">Quick quiz</h2><div id="quiz"></div></div>
 <div class="panel" id="detail" data-for="tourism business"></div>
 <div class="panel" data-for="business"><h2>Mission manifest</h2><div class="row"><label class="note" for="prov">Provider</label><select id="prov"></select></div><div class="tbl-wrap" id="manifest"></div><div class="note">Target periods as publicly reported by NASA and operators (as of September 2026). Schedules change often and sources disagree; verify with the operator. Conflict risk: a reported mission within 150 km of the selected site whose target period overlaps the 30-day analysis window. Site coordinates are approximate and this is not an official deconfliction tool.</div></div>

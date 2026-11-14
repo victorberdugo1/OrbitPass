@@ -36,16 +36,30 @@ function visibility(id){document.querySelectorAll("[data-for]").forEach(el=>{el.
 function stopLanding(){landingToken++;if(landing)landing.dispose();landing=null}
 async function startLanding(){const token=++landingToken;try{const m=await import("./landing.js");if(token!==landingToken||document.getElementById("welcome").hidden)return;landing=m.createLanding(document.getElementById("ln-stage"))}catch(e){}}
 function stopFlight(){flightToken++;if(flight)flight.dispose();flight=null}
-async function startFlight(){stopFlight();const token=flightToken,s=SITES[mission.site],box=document.getElementById("flight");
-try{const m=await import("./flight.js");if(token!==flightToken)return;flight=m.createFlight(box,{startMs:start,launch:LAUNCH_SITES[mission.launch],site:s,sky:ms=>skyAt(ms,s)})}
-catch(e){box.textContent="Simulation unavailable: "+e.message}}
-function applyProfile(id){profile=id;if(id!=="education")stopFlight();document.body.dataset.profile=id;visibility(id);
+function revealMissionInfo(){const b=document.body;if(!b.classList.contains("flying"))return;b.classList.remove("flying");
+setTimeout(()=>window.scrollTo({top:innerHeight*0.6,behavior:"smooth"}),1200)}
+async function startFlight(){stopFlight();const token=flightToken,s=SITES[mission.site],stage=document.getElementById("flight-stage");
+try{const m=await import("./flight.js");if(token!==flightToken)return;
+flight=m.createFlight({stage,info:document.getElementById("flight-info")},{startMs:start,launch:LAUNCH_SITES[mission.launch],site:s,sky:ms=>skyAt(ms,s),onLanded:revealMissionInfo});await flight.ready}
+catch(e){stage.textContent="Simulation unavailable: "+e.message}}
+function setProfile(id){profile=id;if(id!=="education"){stopFlight();document.body.classList.remove("flying")}document.body.dataset.profile=id;visibility(id);
 document.getElementById("profile-btn").textContent="Profile: "+PROFILES[id].label;
-document.getElementById("welcome").hidden=true;stopLanding();
 try{localStorage.setItem("orbitpass.profile",id)}catch(e){}
 lastKey="";renderProfile()}
+function closeWelcome(){document.getElementById("welcome").hidden=true;stopLanding()}
+async function launchMission(){const w=document.getElementById("welcome");if(w.classList.contains("ln-launching"))return;
+mission={launch:+document.getElementById("m-launch").value,site:+document.getElementById("m-site").value};
+goMission(document.getElementById("m-date").value,mission.site);
+w.classList.add("ln-launching");
+if(landing)await landing.focusSite(LAUNCH_SITES[mission.launch]);
+document.body.classList.add("flying");window.scrollTo(0,0);
+setProfile("education");await startFlight();
+w.classList.add("ln-leaving");
+await Promise.all(w.getAnimations().map(a=>a.finished.catch(()=>{})));
+closeWelcome()}
 function openWelcome(){stopLanding();let last=null;try{last=localStorage.getItem("orbitpass.profile")}catch(e){}
 const w=document.getElementById("welcome");
+w.classList.remove("ln-launching","ln-leaving");
 w.innerHTML=`<div class="ln-stage" id="ln-stage"></div><div class="ln-ui">
 <div class="ln-logo"><svg viewBox="0 0 250 64" aria-label="OrbitPass"><path d="M10 44C40 62 150 66 232 26" fill="none" stroke="#59e3f7" stroke-width="2" stroke-linecap="round"/><circle cx="234" cy="25" r="4" fill="#59e3f7"/><text x="8" y="42" font-size="38" font-style="italic" font-weight="700" fill="#fff" font-family="Inter,system-ui,sans-serif">Orbit<tspan fill="#59e3f7">Pass</tspan></text></svg></div>
 <form class="ln-mission" id="ln-mission" hidden><header><button type="button" class="ln-back" data-back="1" aria-label="Back"><svg viewBox="0 0 28 28"><path d="M17 5l-9 9 9 9"/></svg></button><svg class="ico" viewBox="0 0 48 48">${ICONS.education}</svg><h3>${PROFILES.education.label}</h3></header>
@@ -53,7 +67,6 @@ w.innerHTML=`<div class="ln-stage" id="ln-stage"></div><div class="ln-ui">
 <label class="ln-field"><svg viewBox="0 0 28 28">${FIELD_ICONS.launch}</svg><div><span>Launch Site</span><select id="m-launch">${LAUNCH_SITES.map((l,i)=>`<option value="${i}">${l.name}</option>`).join("")}</select></div></label>
 <label class="ln-field"><svg viewBox="0 0 28 28">${FIELD_ICONS.site}</svg><div><span>Destination Base</span><select id="m-site"></select></div></label>
 <button class="ln-go" type="submit">Go<svg viewBox="0 0 26 26"><path d="M3 13h19M14 5l8 8-8 8"/></svg></button></form>
-<aside class="ln-moon-info"><b>MOON</b><div><span>Diameter</span>3,474 km</div><div><span>Gravity</span>0.165 g</div></aside>
 <div class="ln-tag" id="ln-tag"><small>THE MOON TRAVEL PLATFORM</small><b>Explore · Learn · Travel · Work</b></div>
 <div class="ln-cards" id="ln-cards">${Object.entries(PROFILES).map(([id,p])=>`<button class="ln-card" data-profile="${id}"><svg class="ico" viewBox="0 0 48 48">${ICONS[id]}</svg><h3>${p.label}</h3><svg class="go" viewBox="0 0 26 26"><path d="M3 13h19M14 5l8 8-8 8"/></svg><p>${p.text}</p>${id===last?'<span class="last">Last used</span>':""}</button>`).join("")}</div></div>`;
 w.hidden=false;startLanding()}
@@ -140,11 +153,9 @@ const site=document.getElementById("m-site");site.innerHTML=SITES.map(s=>`<optio
 document.getElementById("welcome").addEventListener("click",e=>{const p=e.target.closest("[data-profile]");
 if(e.target.closest("[data-back]"))return showMission(false);
 if(!p)return;
-p.dataset.profile==="education"?showMission(true):applyProfile(p.dataset.profile)});
-document.getElementById("welcome").addEventListener("submit",e=>{e.preventDefault();
-mission={launch:+document.getElementById("m-launch").value,site:+document.getElementById("m-site").value};
-goMission(document.getElementById("m-date").value,mission.site);applyProfile("education");startFlight();
-document.getElementById("flight-panel").scrollIntoView()});
+if(p.dataset.profile==="education")return showMission(true);
+setProfile(p.dataset.profile);closeWelcome()});
+document.getElementById("welcome").addEventListener("submit",e=>{e.preventDefault();launchMission()});
 document.getElementById("mission-change").addEventListener("click",()=>{openWelcome();showMission(true)});
 document.getElementById("profile-btn").addEventListener("click",openWelcome);
 document.getElementById("quiz").addEventListener("click",e=>{const o=e.target.closest("[data-opt]"),n=e.target.closest("[data-quiz]");
