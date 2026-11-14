@@ -44,7 +44,7 @@ a.chip:hover{border-color:var(--acc);color:var(--acc)}
 .kpi b{font:600 18px ui-monospace,SFMono-Regular,Menlo,monospace}
 .bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin:4px 0 12px}.bar i{display:block;height:100%}
 svg{width:100%;height:auto;display:block}
-#moon3d{height:min(62vh,560px);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:relative;background:#000}
+#moon3d,.fl-stage{height:min(62vh,560px);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:relative;background:#000}
 .hud{position:absolute;left:10px;top:10px;z-index:5;background:var(--hudbg);color:#e6e9ef;border:1px solid #1e2736;border-radius:6px;padding:5px 10px;font:12px ui-monospace,SFMono-Regular,Menlo,monospace;pointer-events:none}
 .tbl-wrap{overflow-x:auto;margin-top:10px}
 table{width:100%;border-collapse:collapse;font-size:13px}
@@ -64,20 +64,61 @@ button.sm{padding:4px 10px;font-size:12px}
 .ln-stage{position:absolute;inset:0}
 .ln-ui{position:absolute;inset:0;pointer-events:none}
 .ln-ui>*{pointer-events:auto}
+.fl-bar{margin-top:10px}
+.fl-kpis{margin-top:10px}
+.fl-plan td:first-child{color:var(--mut);white-space:nowrap}
+@media(min-width:760px){.fl-kpis{grid-template-columns:repeat(3,1fr)}}
 .ln-logo{position:absolute;top:max(14px,env(safe-area-inset-top));right:22px}
 .ln-logo svg{height:46px;width:auto;display:block}
+.ln-cards[hidden]{display:none}
+.ln-mission{position:absolute;left:4%;top:50%;transform:translateY(-50%);width:min(440px,92%);display:flex;flex-direction:column;gap:14px;padding:22px 24px 24px;border-radius:26px;border:1px solid rgba(160,200,255,.45);background:rgba(10,24,48,.55);backdrop-filter:blur(14px)}
+.ln-mission[hidden]{display:none}
+.ln-mission header{display:flex;align-items:center;gap:14px}
+.ln-mission h3{margin:0;font-size:clamp(26px,2.4vw,34px);font-weight:600}
+.ln-mission svg.ico{width:44px;height:44px;stroke:#d9e8ff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ln-back{background:none;border:0;color:#fff;cursor:pointer;padding:4px;margin-left:-8px}
+.ln-back svg,.ln-field>svg,.ln-go svg{width:26px;height:26px;stroke:#d9e8ff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ln-field{display:flex;align-items:center;gap:14px;padding:10px 16px;border-radius:16px;border:1px solid rgba(160,200,255,.35);background:rgba(8,18,36,.6);cursor:pointer}
+.ln-field:focus-within{border-color:#fff}
+.ln-field>div{flex:1;min-width:0}
+.ln-field span{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9db8d8}
+.ln-field select,.ln-field input{width:100%;background:transparent;border:0;color:#fff;font:inherit;font-size:16px;outline:none;padding:2px 0;color-scheme:dark}
+.ln-field select option{color:#000}
+.ln-go{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px;border-radius:18px;border:1px solid #4fd0ff;background:linear-gradient(180deg,#1aa5e8,#0a63b8);color:#fff;font-size:20px;font-weight:600;cursor:pointer}
+.ln-go svg{stroke:#fff}
 .ln-cards{position:absolute;left:4%;right:4%;bottom:4%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3%}
-.ln-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;cursor:pointer;padding:22px;min-height:120px;border-radius:26px;border:1px solid rgba(160,200,255,.45);background:rgba(10,20,40,.45);backdrop-filter:blur(10px);transition:transform .15s,border-color .15s}
-.ln-card:hover,.ln-card:focus-visible{transform:translateY(-4px);border-color:#fff;outline:none}
-.ln-card svg.ico{width:44px;height:44px;stroke:#d9e8ff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.ln-card h3{margin:0;font-size:clamp(22px,2.2vw,32px);font-weight:500}
+.ln-card{position:relative;text-align:left;color:#fff;cursor:pointer;padding:22px 26px;min-height:150px;border-radius:26px;border:1px solid rgba(89,227,247,.55);background:linear-gradient(180deg,rgba(40,140,160,.38),rgba(8,36,52,.55));backdrop-filter:blur(10px);transition:transform .15s,border-color .15s}
+.ln-card:hover,.ln-card:focus-visible{transform:translateY(-4px);border-color:#59e3f7;outline:none}
+.ln-card svg.ico{width:44px;height:44px;stroke:#d9f7ff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;margin-right:14px}
+.ln-card h3{display:inline;font-size:clamp(22px,2.2vw,32px);font-weight:600;vertical-align:middle}
+.ln-card p{margin:14px 0 0;font-size:15px;line-height:1.45;color:#d6eef5;max-width:90%}
+.ln-card .go{position:absolute;right:22px;top:24px;width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2}
+.ln-card .last{position:absolute;right:22px;bottom:16px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#59e3f7}
+.ln-moon-info{position:absolute;right:2.5%;top:17%;width:190px;padding:14px 16px;background:rgba(6,40,56,.5);border:1px solid rgba(89,227,247,.55);border-radius:6px;backdrop-filter:blur(6px)}
+.ln-moon-info b{display:block;letter-spacing:.12em;font-size:14px;margin-bottom:8px}
+.ln-moon-info div{display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:4px 0;border-top:1px solid rgba(89,227,247,.2)}
+.ln-moon-info span{color:#9fd8e4}
+.ln-tag{position:absolute;right:4%;bottom:34%;text-align:center;padding:12px 26px}
+.ln-tag[hidden]{display:none}
+.ln-tag small{display:block;letter-spacing:.38em;font-size:12px;color:#bfe9f2;margin-bottom:6px}
+.ln-tag b{font-size:clamp(20px,2.6vw,38px);font-weight:600;white-space:nowrap}
+.ln-tag::before,.ln-tag::after{content:"";position:absolute;width:14px;height:14px;border:2px solid #59e3f7}
+.ln-tag::before{left:0;top:0;border-right:0;border-bottom:0}
+.ln-tag::after{right:0;bottom:0;border-left:0;border-top:0}
 @media(max-width:900px){
 .ln-logo{right:16px}
+.ln-mission{left:4%;right:4%;top:auto;bottom:3%;width:auto;transform:none;gap:10px;padding:16px}
 .ln-logo svg{height:36px}
 .ln-cards{grid-template-columns:1fr;gap:10px;bottom:3%}
-.ln-card{flex-direction:row;min-height:0;padding:14px 18px;border-radius:18px}
-.ln-card svg.ico{width:32px;height:32px}
+.ln-moon-info{display:none}
+.ln-tag{right:50%;transform:translateX(50%);bottom:auto;top:49%;padding:8px 16px}
+.ln-tag small{font-size:10px;letter-spacing:.25em}
+.ln-tag b{font-size:19px}
+.ln-card{min-height:0;padding:14px 18px;border-radius:18px}
+.ln-card svg.ico{width:32px;height:32px;margin-right:10px}
 .ln-card h3{font-size:20px}
+.ln-card p{margin:6px 0 0;font-size:13px}
+.ln-card .last{display:none}
 }
 button.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
 button.ghost:hover{border-color:var(--acc)}
@@ -99,9 +140,10 @@ button.qopt.wrong{border-color:var(--warn);color:var(--warn)}
 <body>
 <div class="wrap">
 <div class="top"><div><h1>Orbit<span>Pass</span></h1>
-<p class="sub">Lunar landing site comparison: solar power and direct-to-Earth communication windows</p></div><button class="ghost" id="profile-btn">Profile</button></div>
+<p class="sub" data-for="tourism business">Lunar landing site comparison: solar power and direct-to-Earth communication windows</p>
+<p class="sub" data-for="education">Learn how a mission travels from Earth to the Moon</p></div><button class="ghost" id="profile-btn">Profile</button></div>
 
-<div class="panel">
+<div class="panel" data-for="tourism business">
 <div class="row">
 <input type="date" id="date">
 <input type="range" id="t" min="0" max="719" value="0">
@@ -110,30 +152,38 @@ button.qopt.wrong{border-color:var(--warn);color:var(--warn)}
 <div class="note" id="clock"></div>
 </div>
 
-<div class="panel"><h2>Moon, live illumination</h2><div id="moon3d"></div><div class="note" id="m3note">3D Moon requires the Docker version (/trek proxy to NASA Moon Trek).</div></div>
+<div class="panel" data-for="tourism business"><h2>Moon, live illumination</h2><div id="moon3d"></div><div class="note" id="m3note">3D Moon requires the Docker version (/trek proxy to NASA Moon Trek).</div></div>
 
-<div class="panel"><h2>Sites</h2><div class="grid" id="sites"></div></div>
+<div class="panel" data-for="tourism business"><h2>Sites</h2><div class="grid" id="sites"></div></div>
 
 <div class="panel" id="experiences" data-for="tourism"><h2>Experiences <span class="bd">Synthetic 2050 scenario</span></h2><div id="exp-tools"></div><div id="exp-year"></div><div id="exp-results"></div><div id="exp-trip"></div><div class="note">Venues, operators, prices and reviews are fictional mock data. Sky conditions use the same ephemeris as the rest of the app, with a spherical horizon at each venue.</div></div>
+<div class="panel" id="flight-panel" data-for="education"><div class="row" style="justify-content:space-between;margin-bottom:12px"><h2 style="margin:0">Mission simulation</h2><button class="sm ghost" id="mission-change">Change mission</button></div><div id="flight"></div></div>
 <div class="panel" id="learn" data-for="education"><h2>Learn</h2><div class="grid" id="lessons"></div><h2 style="margin-top:20px">Quick quiz</h2><div id="quiz"></div></div>
-<div class="panel" id="detail"></div>
+<div class="panel" id="detail" data-for="tourism business"></div>
 <div class="panel" data-for="business"><h2>Mission manifest</h2><div class="row"><label class="note" for="prov">Provider</label><select id="prov"></select></div><div class="tbl-wrap" id="manifest"></div><div class="note">Target periods as publicly reported by NASA and operators (as of September 2026). Schedules change often and sources disagree; verify with the operator. Conflict risk: a reported mission within 150 km of the selected site whose target period overlaps the 30-day analysis window. Site coordinates are approximate and this is not an official deconfliction tool.</div></div>
 <div class="panel" data-for="business"><h2>Operating window finder</h2><div class="row"><button id="find">Find best windows for selected site</button></div><div class="tbl-wrap" id="windows"></div><div class="note">Scans the 12 months after the selected date. Each candidate is a 14-day surface operation period starting 00:00 UTC, ranked by the mean of Sun and Earth availability. Approximate ephemeris; LOLA terrain horizon when available, spherical otherwise.</div></div>
 <div class="panel" id="scenario" data-for="business"></div>
-<div class="panel" id="compare" data-for="education business"></div>
-<div class="panel" data-for="education business"><h2>NASA and partner resources</h2><div class="row">
+<div class="panel" id="compare" data-for="business"></div>
+<div class="panel" data-for="education"><h2>Learn more</h2><div class="row">
+<a class="chip" href="https://science.nasa.gov/moon/" target="_blank" rel="noopener">NASA Moon</a>
+<a class="chip" href="https://trek.nasa.gov/moon/" target="_blank" rel="noopener">Moon Trek (3D)</a>
+<a class="chip" href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons (ephemerides)</a>
+<a class="chip" href="https://www.asc-csa.gc.ca/eng/astronomy/moon-exploration/" target="_blank" rel="noopener">CSA Moon Exploration</a></div>
+<div class="note">The simulation uses analytical ephemerides (Meeus) for the Moon, Sun and Earth rotation. Lessons use the selected destination and date.</div></div>
+<div class="panel" data-for="business"><h2>NASA and partner resources</h2><div class="row">
 <a class="chip" href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons (ephemerides)</a>
 <a class="chip" href="https://quickmap.lroc.asu.edu/" target="_blank" rel="noopener">Quickmap (LRO / LOLA)</a>
 <a class="chip" href="https://trek.nasa.gov/moon/" target="_blank" rel="noopener">Moon Trek (3D)</a>
 <a class="chip" href="https://www.asc-csa.gc.ca/eng/astronomy/moon-exploration/" target="_blank" rel="noopener">CSA Moon Exploration</a>
 <a class="chip" href="https://threejs.org/" target="_blank" rel="noopener">Three.js (3D engine)</a></div>
 <div class="note">Data: JPL Horizons (ephemerides, queried live in the Docker version) and NASA Moon Trek (LRO WAC imagery tiles). Software: Three.js, an open-source 3D engine used only for rendering. Terrain horizons come from the Moon Trek LOLA elevation model (LRO_LOLA_DEM_Global_128ppd_v04, about 0.67 km per pixel, rays out to 200 km, Docker version). Quickmap and Moon Trek open to inspect site terrain at full resolution.</div></div>
-<p class="note">Approximate analytical ephemerides (Meeus). Horizons use LOLA terrain at about 0.67 km per pixel (spherical when the Docker proxy is absent), so small local features are not resolved. Validate with JPL Horizons before operational use. Site coordinates are approximate.</p>
+<p class="note" data-for="tourism business">Approximate analytical ephemerides (Meeus). Horizons use LOLA terrain at about 0.67 km per pixel (spherical when the Docker proxy is absent), so small local features are not resolved. Validate with JPL Horizons before operational use. Site coordinates are approximate.</p>
 </div>
 <div class="overlay" id="welcome" hidden></div>
+<script src="ephemeris.js"></script>
 <script src="profiles.js"></script>
 <script>
-const R=Math.PI/180,HRS=720;
+const HRS=720;
 const SITES=[
 ["Shackleton rim","South pole",-89.9,0],
 ["Malapert","South pole",-85.99,0.2],
@@ -149,19 +199,6 @@ const SITES=[
 ["Apollo 17","Apollo",20.19,30.77]
 ].map((s,i)=>({id:i,name:s[0],tag:s[1],lat:s[2],lon:s[3]}));
 let sel=0,cmp=new Set([0,1,2]),start,subs=[],stats=[],timer=null;
-
-function lib(l,b,Om,F){const I=1.5424*R,W=(l-Om)*R,B=b*R;
-const A=Math.atan2(Math.sin(W)*Math.cos(B)*Math.cos(I)-Math.sin(B)*Math.sin(I),Math.cos(W)*Math.cos(B));
-return{lon:((A/R-F)%360+540)%360-180,lat:Math.asin(-Math.sin(W)*Math.cos(B)*Math.sin(I)-Math.sin(B)*Math.cos(I))/R}}
-function subPoints(jd){const d=jd-2451545,s=x=>Math.sin(x*R);
-const Lp=218.316+13.176396*d,Mp=134.963+13.064993*d,F=93.272+13.22935*d,D=297.85+12.190749*d,M=357.529+.9856*d;
-const lam=Lp+6.289*s(Mp)+1.274*s(2*D-Mp)+.658*s(2*D)+.214*s(2*Mp)-.186*s(M);
-const bet=5.128*s(F)+.2806*s(Mp+F)+.2777*s(Mp-F)+.1732*s(2*D-F);
-const lamS=280.46+.9856474*d+1.915*s(M)+.02*s(2*M),Om=125.045-.0529539*d;
-return{earth:lib(lam,bet,Om,F),sun:lib(lamS-180,0,Om,F)}}
-function look(t,lat,lon){const p=lat*R,b=t.lat*R,dl=(t.lon-lon)*R;
-return{el:Math.asin(Math.sin(p)*Math.sin(b)+Math.cos(p)*Math.cos(b)*Math.cos(dl))/R,
-az:(Math.atan2(Math.cos(b)*Math.sin(dl),Math.cos(p)*Math.sin(b)-Math.sin(p)*Math.cos(b)*Math.cos(dl))/R+360)%360}}
 
 const hzAt=(hor,az)=>{if(!hor)return 0;const i=Math.floor(az),k=az-i;return hor[i%360]*(1-k)+hor[(i+1)%360]*k};
 const observe=(arr,hor)=>arr.map(o=>{const hz=hzAt(hor,o.az);return{...o,hz,up:o.el>hz}});
@@ -286,6 +323,8 @@ el.innerHTML=head+`<div class="tbl-wrap"><table><tr><th>Base</th><th>Pads in use
 async function loadScenario(){try{const r=await fetch("data/scenario2050.json");if(!r.ok)throw new Error("missing");SC=await r.json()}catch(e){const n=document.getElementById("scenario-data");if(n)SC=JSON.parse(n.textContent)}
 if(SC){SC.flightsByBase={};SC.bases.forEach(b=>SC.flightsByBase[b.id]=[]);SC.flights.forEach(x=>SC.flightsByBase[x.base].push(x))}renderScenario()}
 function renderAll(){renderSites();renderDetail();renderCompare();renderManifest();renderWindows();renderScenario();clock();update3D();renderProfile()}
+function goMission(date,id){document.getElementById("date").value=date;document.getElementById("t").value=0;if(id!==undefined)sel=id;recompute();if(id!==undefined)fly()}
+function skyAt(ms,s){const p=subPoints(ms/864e5+2440587.5),at=x=>{const a=look(x,s.lat,s.lon);return{...a,up:a.el>hzAt(s.hor,a.az)}};return{sun:at(p.sun),earth:at(p.earth)}}
 function recompute(){start=Date.parse(document.getElementById("date").value+"T00:00:00Z");analyze();renderAll()}
 
 document.getElementById("sites").addEventListener("click",e=>{const c=e.target.closest("[data-c]");
@@ -301,7 +340,7 @@ const PROV=[...new Set(MISSIONS.flatMap(m=>[m.p.replace(/ \(.*\)/,""),m.l]).filt
 document.getElementById("prov").innerHTML='<option value="all">All providers</option>'+PROV.map(x=>`<option>${x}</option>`).join("");
 document.getElementById("prov").addEventListener("change",renderManifest);
 document.getElementById("find").addEventListener("click",findWindows);
-document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){document.getElementById("date").value=g.dataset.go;document.getElementById("t").value=0;recompute()}});
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)goMission(g.dataset.go)});
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",renderAll);
 document.getElementById("t").value=new Date().getUTCHours();
 recompute();
