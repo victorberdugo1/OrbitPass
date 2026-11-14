@@ -1,0 +1,5639 @@
+{
+ "meta": {
+  "currency": "USD",
+  "disclaimer": "Synthetic demonstration data. Venues, prices, hours, ratings and reviews are illustrative and do not describe real operators or visits. Base coordinates are approximate.",
+  "transferDays": 3.5
+ },
+ "bases": [
+  {
+   "id": "tranquility",
+   "name": "Tranquility Base",
+   "program": "Apollo 11",
+   "status": "Apollo landing site",
+   "mission": "Apollo 11 (1969)",
+   "lat": 0.67,
+   "lon": 23.47
+  },
+  {
+   "id": "storms",
+   "name": "Ocean of Storms",
+   "program": "Apollo 12",
+   "status": "Apollo landing site",
+   "mission": "Apollo 12 (1969)",
+   "lat": -3.01,
+   "lon": -23.42
+  },
+  {
+   "id": "fra-mauro",
+   "name": "Fra Mauro Highlands",
+   "program": "Apollo 14",
+   "status": "Apollo landing site",
+   "mission": "Apollo 14 (1971)",
+   "lat": -3.65,
+   "lon": -17.47
+  },
+  {
+   "id": "hadley",
+   "name": "Hadley–Apennine",
+   "program": "Apollo 15",
+   "status": "Apollo landing site",
+   "mission": "Apollo 15 (1971)",
+   "lat": 26.13,
+   "lon": 3.63
+  },
+  {
+   "id": "descartes",
+   "name": "Descartes Highlands",
+   "program": "Apollo 16",
+   "status": "Apollo landing site",
+   "mission": "Apollo 16 (1972)",
+   "lat": -8.97,
+   "lon": 15.5
+  },
+  {
+   "id": "taurus",
+   "name": "Taurus–Littrow Valley",
+   "program": "Apollo 17",
+   "status": "Apollo landing site",
+   "mission": "Apollo 17 (1972)",
+   "lat": 20.19,
+   "lon": 30.77
+  },
+  {
+   "id": "south-pole",
+   "name": "Lunar South Pole",
+   "program": "Artemis program",
+   "status": "Planned district",
+   "mission": "Artemis III (planned)",
+   "lat": -89.5,
+   "lon": 0.0
+  },
+  {
+   "id": "mons-mouton",
+   "name": "Mons Mouton",
+   "program": "CLPS and Artemis",
+   "status": "Planned district",
+   "mission": "Mission in planning",
+   "lat": -84.8,
+   "lon": 29.2
+  },
+  {
+   "id": "malapert",
+   "name": "Malapert Massif",
+   "program": "Lunar south polar ridge",
+   "status": "Planned district",
+   "mission": "Mission in planning",
+   "lat": -85.99,
+   "lon": 0.2
+  },
+  {
+   "id": "nobile",
+   "name": "Nobile Rim",
+   "program": "South pole region",
+   "status": "Planned district",
+   "mission": "Mission in planning",
+   "lat": -85.2,
+   "lon": 53.3
+  },
+  {
+   "id": "haworth",
+   "name": "Haworth Crater Region",
+   "program": "Shackleton-adjacent",
+   "status": "Planned district",
+   "mission": "Mission in planning",
+   "lat": -87.5,
+   "lon": -5.0
+  },
+  {
+   "id": "ilrs",
+   "name": "ILRS South Pole",
+   "program": "International Lunar Research Station",
+   "status": "Planned district",
+   "mission": "Mission in planning",
+   "lat": -88.9,
+   "lon": 90.0
+  }
+ ],
+ "venues": [
+  {
+   "id": "v001",
+   "base": "tranquility",
+   "name": "First Footsteps Heritage Tour",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 225,
+   "priceUsd": 405,
+   "distanceKm": 1.6,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 1075,
+   "breakdown": [
+    671,
+    215,
+    64,
+    22,
+    103
+   ],
+   "reviewList": [
+    {
+     "author": "M. Okafor",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-04-14",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-10-21",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-04-08",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v002",
+   "base": "tranquility",
+   "name": "Apollo 11 Holographic Museum",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 90,
+   "priceUsd": 85,
+   "distanceKm": 3.6,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 1770,
+   "breakdown": [
+    1104,
+    354,
+    106,
+    35,
+    171
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-02-21",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-08-21",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-04-06",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    }
+   ]
+  },
+  {
+   "id": "v003",
+   "base": "tranquility",
+   "name": "Earthrise Observation Lounge",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 75,
+   "priceUsd": 100,
+   "distanceKm": 3.3,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.6,
+   "reviews": 1709,
+   "breakdown": [
+    902,
+    342,
+    103,
+    34,
+    328
+   ],
+   "reviewList": [
+    {
+     "author": "S. Ibrahim",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-03-13",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-01-05",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-06-13",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    }
+   ]
+  },
+  {
+   "id": "v004",
+   "base": "tranquility",
+   "name": "Tranquility Fine Dining",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Seasonal menu prepared with hydroponic produce and a reserved table for two near the viewing wall.",
+   "hours": "12:00–22:00",
+   "durationMin": 135,
+   "priceUsd": 265,
+   "distanceKm": 4.4,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 460,
+   "breakdown": [
+    265,
+    92,
+    28,
+    9,
+    66
+   ],
+   "reviewList": [
+    {
+     "author": "A. Lindqvist",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-08-26",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-04-25",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-04-20",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    }
+   ]
+  },
+  {
+   "id": "v005",
+   "base": "tranquility",
+   "name": "Lunar History Theater",
+   "type": "Theater",
+   "group": "events",
+   "description": "Live productions and immersive performances with a lunar-themed stage design.",
+   "hours": "Shows 19:00 and 21:30",
+   "durationMin": 90,
+   "priceUsd": 215,
+   "distanceKm": 1.4,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.1,
+   "reviews": 1727,
+   "breakdown": [
+    497,
+    345,
+    104,
+    35,
+    746
+   ],
+   "reviewList": [
+    {
+     "author": "J. Tanaka",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-07-05",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-06-06",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-08-14",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    }
+   ]
+  },
+  {
+   "id": "v006",
+   "base": "tranquility",
+   "name": "Low-Gravity Walking Experience",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 210,
+   "priceUsd": 345,
+   "distanceKm": 0.6,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 1556,
+   "breakdown": [
+    747,
+    311,
+    93,
+    31,
+    374
+   ],
+   "reviewList": [
+    {
+     "author": "D. Okonkwo",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-05-15",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-06-04",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-03-28",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v007",
+   "base": "tranquility",
+   "name": "Armstrong Memorial Gallery",
+   "type": "Gallery",
+   "group": "attractions",
+   "description": "Exhibition of lunar landscape art and mission photography in a climate-controlled gallery.",
+   "hours": "10:00–18:00",
+   "durationMin": 75,
+   "priceUsd": 55,
+   "distanceKm": 2.9,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 666,
+   "breakdown": [
+    416,
+    133,
+    40,
+    13,
+    64
+   ],
+   "reviewList": [
+    {
+     "author": "E. Haddad",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-02-14",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-01-24",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-10-17",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    }
+   ]
+  },
+  {
+   "id": "v008",
+   "base": "tranquility",
+   "name": "Lunar Photography Studio",
+   "type": "Photography",
+   "group": "attractions",
+   "description": "Guided photo session on the surface with professional equipment and editing included.",
+   "hours": "By appointment 09:00–16:00",
+   "durationMin": 135,
+   "priceUsd": 525,
+   "distanceKm": 5.6,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 567,
+   "breakdown": [
+    191,
+    113,
+    34,
+    11,
+    218
+   ],
+   "reviewList": [
+    {
+     "author": "C. Rivera",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-01-21",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-05-02",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-01-25",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    }
+   ]
+  },
+  {
+   "id": "v009",
+   "base": "tranquility",
+   "name": "Apollo Mission Simulator",
+   "type": "Simulator",
+   "group": "attractions",
+   "description": "Full-motion simulator reproducing the handling and landing profile of a lunar vehicle.",
+   "hours": "Sessions 10:00–20:00",
+   "durationMin": 60,
+   "priceUsd": 170,
+   "distanceKm": 7.8,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.4,
+   "reviews": 653,
+   "breakdown": [
+    282,
+    131,
+    39,
+    13,
+    188
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-10-13",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-09-23",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Business",
+     "stars": 3,
+     "date": "2026-03-15",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v010",
+   "base": "tranquility",
+   "name": "Tranquility Planetarium",
+   "type": "Planetarium",
+   "group": "attractions",
+   "description": "Dome show of the night sky as seen from the lunar surface, narrated by a mission astronomer.",
+   "hours": "Shows hourly 10:00–20:00",
+   "durationMin": 60,
+   "priceUsd": 40,
+   "distanceKm": 1.1,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.9,
+   "reviews": 1424,
+   "breakdown": [
+    957,
+    285,
+    85,
+    28,
+    69
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-01-20",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-04-15",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-06-01",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    }
+   ]
+  },
+  {
+   "id": "v011",
+   "base": "storms",
+   "name": "Ocean of Storms Panorama Tour",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 210,
+   "priceUsd": 455,
+   "distanceKm": 9.1,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 1332,
+   "breakdown": [
+    448,
+    266,
+    80,
+    27,
+    511
+   ],
+   "reviewList": [
+    {
+     "author": "A. Lindqvist",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-02-04",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-07-24",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-08-12",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v012",
+   "base": "storms",
+   "name": "Surveyor Heritage Museum",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 120,
+   "priceUsd": 90,
+   "distanceKm": 2.1,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 1152,
+   "breakdown": [
+    553,
+    230,
+    69,
+    23,
+    277
+   ],
+   "reviewList": [
+    {
+     "author": "A. Lindqvist",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-01-28",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-05-21",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-03-25",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    }
+   ]
+  },
+  {
+   "id": "v013",
+   "base": "storms",
+   "name": "Stormlight Restaurant",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Seasonal menu prepared with hydroponic produce and a reserved table for two near the viewing wall.",
+   "hours": "12:00–22:00",
+   "durationMin": 90,
+   "priceUsd": 395,
+   "distanceKm": 7.3,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 925,
+   "breakdown": [
+    444,
+    185,
+    56,
+    18,
+    222
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-02-02",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-02-15",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-08-12",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    }
+   ]
+  },
+  {
+   "id": "v014",
+   "base": "storms",
+   "name": "Lunar Rover Adventure",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 165,
+   "priceUsd": 930,
+   "distanceKm": 8.2,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 1292,
+   "breakdown": [
+    620,
+    258,
+    78,
+    26,
+    310
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-09-08",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-08-10",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-06-13",
+     "text": "The view made the trip. Would recommend booking the later session."
+    }
+   ]
+  },
+  {
+   "id": "v015",
+   "base": "storms",
+   "name": "Moonlight Music Theater",
+   "type": "Concert",
+   "group": "events",
+   "description": "Live music and immersive audio performances in a pressurized concert hall.",
+   "hours": "Shows 20:00 and 21:30",
+   "durationMin": 105,
+   "priceUsd": 180,
+   "distanceKm": 7.9,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 752,
+   "breakdown": [
+    253,
+    150,
+    45,
+    15,
+    289
+   ],
+   "reviewList": [
+    {
+     "author": "J. Tanaka",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-10-03",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-02-07",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-01-06",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v016",
+   "base": "storms",
+   "name": "Zero-G Sports Arena",
+   "type": "Sports",
+   "group": "events",
+   "description": "Live sporting events and e-sports nights with reduced-gravity showcase matches.",
+   "hours": "Events 18:00–22:00",
+   "durationMin": 165,
+   "priceUsd": 120,
+   "distanceKm": 6.9,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.4,
+   "reviews": 919,
+   "breakdown": [
+    397,
+    184,
+    55,
+    18,
+    265
+   ],
+   "reviewList": [
+    {
+     "author": "A. Lindqvist",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-08-05",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-01-23",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-03-02",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v017",
+   "base": "storms",
+   "name": "Lunar Landscape Photography",
+   "type": "Photography",
+   "group": "attractions",
+   "description": "Guided photo session on the surface with professional equipment and editing included.",
+   "hours": "By appointment 09:00–16:00",
+   "durationMin": 150,
+   "priceUsd": 590,
+   "distanceKm": 9.2,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 503,
+   "breakdown": [
+    266,
+    101,
+    30,
+    10,
+    96
+   ],
+   "reviewList": [
+    {
+     "author": "K. Novak",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-06-23",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-07-06",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-07-25",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v018",
+   "base": "storms",
+   "name": "Space Exploration Cinema",
+   "type": "Cinema",
+   "group": "events",
+   "description": "Screenings of space exploration films with a full-dome projection system.",
+   "hours": "Screenings 14:00–22:00",
+   "durationMin": 150,
+   "priceUsd": 50,
+   "distanceKm": 6.9,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 867,
+   "breakdown": [
+    541,
+    173,
+    52,
+    17,
+    84
+   ],
+   "reviewList": [
+    {
+     "author": "L. Ferreira",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-02-01",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-05-27",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-04-16",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v019",
+   "base": "storms",
+   "name": "Geological Discovery Center",
+   "type": "Center",
+   "group": "attractions",
+   "description": "Science and exploration center with hands-on exhibits and staff-led demonstrations.",
+   "hours": "09:00–17:00",
+   "durationMin": 90,
+   "priceUsd": 55,
+   "distanceKm": 5.1,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.9,
+   "reviews": 1033,
+   "breakdown": [
+    694,
+    207,
+    62,
+    21,
+    49
+   ],
+   "reviewList": [
+    {
+     "author": "J. Tanaka",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-07-07",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-01-05",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-09-15",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v020",
+   "base": "storms",
+   "name": "Storms Observation Deck",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 75,
+   "priceUsd": 115,
+   "distanceKm": 3.4,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.3,
+   "reviews": 250,
+   "breakdown": [
+    96,
+    50,
+    15,
+    5,
+    84
+   ],
+   "reviewList": [
+    {
+     "author": "S. Ibrahim",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-05-01",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-01-03",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-06-08",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    }
+   ]
+  },
+  {
+   "id": "v021",
+   "base": "fra-mauro",
+   "name": "Lunar Golf Experience",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 225,
+   "priceUsd": 625,
+   "distanceKm": 4.9,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 1279,
+   "breakdown": [
+    430,
+    256,
+    77,
+    26,
+    490
+   ],
+   "reviewList": [
+    {
+     "author": "C. Rivera",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-05-18",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-05-10",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-08-08",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    }
+   ]
+  },
+  {
+   "id": "v022",
+   "base": "fra-mauro",
+   "name": "Fra Mauro Geological Safari",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 210,
+   "priceUsd": 740,
+   "distanceKm": 5.2,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 1247,
+   "breakdown": [
+    658,
+    249,
+    75,
+    25,
+    240
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-08-01",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "N. Sørensen",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-03-21",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-07-04",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v023",
+   "base": "fra-mauro",
+   "name": "Highlands View Restaurant",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Chef-led tasting menu served in a pressurized dining hall with a lunar-surface outlook.",
+   "hours": "12:00–22:00",
+   "durationMin": 120,
+   "priceUsd": 315,
+   "distanceKm": 3.2,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.4,
+   "reviews": 907,
+   "breakdown": [
+    392,
+    181,
+    54,
+    18,
+    262
+   ],
+   "reviewList": [
+    {
+     "author": "M. Okafor",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-05-03",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-06-21",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-07-15",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    }
+   ]
+  },
+  {
+   "id": "v024",
+   "base": "fra-mauro",
+   "name": "Apollo 14 History Museum",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 105,
+   "priceUsd": 70,
+   "distanceKm": 9.2,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 300,
+   "breakdown": [
+    101,
+    60,
+    18,
+    6,
+    115
+   ],
+   "reviewList": [
+    {
+     "author": "K. Novak",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-08-11",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-10-02",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-07-21",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    }
+   ]
+  },
+  {
+   "id": "v025",
+   "base": "fra-mauro",
+   "name": "Lunar Rock Exhibition",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 105,
+   "priceUsd": 55,
+   "distanceKm": 8.2,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.3,
+   "reviews": 1015,
+   "breakdown": [
+    390,
+    203,
+    61,
+    20,
+    341
+   ],
+   "reviewList": [
+    {
+     "author": "M. Okafor",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-06-10",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-03-07",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-07-09",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v026",
+   "base": "fra-mauro",
+   "name": "Highlands Theater",
+   "type": "Theater",
+   "group": "events",
+   "description": "Live productions and immersive performances with a lunar-themed stage design.",
+   "hours": "Shows 19:00 and 21:30",
+   "durationMin": 120,
+   "priceUsd": 210,
+   "distanceKm": 6.2,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 1215,
+   "breakdown": [
+    758,
+    243,
+    73,
+    24,
+    117
+   ],
+   "reviewList": [
+    {
+     "author": "R. Moreau",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-03-16",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-02-01",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-08-16",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    }
+   ]
+  },
+  {
+   "id": "v027",
+   "base": "fra-mauro",
+   "name": "Low-Gravity Golf Tournament",
+   "type": "Tournament",
+   "group": "events",
+   "description": "Competitive low-gravity sport in a pressurized arena with live scoring and commentary.",
+   "hours": "Matches 10:00–16:00",
+   "durationMin": 195,
+   "priceUsd": 495,
+   "distanceKm": 6.1,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 555,
+   "breakdown": [
+    186,
+    111,
+    33,
+    11,
+    214
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-06-28",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-07-18",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-10-08",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    }
+   ]
+  },
+  {
+   "id": "v028",
+   "base": "fra-mauro",
+   "name": "Moon Hiking Simulator",
+   "type": "Simulator",
+   "group": "attractions",
+   "description": "Full-motion simulator reproducing the handling and landing profile of a lunar vehicle.",
+   "hours": "Sessions 10:00–20:00",
+   "durationMin": 30,
+   "priceUsd": 210,
+   "distanceKm": 8.5,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 1539,
+   "breakdown": [
+    813,
+    308,
+    92,
+    31,
+    295
+   ],
+   "reviewList": [
+    {
+     "author": "N. Sørensen",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-04-11",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "N. Sørensen",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-06-15",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-03-11",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    }
+   ]
+  },
+  {
+   "id": "v029",
+   "base": "fra-mauro",
+   "name": "Space Photography Workshop",
+   "type": "Photography",
+   "group": "attractions",
+   "description": "Guided photo session on the surface with professional equipment and editing included.",
+   "hours": "By appointment 09:00–16:00",
+   "durationMin": 165,
+   "priceUsd": 315,
+   "distanceKm": 2.2,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 1767,
+   "breakdown": [
+    1018,
+    353,
+    106,
+    35,
+    255
+   ],
+   "reviewList": [
+    {
+     "author": "N. Sørensen",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-09-07",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-04-09",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-05-17",
+     "text": "The view made the trip. Would recommend booking the later session."
+    }
+   ]
+  },
+  {
+   "id": "v030",
+   "base": "fra-mauro",
+   "name": "Fra Mauro Stargazing Lounge",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 75,
+   "priceUsd": 160,
+   "distanceKm": 6.2,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.8,
+   "reviews": 83,
+   "breakdown": [
+    52,
+    17,
+    5,
+    2,
+    7
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-10-27",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-08-19",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-03-01",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    }
+   ]
+  },
+  {
+   "id": "v031",
+   "base": "hadley",
+   "name": "Hadley Rille Canyon Tour",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 270,
+   "priceUsd": 930,
+   "distanceKm": 1.8,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 762,
+   "breakdown": [
+    256,
+    152,
+    46,
+    15,
+    293
+   ],
+   "reviewList": [
+    {
+     "author": "J. Tanaka",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-08-18",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-10-16",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-02-23",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    }
+   ]
+  },
+  {
+   "id": "v032",
+   "base": "hadley",
+   "name": "Apennine Mountain Observatory",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 60,
+   "priceUsd": 170,
+   "distanceKm": 5.6,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.4,
+   "reviews": 359,
+   "breakdown": [
+    155,
+    72,
+    22,
+    7,
+    103
+   ],
+   "reviewList": [
+    {
+     "author": "R. Moreau",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-09-06",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-03-13",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-06-02",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    }
+   ]
+  },
+  {
+   "id": "v033",
+   "base": "hadley",
+   "name": "Lunar Rover Racing Simulator",
+   "type": "Simulator",
+   "group": "attractions",
+   "description": "Full-motion simulator reproducing the handling and landing profile of a lunar vehicle.",
+   "hours": "Sessions 10:00–20:00",
+   "durationMin": 60,
+   "priceUsd": 240,
+   "distanceKm": 6.0,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 644,
+   "breakdown": [
+    309,
+    129,
+    39,
+    13,
+    154
+   ],
+   "reviewList": [
+    {
+     "author": "M. Okafor",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-01-11",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-03-09",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-05-26",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    }
+   ]
+  },
+  {
+   "id": "v034",
+   "base": "hadley",
+   "name": "Canyon View Restaurant",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Chef-led tasting menu served in a pressurized dining hall with a lunar-surface outlook.",
+   "hours": "12:00–22:00",
+   "durationMin": 135,
+   "priceUsd": 390,
+   "distanceKm": 5.1,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 732,
+   "breakdown": [
+    246,
+    146,
+    44,
+    15,
+    281
+   ],
+   "reviewList": [
+    {
+     "author": "D. Okonkwo",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-03-22",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-07-13",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-06-19",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v035",
+   "base": "hadley",
+   "name": "Moon Climbing Center",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 195,
+   "priceUsd": 340,
+   "distanceKm": 1.9,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 1698,
+   "breakdown": [
+    978,
+    340,
+    102,
+    34,
+    244
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Business",
+     "stars": 3,
+     "date": "2026-10-06",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-01-17",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-04-26",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    }
+   ]
+  },
+  {
+   "id": "v036",
+   "base": "hadley",
+   "name": "Apollo 15 Museum",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 105,
+   "priceUsd": 70,
+   "distanceKm": 3.8,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.4,
+   "reviews": 1189,
+   "breakdown": [
+    514,
+    238,
+    71,
+    24,
+    342
+   ],
+   "reviewList": [
+    {
+     "author": "J. Tanaka",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-01-10",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-06-10",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-01-19",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v037",
+   "base": "hadley",
+   "name": "Mountain Photography Expedition",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 255,
+   "priceUsd": 700,
+   "distanceKm": 0.3,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.3,
+   "reviews": 1292,
+   "breakdown": [
+    496,
+    258,
+    78,
+    26,
+    434
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-09-08",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-04-19",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-02-24",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    }
+   ]
+  },
+  {
+   "id": "v038",
+   "base": "hadley",
+   "name": "Lunar Geology Theater",
+   "type": "Theater",
+   "group": "events",
+   "description": "Live productions and immersive performances with a lunar-themed stage design.",
+   "hours": "Shows 19:00 and 21:30",
+   "durationMin": 120,
+   "priceUsd": 130,
+   "distanceKm": 4.8,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 381,
+   "breakdown": [
+    238,
+    76,
+    23,
+    8,
+    36
+   ],
+   "reviewList": [
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-04-09",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Business",
+     "stars": 3,
+     "date": "2026-10-05",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Business",
+     "stars": 3,
+     "date": "2026-05-21",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v039",
+   "base": "hadley",
+   "name": "Low-Gravity Adventure Park",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 120,
+   "priceUsd": 370,
+   "distanceKm": 8.8,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 1653,
+   "breakdown": [
+    1031,
+    331,
+    99,
+    33,
+    159
+   ],
+   "reviewList": [
+    {
+     "author": "L. Ferreira",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-04-15",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-03-09",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-02-05",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    }
+   ]
+  },
+  {
+   "id": "v040",
+   "base": "hadley",
+   "name": "Hadley Scenic Railway",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 240,
+   "priceUsd": 945,
+   "distanceKm": 1.3,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 758,
+   "breakdown": [
+    255,
+    152,
+    45,
+    15,
+    291
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-10-17",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-01-16",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-07-19",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    }
+   ]
+  },
+  {
+   "id": "v041",
+   "base": "descartes",
+   "name": "Descartes Highlands Explorer",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 180,
+   "priceUsd": 565,
+   "distanceKm": 0.5,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 1555,
+   "breakdown": [
+    746,
+    311,
+    93,
+    31,
+    374
+   ],
+   "reviewList": [
+    {
+     "author": "L. Ferreira",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-07-25",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "N. Sørensen",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-09-21",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-02-18",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v042",
+   "base": "descartes",
+   "name": "Lunar Science Museum",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 105,
+   "priceUsd": 45,
+   "distanceKm": 5.7,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 1227,
+   "breakdown": [
+    707,
+    245,
+    74,
+    25,
+    176
+   ],
+   "reviewList": [
+    {
+     "author": "L. Ferreira",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-02-05",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-08-10",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-09-23",
+     "text": "The view made the trip. Would recommend booking the later session."
+    }
+   ]
+  },
+  {
+   "id": "v043",
+   "base": "descartes",
+   "name": "Moonwalk Experience",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 195,
+   "priceUsd": 550,
+   "distanceKm": 1.6,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 828,
+   "breakdown": [
+    477,
+    166,
+    50,
+    17,
+    118
+   ],
+   "reviewList": [
+    {
+     "author": "A. Lindqvist",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-04-17",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-05-05",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-04-13",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    }
+   ]
+  },
+  {
+   "id": "v044",
+   "base": "descartes",
+   "name": "Highlands Restaurant",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Chef-led tasting menu served in a pressurized dining hall with a lunar-surface outlook.",
+   "hours": "12:00–22:00",
+   "durationMin": 135,
+   "priceUsd": 300,
+   "distanceKm": 0.4,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 1578,
+   "breakdown": [
+    909,
+    316,
+    95,
+    32,
+    226
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-03-13",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-05-04",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-04-24",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    }
+   ]
+  },
+  {
+   "id": "v045",
+   "base": "descartes",
+   "name": "Cosmic Cinema",
+   "type": "Cinema",
+   "group": "events",
+   "description": "Screenings of space exploration films with a full-dome projection system.",
+   "hours": "Screenings 14:00–22:00",
+   "durationMin": 135,
+   "priceUsd": 65,
+   "distanceKm": 4.3,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.4,
+   "reviews": 335,
+   "breakdown": [
+    145,
+    67,
+    20,
+    7,
+    96
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-01-17",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Business",
+     "stars": 3,
+     "date": "2026-02-27",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-03-10",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    }
+   ]
+  },
+  {
+   "id": "v046",
+   "base": "descartes",
+   "name": "Lunar Treasure Hunt",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 90,
+   "priceUsd": 530,
+   "distanceKm": 3.1,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 1361,
+   "breakdown": [
+    849,
+    272,
+    82,
+    27,
+    131
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-05-11",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "N. Sørensen",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-02-28",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-04-18",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    }
+   ]
+  },
+  {
+   "id": "v047",
+   "base": "descartes",
+   "name": "Gravity Games Arena",
+   "type": "Sports",
+   "group": "events",
+   "description": "Live sporting events and e-sports nights with reduced-gravity showcase matches.",
+   "hours": "Events 18:00–22:00",
+   "durationMin": 195,
+   "priceUsd": 275,
+   "distanceKm": 5.8,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.9,
+   "reviews": 1664,
+   "breakdown": [
+    1118,
+    333,
+    100,
+    33,
+    80
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-03-01",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-10-07",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-05-26",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    }
+   ]
+  },
+  {
+   "id": "v048",
+   "base": "descartes",
+   "name": "Space Archaeology Tour",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 270,
+   "priceUsd": 685,
+   "distanceKm": 1.5,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 593,
+   "breakdown": [
+    313,
+    119,
+    36,
+    12,
+    113
+   ],
+   "reviewList": [
+    {
+     "author": "N. Sørensen",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-04-22",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-06-02",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-02-16",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v049",
+   "base": "descartes",
+   "name": "Apollo 16 Experience Center",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 165,
+   "priceUsd": 595,
+   "distanceKm": 4.5,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.3,
+   "reviews": 268,
+   "breakdown": [
+    103,
+    54,
+    16,
+    5,
+    90
+   ],
+   "reviewList": [
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-10-11",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-10-01",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-10-06",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v050",
+   "base": "descartes",
+   "name": "Lunar Art Gallery",
+   "type": "Gallery",
+   "group": "attractions",
+   "description": "Exhibition of lunar landscape art and mission photography in a climate-controlled gallery.",
+   "hours": "10:00–18:00",
+   "durationMin": 60,
+   "priceUsd": 40,
+   "distanceKm": 1.3,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.3,
+   "reviews": 1351,
+   "breakdown": [
+    519,
+    270,
+    81,
+    27,
+    454
+   ],
+   "reviewList": [
+    {
+     "author": "N. Sørensen",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-07-06",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-03-19",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-01-19",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    }
+   ]
+  },
+  {
+   "id": "v051",
+   "base": "taurus",
+   "name": "Taurus Valley Scenic Tour",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 225,
+   "priceUsd": 965,
+   "distanceKm": 6.5,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 605,
+   "breakdown": [
+    319,
+    121,
+    36,
+    12,
+    117
+   ],
+   "reviewList": [
+    {
+     "author": "D. Okonkwo",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-08-09",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-04-15",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-01-01",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    }
+   ]
+  },
+  {
+   "id": "v052",
+   "base": "taurus",
+   "name": "Apollo 17 Heritage Museum",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 75,
+   "priceUsd": 60,
+   "distanceKm": 4.5,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 1131,
+   "breakdown": [
+    380,
+    226,
+    68,
+    23,
+    434
+   ],
+   "reviewList": [
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-08-16",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-10-11",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-05-28",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    }
+   ]
+  },
+  {
+   "id": "v053",
+   "base": "taurus",
+   "name": "Lunar Valley Restaurant",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Seasonal menu prepared with hydroponic produce and a reserved table for two near the viewing wall.",
+   "hours": "12:00–22:00",
+   "durationMin": 135,
+   "priceUsd": 345,
+   "distanceKm": 7.8,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 1553,
+   "breakdown": [
+    969,
+    311,
+    93,
+    31,
+    149
+   ],
+   "reviewList": [
+    {
+     "author": "E. Haddad",
+     "travel": "Business",
+     "stars": 3,
+     "date": "2026-09-21",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-09-06",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-08-23",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    }
+   ]
+  },
+  {
+   "id": "v054",
+   "base": "taurus",
+   "name": "Moon Rover Expedition",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 135,
+   "priceUsd": 470,
+   "distanceKm": 4.4,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 712,
+   "breakdown": [
+    239,
+    142,
+    43,
+    14,
+    274
+   ],
+   "reviewList": [
+    {
+     "author": "S. Ibrahim",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-09-02",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-05-16",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-01-06",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    }
+   ]
+  },
+  {
+   "id": "v055",
+   "base": "taurus",
+   "name": "Orange Soil Geological Exhibit",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 105,
+   "priceUsd": 65,
+   "distanceKm": 1.1,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 1487,
+   "breakdown": [
+    928,
+    297,
+    89,
+    30,
+    143
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-04-05",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-06-20",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "N. Sørensen",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-09-22",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    }
+   ]
+  },
+  {
+   "id": "v056",
+   "base": "taurus",
+   "name": "Lunar Mountain Theater",
+   "type": "Theater",
+   "group": "events",
+   "description": "Live productions and immersive performances with a lunar-themed stage design.",
+   "hours": "Shows 19:00 and 21:30",
+   "durationMin": 120,
+   "priceUsd": 145,
+   "distanceKm": 2.3,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 1493,
+   "breakdown": [
+    717,
+    299,
+    90,
+    30,
+    357
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-05-14",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-01-03",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-05-08",
+     "text": "The view made the trip. Would recommend booking the later session."
+    }
+   ]
+  },
+  {
+   "id": "v057",
+   "base": "taurus",
+   "name": "Space Photography Experience",
+   "type": "Photography",
+   "group": "attractions",
+   "description": "Guided photo session on the surface with professional equipment and editing included.",
+   "hours": "By appointment 09:00–16:00",
+   "durationMin": 165,
+   "priceUsd": 330,
+   "distanceKm": 8.5,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 1554,
+   "breakdown": [
+    821,
+    311,
+    93,
+    31,
+    298
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-05-19",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-09-20",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-09-07",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v058",
+   "base": "taurus",
+   "name": "Valley Observation Platform",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 75,
+   "priceUsd": 170,
+   "distanceKm": 9.2,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.8,
+   "reviews": 325,
+   "breakdown": [
+    203,
+    65,
+    20,
+    6,
+    31
+   ],
+   "reviewList": [
+    {
+     "author": "C. Rivera",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-04-13",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-02-27",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-03-16",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v059",
+   "base": "taurus",
+   "name": "Lunar Exploration Simulator",
+   "type": "Simulator",
+   "group": "attractions",
+   "description": "Full-motion simulator reproducing the handling and landing profile of a lunar vehicle.",
+   "hours": "Sessions 10:00–20:00",
+   "durationMin": 45,
+   "priceUsd": 165,
+   "distanceKm": 0.8,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 1333,
+   "breakdown": [
+    640,
+    267,
+    80,
+    27,
+    319
+   ],
+   "reviewList": [
+    {
+     "author": "K. Novak",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-10-16",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-07-06",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-03-03",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    }
+   ]
+  },
+  {
+   "id": "v060",
+   "base": "taurus",
+   "name": "Apollo Legacy Planetarium",
+   "type": "Planetarium",
+   "group": "attractions",
+   "description": "Dome show of the night sky as seen from the lunar surface, narrated by a mission astronomer.",
+   "hours": "Shows hourly 10:00–20:00",
+   "durationMin": 45,
+   "priceUsd": 50,
+   "distanceKm": 0.6,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 740,
+   "breakdown": [
+    249,
+    148,
+    44,
+    15,
+    284
+   ],
+   "reviewList": [
+    {
+     "author": "S. Ibrahim",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-04-04",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-02-11",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-05-07",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v061",
+   "base": "south-pole",
+   "name": "Earth Park — Lunar Amusement Park",
+   "type": "Amusement Park",
+   "group": "attractions",
+   "description": "Low-gravity rides, games and attractions with Earth in view from the upper terraces.",
+   "hours": "10:00–21:00",
+   "durationMin": 285,
+   "priceUsd": 230,
+   "distanceKm": 8.7,
+   "outdoor": true,
+   "earthView": true,
+   "rating": 4.4,
+   "reviews": 1032,
+   "breakdown": [
+    446,
+    206,
+    62,
+    21,
+    297
+   ],
+   "reviewList": [
+    {
+     "author": "R. Moreau",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-03-23",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-03-04",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-04-01",
+     "text": "The view made the trip. Would recommend booking the later session."
+    }
+   ]
+  },
+  {
+   "id": "v062",
+   "base": "south-pole",
+   "name": "CampMoon Stadium",
+   "type": "Sports",
+   "group": "events",
+   "description": "Live sporting events and e-sports nights with reduced-gravity showcase matches.",
+   "hours": "Events 18:00–22:00",
+   "durationMin": 135,
+   "priceUsd": 280,
+   "distanceKm": 1.4,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 115,
+   "breakdown": [
+    61,
+    23,
+    7,
+    2,
+    22
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-08-24",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-03-09",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-08-12",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v063",
+   "base": "south-pole",
+   "name": "South Pole Restaurant",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Chef-led tasting menu served in a pressurized dining hall with a lunar-surface outlook.",
+   "hours": "12:00–22:00",
+   "durationMin": 120,
+   "priceUsd": 330,
+   "distanceKm": 4.5,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 469,
+   "breakdown": [
+    158,
+    94,
+    28,
+    9,
+    180
+   ],
+   "reviewList": [
+    {
+     "author": "M. Okafor",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-09-27",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-10-17",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-03-16",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    }
+   ]
+  },
+  {
+   "id": "v064",
+   "base": "south-pole",
+   "name": "Artemis Discovery Museum",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 105,
+   "priceUsd": 55,
+   "distanceKm": 4.6,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 1023,
+   "breakdown": [
+    344,
+    205,
+    61,
+    20,
+    393
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-04-15",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-05-11",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-05-08",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v065",
+   "base": "south-pole",
+   "name": "Lunar Ice Experience",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 60,
+   "priceUsd": 450,
+   "distanceKm": 5.0,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.3,
+   "reviews": 374,
+   "breakdown": [
+    144,
+    75,
+    22,
+    7,
+    126
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-03-08",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-09-12",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-06-18",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v066",
+   "base": "south-pole",
+   "name": "Moonlight Theater",
+   "type": "Theater",
+   "group": "events",
+   "description": "Live productions and immersive performances with a lunar-themed stage design.",
+   "hours": "Shows 19:00 and 21:30",
+   "durationMin": 105,
+   "priceUsd": 250,
+   "distanceKm": 7.7,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 59,
+   "breakdown": [
+    28,
+    12,
+    4,
+    1,
+    14
+   ],
+   "reviewList": [
+    {
+     "author": "J. Tanaka",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-06-24",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-04-01",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-04-13",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    }
+   ]
+  },
+  {
+   "id": "v067",
+   "base": "south-pole",
+   "name": "Polar Observation Deck",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 75,
+   "priceUsd": 155,
+   "distanceKm": 2.3,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.7,
+   "reviews": 208,
+   "breakdown": [
+    120,
+    42,
+    12,
+    4,
+    30
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-02-14",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-08-11",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-10-21",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    }
+   ]
+  },
+  {
+   "id": "v068",
+   "base": "south-pole",
+   "name": "Lunar Rover Safari",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 285,
+   "priceUsd": 830,
+   "distanceKm": 6.9,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.3,
+   "reviews": 1405,
+   "breakdown": [
+    540,
+    281,
+    84,
+    28,
+    472
+   ],
+   "reviewList": [
+    {
+     "author": "E. Haddad",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-08-08",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-02-05",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-02-03",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    }
+   ]
+  },
+  {
+   "id": "v069",
+   "base": "south-pole",
+   "name": "Zero-G Sports Center",
+   "type": "Sports",
+   "group": "events",
+   "description": "Live sporting events and e-sports nights with reduced-gravity showcase matches.",
+   "hours": "Events 18:00–22:00",
+   "durationMin": 150,
+   "priceUsd": 135,
+   "distanceKm": 5.5,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.4,
+   "reviews": 579,
+   "breakdown": [
+    250,
+    116,
+    35,
+    12,
+    166
+   ],
+   "reviewList": [
+    {
+     "author": "J. Tanaka",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-10-09",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-01-18",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "N. Sørensen",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-10-23",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v070",
+   "base": "south-pole",
+   "name": "South Pole Planetarium",
+   "type": "Planetarium",
+   "group": "attractions",
+   "description": "Dome show of the night sky as seen from the lunar surface, narrated by a mission astronomer.",
+   "hours": "Shows hourly 10:00–20:00",
+   "durationMin": 60,
+   "priceUsd": 60,
+   "distanceKm": 1.0,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 229,
+   "breakdown": [
+    110,
+    46,
+    14,
+    5,
+    54
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-09-06",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-07-22",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Business",
+     "stars": 3,
+     "date": "2026-06-07",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v071",
+   "base": "mons-mouton",
+   "name": "Mountain Summit Observatory",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 75,
+   "priceUsd": 80,
+   "distanceKm": 1.6,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.3,
+   "reviews": 315,
+   "breakdown": [
+    121,
+    63,
+    19,
+    6,
+    106
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-07-27",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-08-18",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-05-08",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    }
+   ]
+  },
+  {
+   "id": "v072",
+   "base": "mons-mouton",
+   "name": "Mouton Sky Restaurant",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Seasonal menu prepared with hydroponic produce and a reserved table for two near the viewing wall.",
+   "hours": "12:00–22:00",
+   "durationMin": 150,
+   "priceUsd": 255,
+   "distanceKm": 7.3,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 773,
+   "breakdown": [
+    445,
+    155,
+    46,
+    15,
+    112
+   ],
+   "reviewList": [
+    {
+     "author": "M. Okafor",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-06-25",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-01-20",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-01-13",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    }
+   ]
+  },
+  {
+   "id": "v073",
+   "base": "mons-mouton",
+   "name": "Lunar Mountain Adventure",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 225,
+   "priceUsd": 415,
+   "distanceKm": 4.9,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.3,
+   "reviews": 247,
+   "breakdown": [
+    95,
+    49,
+    15,
+    5,
+    83
+   ],
+   "reviewList": [
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-09-06",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-04-28",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-04-05",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    }
+   ]
+  },
+  {
+   "id": "v074",
+   "base": "mons-mouton",
+   "name": "Gravity Jump Park",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 135,
+   "priceUsd": 365,
+   "distanceKm": 1.4,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 521,
+   "breakdown": [
+    175,
+    104,
+    31,
+    10,
+    201
+   ],
+   "reviewList": [
+    {
+     "author": "L. Ferreira",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-08-21",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-04-20",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-01-05",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v075",
+   "base": "mons-mouton",
+   "name": "Cosmic Music Hall",
+   "type": "Concert",
+   "group": "events",
+   "description": "Live music and immersive audio performances in a pressurized concert hall.",
+   "hours": "Shows 20:00 and 21:30",
+   "durationMin": 120,
+   "priceUsd": 355,
+   "distanceKm": 4.1,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 1610,
+   "breakdown": [
+    1005,
+    322,
+    97,
+    32,
+    154
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-08-25",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-09-18",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-04-15",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    }
+   ]
+  },
+  {
+   "id": "v076",
+   "base": "mons-mouton",
+   "name": "Lunar Climbing Simulator",
+   "type": "Simulator",
+   "group": "attractions",
+   "description": "Full-motion simulator reproducing the handling and landing profile of a lunar vehicle.",
+   "hours": "Sessions 10:00–20:00",
+   "durationMin": 45,
+   "priceUsd": 135,
+   "distanceKm": 5.1,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 681,
+   "breakdown": [
+    392,
+    136,
+    41,
+    14,
+    98
+   ],
+   "reviewList": [
+    {
+     "author": "R. Moreau",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-05-03",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-03-23",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-10-10",
+     "text": "The view made the trip. Would recommend booking the later session."
+    }
+   ]
+  },
+  {
+   "id": "v077",
+   "base": "mons-mouton",
+   "name": "Mountain Panorama Tour",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 150,
+   "priceUsd": 410,
+   "distanceKm": 1.9,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 992,
+   "breakdown": [
+    476,
+    198,
+    60,
+    20,
+    238
+   ],
+   "reviewList": [
+    {
+     "author": "S. Ibrahim",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-06-13",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-05-28",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "N. Sørensen",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-01-13",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v078",
+   "base": "mons-mouton",
+   "name": "Moon Science Center",
+   "type": "Center",
+   "group": "attractions",
+   "description": "Science and exploration center with hands-on exhibits and staff-led demonstrations.",
+   "hours": "09:00–17:00",
+   "durationMin": 90,
+   "priceUsd": 55,
+   "distanceKm": 6.4,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 1077,
+   "breakdown": [
+    517,
+    215,
+    65,
+    22,
+    258
+   ],
+   "reviewList": [
+    {
+     "author": "J. Tanaka",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-03-17",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-07-22",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-01-28",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    }
+   ]
+  },
+  {
+   "id": "v079",
+   "base": "mons-mouton",
+   "name": "Stargazing Experience",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 90,
+   "priceUsd": 90,
+   "distanceKm": 1.3,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.6,
+   "reviews": 1061,
+   "breakdown": [
+    560,
+    212,
+    64,
+    21,
+    204
+   ],
+   "reviewList": [
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-02-17",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-07-09",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-04-09",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v080",
+   "base": "mons-mouton",
+   "name": "Lunar Photography Expedition",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 135,
+   "priceUsd": 565,
+   "distanceKm": 6.7,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 1510,
+   "breakdown": [
+    870,
+    302,
+    91,
+    30,
+    217
+   ],
+   "reviewList": [
+    {
+     "author": "J. Tanaka",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-04-19",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Business",
+     "stars": 3,
+     "date": "2026-04-10",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-03-21",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    }
+   ]
+  },
+  {
+   "id": "v081",
+   "base": "malapert",
+   "name": "Malapert Earthview Observatory",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 75,
+   "priceUsd": 175,
+   "distanceKm": 6.3,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.3,
+   "reviews": 1628,
+   "breakdown": [
+    625,
+    326,
+    98,
+    33,
+    546
+   ],
+   "reviewList": [
+    {
+     "author": "M. Okafor",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-02-05",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-05-02",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-01-12",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    }
+   ]
+  },
+  {
+   "id": "v082",
+   "base": "malapert",
+   "name": "Horizon Restaurant",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Chef-led tasting menu served in a pressurized dining hall with a lunar-surface outlook.",
+   "hours": "12:00–22:00",
+   "durationMin": 135,
+   "priceUsd": 335,
+   "distanceKm": 3.3,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 428,
+   "breakdown": [
+    205,
+    86,
+    26,
+    9,
+    102
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-03-09",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-06-25",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-08-13",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    }
+   ]
+  },
+  {
+   "id": "v083",
+   "base": "malapert",
+   "name": "Lunar Mountain Theater",
+   "type": "Theater",
+   "group": "events",
+   "description": "Live productions and immersive performances with a lunar-themed stage design.",
+   "hours": "Shows 19:00 and 21:30",
+   "durationMin": 120,
+   "priceUsd": 170,
+   "distanceKm": 1.1,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.4,
+   "reviews": 1608,
+   "breakdown": [
+    695,
+    322,
+    96,
+    32,
+    463
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-05-25",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-09-22",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-06-22",
+     "text": "The view made the trip. Would recommend booking the later session."
+    }
+   ]
+  },
+  {
+   "id": "v084",
+   "base": "malapert",
+   "name": "Earth Photography Experience",
+   "type": "Photography",
+   "group": "attractions",
+   "description": "Guided photo session on the surface with professional equipment and editing included.",
+   "hours": "By appointment 09:00–16:00",
+   "durationMin": 150,
+   "priceUsd": 395,
+   "distanceKm": 2.5,
+   "outdoor": true,
+   "earthView": true,
+   "rating": 4.4,
+   "reviews": 817,
+   "breakdown": [
+    353,
+    163,
+    49,
+    16,
+    236
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-06-16",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-10-11",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-08-20",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    }
+   ]
+  },
+  {
+   "id": "v085",
+   "base": "malapert",
+   "name": "Low-Gravity Adventure Park",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 210,
+   "priceUsd": 570,
+   "distanceKm": 4.2,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.4,
+   "reviews": 294,
+   "breakdown": [
+    127,
+    59,
+    18,
+    6,
+    84
+   ],
+   "reviewList": [
+    {
+     "author": "E. Haddad",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-03-28",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-08-26",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-06-23",
+     "text": "The view made the trip. Would recommend booking the later session."
+    }
+   ]
+  },
+  {
+   "id": "v086",
+   "base": "malapert",
+   "name": "Malapert Science Museum",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 90,
+   "priceUsd": 60,
+   "distanceKm": 6.1,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 67,
+   "breakdown": [
+    39,
+    13,
+    4,
+    1,
+    10
+   ],
+   "reviewList": [
+    {
+     "author": "L. Ferreira",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-03-26",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-02-12",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-10-27",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    }
+   ]
+  },
+  {
+   "id": "v087",
+   "base": "malapert",
+   "name": "Cosmic Concert Hall",
+   "type": "Concert",
+   "group": "events",
+   "description": "Live music and immersive audio performances in a pressurized concert hall.",
+   "hours": "Shows 20:00 and 21:30",
+   "durationMin": 105,
+   "priceUsd": 225,
+   "distanceKm": 4.5,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 66,
+   "breakdown": [
+    41,
+    13,
+    4,
+    1,
+    7
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-04-22",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-01-25",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-02-13",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    }
+   ]
+  },
+  {
+   "id": "v088",
+   "base": "malapert",
+   "name": "Lunar Hiking Simulator",
+   "type": "Simulator",
+   "group": "attractions",
+   "description": "Full-motion simulator reproducing the handling and landing profile of a lunar vehicle.",
+   "hours": "Sessions 10:00–20:00",
+   "durationMin": 45,
+   "priceUsd": 125,
+   "distanceKm": 2.7,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 404,
+   "breakdown": [
+    213,
+    81,
+    24,
+    8,
+    78
+   ],
+   "reviewList": [
+    {
+     "author": "N. Sørensen",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-05-22",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-01-15",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-04-18",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v089",
+   "base": "malapert",
+   "name": "Deep Space Observation Center",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 60,
+   "priceUsd": 160,
+   "distanceKm": 1.0,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.4,
+   "reviews": 1616,
+   "breakdown": [
+    698,
+    323,
+    97,
+    32,
+    466
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-04-09",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Business",
+     "stars": 3,
+     "date": "2026-02-25",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-03-22",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    }
+   ]
+  },
+  {
+   "id": "v090",
+   "base": "malapert",
+   "name": "Mountain View Lounge",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 90,
+   "priceUsd": 140,
+   "distanceKm": 6.6,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.8,
+   "reviews": 415,
+   "breakdown": [
+    259,
+    83,
+    25,
+    8,
+    40
+   ],
+   "reviewList": [
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-09-25",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-06-05",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-06-25",
+     "text": "The view made the trip. Would recommend booking the later session."
+    }
+   ]
+  },
+  {
+   "id": "v091",
+   "base": "nobile",
+   "name": "Nobile Crater Panorama",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 60,
+   "priceUsd": 120,
+   "distanceKm": 6.0,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.7,
+   "reviews": 648,
+   "breakdown": [
+    373,
+    130,
+    39,
+    13,
+    93
+   ],
+   "reviewList": [
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-02-02",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-06-01",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "N. Sørensen",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-04-09",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    }
+   ]
+  },
+  {
+   "id": "v092",
+   "base": "nobile",
+   "name": "Ice Discovery Museum",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 105,
+   "priceUsd": 75,
+   "distanceKm": 4.8,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 1288,
+   "breakdown": [
+    742,
+    258,
+    77,
+    26,
+    185
+   ],
+   "reviewList": [
+    {
+     "author": "E. Haddad",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-06-20",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-10-19",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-02-23",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    }
+   ]
+  },
+  {
+   "id": "v093",
+   "base": "nobile",
+   "name": "Polar Restaurant",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Seasonal menu prepared with hydroponic produce and a reserved table for two near the viewing wall.",
+   "hours": "12:00–22:00",
+   "durationMin": 105,
+   "priceUsd": 225,
+   "distanceKm": 9.3,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 956,
+   "breakdown": [
+    505,
+    191,
+    57,
+    19,
+    184
+   ],
+   "reviewList": [
+    {
+     "author": "S. Ibrahim",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-10-15",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-09-26",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-09-19",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    }
+   ]
+  },
+  {
+   "id": "v094",
+   "base": "nobile",
+   "name": "Lunar Rover Expedition",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 285,
+   "priceUsd": 1070,
+   "distanceKm": 5.1,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 223,
+   "breakdown": [
+    118,
+    45,
+    13,
+    4,
+    43
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-04-05",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-01-15",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-04-14",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    }
+   ]
+  },
+  {
+   "id": "v095",
+   "base": "nobile",
+   "name": "Moon Ice Laboratory Tour",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 225,
+   "priceUsd": 670,
+   "distanceKm": 8.9,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 243,
+   "breakdown": [
+    152,
+    49,
+    15,
+    5,
+    22
+   ],
+   "reviewList": [
+    {
+     "author": "R. Moreau",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-07-14",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-04-21",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-09-25",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v096",
+   "base": "nobile",
+   "name": "Crater Edge Observatory",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 75,
+   "priceUsd": 120,
+   "distanceKm": 5.2,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.5,
+   "reviews": 1325,
+   "breakdown": [
+    636,
+    265,
+    80,
+    26,
+    318
+   ],
+   "reviewList": [
+    {
+     "author": "K. Novak",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-07-07",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-04-27",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-09-25",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    }
+   ]
+  },
+  {
+   "id": "v097",
+   "base": "nobile",
+   "name": "Space Exploration Theater",
+   "type": "Theater",
+   "group": "events",
+   "description": "Live productions and immersive performances with a lunar-themed stage design.",
+   "hours": "Shows 19:00 and 21:30",
+   "durationMin": 120,
+   "priceUsd": 185,
+   "distanceKm": 6.3,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.1,
+   "reviews": 669,
+   "breakdown": [
+    193,
+    134,
+    40,
+    13,
+    289
+   ],
+   "reviewList": [
+    {
+     "author": "E. Haddad",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-01-24",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-08-25",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-08-23",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    }
+   ]
+  },
+  {
+   "id": "v098",
+   "base": "nobile",
+   "name": "Lunar Geology Workshop",
+   "type": "Photography",
+   "group": "attractions",
+   "description": "Guided photo session on the surface with professional equipment and editing included.",
+   "hours": "By appointment 09:00–16:00",
+   "durationMin": 150,
+   "priceUsd": 445,
+   "distanceKm": 1.5,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 1232,
+   "breakdown": [
+    769,
+    246,
+    74,
+    25,
+    118
+   ],
+   "reviewList": [
+    {
+     "author": "L. Ferreira",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-06-12",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Business",
+     "stars": 3,
+     "date": "2026-02-18",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-08-28",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    }
+   ]
+  },
+  {
+   "id": "v099",
+   "base": "nobile",
+   "name": "Gravity Games Center",
+   "type": "Sports",
+   "group": "events",
+   "description": "Live sporting events and e-sports nights with reduced-gravity showcase matches.",
+   "hours": "Events 18:00–22:00",
+   "durationMin": 240,
+   "priceUsd": 120,
+   "distanceKm": 5.8,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.4,
+   "reviews": 1279,
+   "breakdown": [
+    553,
+    256,
+    77,
+    26,
+    367
+   ],
+   "reviewList": [
+    {
+     "author": "K. Novak",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-01-11",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-06-12",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-01-09",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    }
+   ]
+  },
+  {
+   "id": "v100",
+   "base": "nobile",
+   "name": "Nobile Scenic Lounge",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 75,
+   "priceUsd": 115,
+   "distanceKm": 0.3,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.8,
+   "reviews": 737,
+   "breakdown": [
+    460,
+    147,
+    44,
+    15,
+    71
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-02-23",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-10-03",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-08-20",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v101",
+   "base": "haworth",
+   "name": "Haworth Shadow Planetarium",
+   "type": "Planetarium",
+   "group": "attractions",
+   "description": "Dome show of the night sky as seen from the lunar surface, narrated by a mission astronomer.",
+   "hours": "Shows hourly 10:00–20:00",
+   "durationMin": 45,
+   "priceUsd": 45,
+   "distanceKm": 0.8,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 680,
+   "breakdown": [
+    228,
+    136,
+    41,
+    14,
+    261
+   ],
+   "reviewList": [
+    {
+     "author": "A. Lindqvist",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-05-22",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-03-24",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-04-26",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    }
+   ]
+  },
+  {
+   "id": "v102",
+   "base": "haworth",
+   "name": "Dark Sky Astronomy Experience",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 60,
+   "priceUsd": 80,
+   "distanceKm": 2.2,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.3,
+   "reviews": 1013,
+   "breakdown": [
+    389,
+    203,
+    61,
+    20,
+    340
+   ],
+   "reviewList": [
+    {
+     "author": "J. Tanaka",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-07-22",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-10-14",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-10-25",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    }
+   ]
+  },
+  {
+   "id": "v103",
+   "base": "haworth",
+   "name": "Shadow Dome Restaurant",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Chef-led tasting menu served in a pressurized dining hall with a lunar-surface outlook.",
+   "hours": "12:00–22:00",
+   "durationMin": 120,
+   "priceUsd": 395,
+   "distanceKm": 6.4,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 77,
+   "breakdown": [
+    37,
+    15,
+    5,
+    2,
+    18
+   ],
+   "reviewList": [
+    {
+     "author": "E. Haddad",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-03-08",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-09-17",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-03-20",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    }
+   ]
+  },
+  {
+   "id": "v104",
+   "base": "haworth",
+   "name": "Polar Ice Discovery Tour",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 255,
+   "priceUsd": 655,
+   "distanceKm": 2.7,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.2,
+   "reviews": 1178,
+   "breakdown": [
+    396,
+    236,
+    71,
+    24,
+    451
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-10-14",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-03-11",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-05-18",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    }
+   ]
+  },
+  {
+   "id": "v105",
+   "base": "haworth",
+   "name": "Deep Space Theater",
+   "type": "Theater",
+   "group": "events",
+   "description": "Live productions and immersive performances with a lunar-themed stage design.",
+   "hours": "Shows 19:00 and 21:30",
+   "durationMin": 105,
+   "priceUsd": 170,
+   "distanceKm": 9.2,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.3,
+   "reviews": 1418,
+   "breakdown": [
+    545,
+    284,
+    85,
+    28,
+    476
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Family",
+     "stars": 3,
+     "date": "2026-05-01",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-02-23",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "N. Sørensen",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-04-01",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    }
+   ]
+  },
+  {
+   "id": "v106",
+   "base": "haworth",
+   "name": "Lunar Night Photography",
+   "type": "Photography",
+   "group": "attractions",
+   "description": "Guided photo session on the surface with professional equipment and editing included.",
+   "hours": "By appointment 09:00–16:00",
+   "durationMin": 165,
+   "priceUsd": 495,
+   "distanceKm": 1.0,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 1767,
+   "breakdown": [
+    1103,
+    353,
+    106,
+    35,
+    170
+   ],
+   "reviewList": [
+    {
+     "author": "A. Lindqvist",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-05-04",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-07-09",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "C. Rivera",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-03-25",
+     "text": "Very well run, clean facilities and the staff were patient with questions."
+    }
+   ]
+  },
+  {
+   "id": "v107",
+   "base": "haworth",
+   "name": "Cryogenic Science Museum",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 75,
+   "priceUsd": 65,
+   "distanceKm": 4.4,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.5,
+   "reviews": 1452,
+   "breakdown": [
+    697,
+    290,
+    87,
+    29,
+    349
+   ],
+   "reviewList": [
+    {
+     "author": "M. Okafor",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-04-16",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-01-21",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-02-18",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    }
+   ]
+  },
+  {
+   "id": "v108",
+   "base": "haworth",
+   "name": "Shadow Exploration Simulator",
+   "type": "Simulator",
+   "group": "attractions",
+   "description": "Full-motion simulator reproducing the handling and landing profile of a lunar vehicle.",
+   "hours": "Sessions 10:00–20:00",
+   "durationMin": 45,
+   "priceUsd": 185,
+   "distanceKm": 2.7,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.1,
+   "reviews": 1775,
+   "breakdown": [
+    511,
+    355,
+    106,
+    36,
+    767
+   ],
+   "reviewList": [
+    {
+     "author": "J. Tanaka",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-07-11",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-10-18",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-08-03",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    }
+   ]
+  },
+  {
+   "id": "v109",
+   "base": "haworth",
+   "name": "Cosmic Light Installation",
+   "type": "Installation",
+   "group": "attractions",
+   "description": "Light installation that responds to the lunar night sky and the position of Earth.",
+   "hours": "Dusk to dawn",
+   "durationMin": 30,
+   "priceUsd": 25,
+   "distanceKm": 8.8,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 1170,
+   "breakdown": [
+    674,
+    234,
+    70,
+    23,
+    169
+   ],
+   "reviewList": [
+    {
+     "author": "R. Moreau",
+     "travel": "Friends",
+     "stars": 4,
+     "date": "2026-08-04",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "E. Haddad",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-04-26",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-10-01",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    }
+   ]
+  },
+  {
+   "id": "v110",
+   "base": "haworth",
+   "name": "Haworth Observation Center",
+   "type": "Observation",
+   "group": "attractions",
+   "description": "Panoramic observation with Earth in view, subject to Earth visibility from the base.",
+   "hours": "Open 24 h, Earth view when Earth is up",
+   "durationMin": 60,
+   "priceUsd": 115,
+   "distanceKm": 7.8,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.6,
+   "reviews": 875,
+   "breakdown": [
+    462,
+    175,
+    52,
+    18,
+    168
+   ],
+   "reviewList": [
+    {
+     "author": "C. Rivera",
+     "travel": "Friends",
+     "stars": 3,
+     "date": "2026-09-10",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-03-07",
+     "text": "Impressive production and a memorable evening."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-09-02",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    }
+   ]
+  },
+  {
+   "id": "v111",
+   "base": "ilrs",
+   "name": "International Lunar Museum",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 75,
+   "priceUsd": 50,
+   "distanceKm": 9.2,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 317,
+   "breakdown": [
+    167,
+    63,
+    19,
+    6,
+    62
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-04-06",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-02-02",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-08-23",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v112",
+   "base": "ilrs",
+   "name": "Earth–Moon Cultural Center",
+   "type": "Center",
+   "group": "attractions",
+   "description": "Science and exploration center with hands-on exhibits and staff-led demonstrations.",
+   "hours": "09:00–17:00",
+   "durationMin": 75,
+   "priceUsd": 55,
+   "distanceKm": 1.8,
+   "outdoor": false,
+   "earthView": true,
+   "rating": 4.5,
+   "reviews": 1289,
+   "breakdown": [
+    619,
+    258,
+    77,
+    26,
+    309
+   ],
+   "reviewList": [
+    {
+     "author": "S. Ibrahim",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-10-18",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "T. Brandt",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-08-26",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    },
+    {
+     "author": "A. Lindqvist",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-05-09",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    }
+   ]
+  },
+  {
+   "id": "v113",
+   "base": "ilrs",
+   "name": "Lunar Fusion Restaurant",
+   "type": "Restaurant",
+   "group": "food",
+   "description": "Seasonal menu prepared with hydroponic produce and a reserved table for two near the viewing wall.",
+   "hours": "12:00–22:00",
+   "durationMin": 150,
+   "priceUsd": 345,
+   "distanceKm": 1.1,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.4,
+   "reviews": 1260,
+   "breakdown": [
+    544,
+    252,
+    76,
+    25,
+    363
+   ],
+   "reviewList": [
+    {
+     "author": "Y. Park",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-02-23",
+     "text": "Informative and well paced. Children enjoyed it as much as adults."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-07-07",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-01-12",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v114",
+   "base": "ilrs",
+   "name": "Moon Technology Exhibition",
+   "type": "Museum",
+   "group": "attractions",
+   "description": "Curated collection of artifacts, mission hardware and archival records.",
+   "hours": "10:00–18:00",
+   "durationMin": 75,
+   "priceUsd": 45,
+   "distanceKm": 9.2,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.6,
+   "reviews": 672,
+   "breakdown": [
+    355,
+    134,
+    40,
+    13,
+    130
+   ],
+   "reviewList": [
+    {
+     "author": "S. Ibrahim",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-02-11",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Business",
+     "stars": 5,
+     "date": "2026-01-01",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-09-11",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    }
+   ]
+  },
+  {
+   "id": "v115",
+   "base": "ilrs",
+   "name": "International Space Theater",
+   "type": "Theater",
+   "group": "events",
+   "description": "Live productions and immersive performances with a lunar-themed stage design.",
+   "hours": "Shows 19:00 and 21:30",
+   "durationMin": 105,
+   "priceUsd": 260,
+   "distanceKm": 1.3,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.1,
+   "reviews": 1431,
+   "breakdown": [
+    412,
+    286,
+    86,
+    29,
+    618
+   ],
+   "reviewList": [
+    {
+     "author": "A. Lindqvist",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-09-04",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Business",
+     "stars": 3,
+     "date": "2026-01-21",
+     "text": "Good value for the setting. A little crowded at peak hours."
+    },
+    {
+     "author": "L. Ferreira",
+     "travel": "Solo",
+     "stars": 4,
+     "date": "2026-02-26",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    }
+   ]
+  },
+  {
+   "id": "v116",
+   "base": "ilrs",
+   "name": "Robotic Exploration Experience",
+   "type": "Activity",
+   "group": "attractions",
+   "description": "Guided low-gravity activity on the surface with safety briefing and equipment hire.",
+   "hours": "Sessions 09:00–17:00",
+   "durationMin": 75,
+   "priceUsd": 540,
+   "distanceKm": 4.0,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.3,
+   "reviews": 591,
+   "breakdown": [
+    227,
+    118,
+    35,
+    12,
+    199
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Friends",
+     "stars": 5,
+     "date": "2026-09-09",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "M. Okafor",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-06-25",
+     "text": "The view made the trip. Would recommend booking the later session."
+    },
+    {
+     "author": "R. Moreau",
+     "travel": "Solo",
+     "stars": 5,
+     "date": "2026-07-27",
+     "text": "Impressive production and a memorable evening."
+    }
+   ]
+  },
+  {
+   "id": "v117",
+   "base": "ilrs",
+   "name": "Lunar Science Planetarium",
+   "type": "Planetarium",
+   "group": "attractions",
+   "description": "Dome show of the night sky as seen from the lunar surface, narrated by a mission astronomer.",
+   "hours": "Shows hourly 10:00–20:00",
+   "durationMin": 60,
+   "priceUsd": 45,
+   "distanceKm": 5.3,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.7,
+   "reviews": 1116,
+   "breakdown": [
+    643,
+    223,
+    67,
+    22,
+    161
+   ],
+   "reviewList": [
+    {
+     "author": "K. Novak",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-06-11",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "P. Costa",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-09-23",
+     "text": "Thorough, professional and clearly designed by people who care about the history."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-06-13",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    }
+   ]
+  },
+  {
+   "id": "v118",
+   "base": "ilrs",
+   "name": "Zero-G Sports Arena",
+   "type": "Sports",
+   "group": "events",
+   "description": "Live sporting events and e-sports nights with reduced-gravity showcase matches.",
+   "hours": "Events 18:00–22:00",
+   "durationMin": 225,
+   "priceUsd": 135,
+   "distanceKm": 7.3,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.1,
+   "reviews": 1660,
+   "breakdown": [
+    478,
+    332,
+    100,
+    33,
+    717
+   ],
+   "reviewList": [
+    {
+     "author": "T. Brandt",
+     "travel": "Couple",
+     "stars": 3,
+     "date": "2026-04-05",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "Y. Park",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-03-23",
+     "text": "Would have liked more time at the end, but overall a standout attraction."
+    },
+    {
+     "author": "D. Okonkwo",
+     "travel": "Couple",
+     "stars": 5,
+     "date": "2026-03-05",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    }
+   ]
+  },
+  {
+   "id": "v119",
+   "base": "ilrs",
+   "name": "Future Moon City Tour",
+   "type": "Tour",
+   "group": "attractions",
+   "description": "Guided surface excursion by pressurized rover, with a licensed lunar guide and suit-fitting briefing.",
+   "hours": "Departures 09:00 and 13:00",
+   "durationMin": 135,
+   "priceUsd": 720,
+   "distanceKm": 6.7,
+   "outdoor": true,
+   "earthView": false,
+   "rating": 4.3,
+   "reviews": 1440,
+   "breakdown": [
+    553,
+    288,
+    86,
+    29,
+    484
+   ],
+   "reviewList": [
+    {
+     "author": "P. Costa",
+     "travel": "Solo",
+     "stars": 3,
+     "date": "2026-01-03",
+     "text": "Some sessions are delayed by surface conditions, but the team communicates well."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Couple",
+     "stars": 4,
+     "date": "2026-04-09",
+     "text": "Exceptional for a first visit. The guide explained every stage in detail."
+    },
+    {
+     "author": "J. Tanaka",
+     "travel": "Family",
+     "stars": 5,
+     "date": "2026-07-15",
+     "text": "Felt like a genuine lunar experience, from the suit briefing to the return."
+    }
+   ]
+  },
+  {
+   "id": "v120",
+   "base": "ilrs",
+   "name": "International Lunar Festival",
+   "type": "Festival",
+   "group": "events",
+   "description": "Multi-day cultural festival with exhibitions, performances and night programmes.",
+   "hours": "Daily 16:00–23:00",
+   "durationMin": 255,
+   "priceUsd": 105,
+   "distanceKm": 5.6,
+   "outdoor": false,
+   "earthView": false,
+   "rating": 4.8,
+   "reviews": 1125,
+   "breakdown": [
+    702,
+    225,
+    68,
+    22,
+    108
+   ],
+   "reviewList": [
+    {
+     "author": "A. Lindqvist",
+     "travel": "Business",
+     "stars": 4,
+     "date": "2026-09-12",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    },
+    {
+     "author": "S. Ibrahim",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-06-08",
+     "text": "Worth the price. Booking ahead was essential, the slots fill quickly."
+    },
+    {
+     "author": "K. Novak",
+     "travel": "Family",
+     "stars": 4,
+     "date": "2026-01-25",
+     "text": "Service was excellent. The menu changes with the season, and it shows."
+    }
+   ]
+  }
+ ]
+}

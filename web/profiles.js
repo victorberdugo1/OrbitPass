@@ -36,13 +36,11 @@ function visibility(id){document.querySelectorAll("[data-for]").forEach(el=>{el.
 function stopLanding(){landingToken++;if(landing)landing.dispose();landing=null}
 async function startLanding(){const token=++landingToken;try{const m=await import("./landing.js");if(token!==landingToken||document.getElementById("welcome").hidden)return;landing=m.createLanding(document.getElementById("ln-stage"))}catch(e){}}
 function stopFlight(){flightToken++;if(flight)flight.dispose();flight=null}
-function revealMissionInfo(){const b=document.body;if(!b.classList.contains("flying"))return;b.classList.remove("flying");
-setTimeout(()=>window.scrollTo({top:innerHeight*0.6,behavior:"smooth"}),1200)}
 async function startFlight(){stopFlight();const token=flightToken,s=SITES[mission.site],stage=document.getElementById("flight-stage");
 try{const m=await import("./flight.js");if(token!==flightToken)return;
-flight=m.createFlight({stage,info:document.getElementById("flight-info")},{startMs:start,launch:LAUNCH_SITES[mission.launch],site:s,sky:ms=>skyAt(ms,s),onLanded:revealMissionInfo});await flight.ready}
+flight=m.createFlight({stage,info:document.getElementById("flight-info")},{startMs:start,launch:LAUNCH_SITES[mission.launch],site:s,sky:ms=>skyAt(ms,s)});await flight.ready}
 catch(e){stage.textContent="Simulation unavailable: "+e.message}}
-function setProfile(id){profile=id;if(id!=="education"){stopFlight();document.body.classList.remove("flying")}document.body.dataset.profile=id;visibility(id);
+function setProfile(id){profile=id;if(id!=="education")stopFlight();document.body.dataset.profile=id;visibility(id);
 document.getElementById("profile-btn").textContent="Profile: "+PROFILES[id].label;
 try{localStorage.setItem("orbitpass.profile",id)}catch(e){}
 lastKey="";renderProfile()}
@@ -52,7 +50,7 @@ mission={launch:+document.getElementById("m-launch").value,site:+document.getEle
 goMission(document.getElementById("m-date").value,mission.site);
 w.classList.add("ln-launching");
 if(landing)await landing.focusSite(LAUNCH_SITES[mission.launch]);
-document.body.classList.add("flying");window.scrollTo(0,0);
+window.scrollTo(0,0);
 setProfile("education");await startFlight();
 w.classList.add("ln-leaving");
 await Promise.all(w.getAnimations().map(a=>a.finished.catch(()=>{})));

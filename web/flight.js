@@ -329,10 +329,10 @@ function planTable(plan, sky) {
 }
 
 export function createFlight({ stage, info }, mission) {
-  stage.innerHTML = `<div class="row fl-bar"><button class="sm" data-fl="play">Pause</button><select data-fl="speed">${SPEEDS.map((s) => `<option value="${s}"${s === 1 ? " selected" : ""}>${s}×</option>`).join("")}</select><input type="range" data-fl="scrub" min="0" max="1000" value="0"><button class="sm ghost" data-fl="replay">Replay</button></div>`;
-  info.innerHTML = `<div class="kpis fl-kpis"></div><div class="tbl-wrap fl-plan"></div>
+  stage.innerHTML = `<div class="fl-kpis"></div><div class="row fl-bar"><button class="sm" data-fl="play">Pause</button><select data-fl="speed">${SPEEDS.map((s) => `<option value="${s}"${s === 1 ? " selected" : ""}>${s}×</option>`).join("")}</select><input type="range" data-fl="scrub" min="0" max="1000" value="0"><button class="sm ghost" data-fl="replay">Replay</button></div>`;
+  info.innerHTML = `<div class="tbl-wrap fl-plan"></div>
 <div class="note">Real data: Moon and Sun positions and Earth rotation from analytical ephemerides (Meeus), Moon orientation from optical libration, site coordinates from NASA/LRO. Trajectory: two-body Lambert transfer from a ${LEO_ALT} km parking orbit to a ${LLO_ALT} km lunar orbit (patched conics, impulsive burns); ascent, lunar orbit and descent are scripted. Not for operational use.</div>`;
-  const kpiBox = info.querySelector(".fl-kpis");
+  const kpiBox = stage.querySelector(".fl-kpis");
   const plan = planMission(mission);
   info.querySelector(".fl-plan").innerHTML = planTable(plan, mission.sky);
 
@@ -404,7 +404,6 @@ export function createFlight({ stage, info }, mission) {
   let raf = 0;
   let last = performance.now();
   let t = plan.tL;
-  let wasFinished = false;
   const tile = (k, v) => `<div class="kpi"><span>${k}</span><b>${v}</b></div>`;
   const earthDv = () => ASCENT_DV * smooth((t - plan.tL) / ASCENT_S) + (t >= plan.tTLI ? plan.dvTLI : 0);
 
@@ -423,14 +422,14 @@ export function createFlight({ stage, info }, mission) {
     }
     if (phase.id === "parking") {
       const up = sc.clone().normalize();
-      return { pos: sc.clone().multiplyScalar(0.5).addScaledVector(up, 12).addScaledVector(plan.n, 12).addScaledVector(fwd, -8), look: sc.clone().multiplyScalar(0.5) };
+      return { pos: sc.clone().multiplyScalar(0.5).addScaledVector(up, 24).addScaledVector(plan.n, 24).addScaledVector(fwd, -16), look: sc.clone().multiplyScalar(0.5) };
     }
     if (phase.id === "transfer") {
       const moonEnd = moonPos(plan.tA).multiplyScalar(1 / UNIT);
       const mid = moonEnd.clone().multiplyScalar(0.5);
-      const near = { pos: sc.clone().multiplyScalar(0.5).addScaledVector(sc.clone().normalize(), 12).addScaledVector(plan.n, 12).addScaledVector(fwd, -8), look: sc.clone().multiplyScalar(0.5) };
+      const near = { pos: sc.clone().multiplyScalar(0.5).addScaledVector(sc.clone().normalize(), 24).addScaledVector(plan.n, 24).addScaledVector(fwd, -16), look: sc.clone().multiplyScalar(0.5) };
       const wide = { pos: mid.clone().addScaledVector(plan.n, 300).addScaledVector(moonEnd.clone().normalize(), -120), look: mid };
-      const approach = { pos: m.clone().addScaledVector(sc.clone().sub(m).normalize(), 9).addScaledVector(plan.n, 5), look: m.clone().lerp(sc, 0.3) };
+      const approach = { pos: m.clone().addScaledVector(sc.clone().sub(m).normalize(), 18).addScaledVector(plan.n, 10), look: m.clone().lerp(sc, 0.3) };
       const a = smooth(k / 0.12);
       const b = smooth((k - 0.8) / 0.2);
       const tangent = plan.n.clone().cross(moonEnd.clone().normalize());
@@ -443,7 +442,7 @@ export function createFlight({ stage, info }, mission) {
     const rel = sc.clone().sub(m);
     if (phase.id === "lunar") {
       const dir = plan.normalL.clone().multiplyScalar(0.55).addScaledVector(rel.clone().normalize().cross(plan.normalL), 0.9).normalize();
-      return { pos: m.clone().addScaledVector(dir, 6.5), look: m };
+      return { pos: m.clone().addScaledVector(dir, 14), look: m };
     }
     const alt = st.alt || 0;
     const radial = rel.clone().normalize();
@@ -462,9 +461,6 @@ export function createFlight({ stage, info }, mission) {
     const dt = Math.min((now - last) / 1000, 0.1);
     last = now;
     if (playing) wall = Math.min(plan.wallTotal, wall + dt * speed);
-    const finished = wall >= plan.wallTotal;
-    if (finished && !wasFinished) mission.onLanded();
-    wasFinished = finished;
     const at = phaseAt(plan, wall);
     t = at.t;
     const st = plan.state(t);
