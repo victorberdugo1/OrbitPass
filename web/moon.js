@@ -168,7 +168,7 @@ export function createLunarSurface(renderer, tileUrl, fallbackUrl) {
   return { material, uniforms, ready };
 }
 
-export function createMoon(container, { sites, tileUrl, demUrl }) {
+export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl }) {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.setClearColor(0x000000);
@@ -329,6 +329,11 @@ export function createMoon(container, { sites, tileUrl, demUrl }) {
     { passive: false }
   );
 
+  const onRefine = (texture) => {
+    uniforms.uMap.value = texture;
+    dirty = true;
+  };
+
   function frame() {
     requestAnimationFrame(frame);
     if (targetQuat) {
@@ -353,12 +358,9 @@ export function createMoon(container, { sites, tileUrl, demUrl }) {
       buildCube(renderer, tileUrl, {
         minLevel: MIN_LEVEL,
         topLevel: MIN_LEVEL + (Math.min(renderer.capabilities.maxTextureSize, MAX_ATLAS) >= MAX_ATLAS ? 1 : 0),
-        onRefine: (texture) => {
-          uniforms.uMap.value = texture;
-          dirty = true;
-        },
+        onRefine,
         onProgress: showProgress
-      }),
+      }).catch(() => fallbackCube(renderer, fallbackUrl, onRefine)),
       buildCube(renderer, demUrl, {
         minLevel: MIN_LEVEL,
         topLevel: MIN_LEVEL,
@@ -384,11 +386,11 @@ export function createMoon(container, { sites, tileUrl, demUrl }) {
       });
       dirty = true;
     },
-    flyTo(index) {
+    flyTo(index, distance) {
       const s = sites[index];
       const current = direction(s.lat, s.lon).applyQuaternion(moon.quaternion);
       targetQuat = new THREE.Quaternion().setFromUnitVectors(current, new THREE.Vector3(0, 0, 1)).multiply(moon.quaternion);
-      targetDist = s.lat < -80 ? 1.6 : 2.4;
+      targetDist = distance ?? (s.lat < -80 ? 1.6 : 2.4);
       dirty = true;
     }
   };

@@ -34,6 +34,12 @@ const baseArt = (b) => `--img:url(${b.image})`;
 
 const icon = (name) => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
 
+const artVars = (id) => {
+  let h = 0;
+  for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return `--ex:${18 + (h % 62)}%;--ey:${26 + ((h >> 8) % 22)}%`;
+};
+
 const gauss = () => Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(2 * Math.PI * Math.random());
 
 const BAND_ANGLE = 0.3;
@@ -365,7 +371,7 @@ export function createExplorer(root, { launchSites, sky }) {
   function card(v, a) {
     const b = bases.get(v.base);
     return `<article class="tp-card" data-open="${v.id}">
-  <div class="tp-art" style="${baseArt(b)}"><span class="tp-type">${esc(v.type)}</span><span class="tp-art-name">${esc(GROUP_LABEL[v.group])}</span></div>
+  <div class="tp-art ${v.group}${v.image ? " tp-photo" : ""}" style="${artVars(v.id)}${v.image ? `;--img:url(${v.image})` : ""}"><span class="tp-type">${esc(v.type)}</span><span class="tp-art-name">${esc(GROUP_LABEL[v.group])}</span></div>
   <div class="tp-body">
     <div class="tp-row"><b class="tp-name">${esc(v.name)}</b><span class="tp-rating"><i>★</i> ${v.rating.toFixed(1)} <small>(${v.reviews.toLocaleString("en-US")})</small></span></div>
     <div class="tp-sub">${esc(b.name)} · ${esc(b.program)}</div>
@@ -421,7 +427,7 @@ export function createExplorer(root, { launchSites, sky }) {
     return `<div class="tp-detail ${v.group}">
 <div class="tp-crumb"><button data-nav="explore">← Back to results</button></div>
 <section class="tp-hero">
-  <div class="tp-scene" style="${baseArt(b)}" aria-hidden="true"></div>
+  <div class="tp-scene" style="${baseArt(v.image ? v : b)}" aria-hidden="true"></div>
   <div class="tp-hero-main">
     <span class="tp-type">${esc(v.type)}</span>
     <div class="tp-hero-title"><span class="tp-hero-ico">${icon(groupIcon)}</span><h1>${esc(v.name)}</h1></div>
@@ -441,7 +447,7 @@ export function createExplorer(root, { launchSites, sky }) {
 </section>
 <section class="tp-features">${features}</section>
 <section class="tp-showcase">
-  <div class="tp-media"><div class="tp-scene" style="${baseArt(b)}" aria-hidden="true"></div><div class="tp-media-body"><h3>Highlights</h3><ul class="tp-list">${v.highlights.map((h) => `<li>${esc(h)}</li>`).join("")}</ul></div></div>
+  <div class="tp-media"><div class="tp-scene" style="${baseArt(v.image ? v : b)}" aria-hidden="true"></div><div class="tp-media-body"><h3>Highlights</h3><ul class="tp-list">${v.highlights.map((h) => `<li>${esc(h)}</li>`).join("")}</ul></div></div>
   <div class="tp-panel">
     <div class="tp-panel-head">${icon(groupIcon)}<b>${v.menu.length ? "Menu" : "Programme"}</b><em>${esc(v.type)}</em></div>
     <table class="tp-menu">${menu}</table>
@@ -474,7 +480,7 @@ export function createExplorer(root, { launchSites, sky }) {
       const max = Math.max(...vs.map((v) => v.priceUsd));
       const top = vs.slice().sort(SORTS.rating)[0];
       return `<article class="tp-card tp-base">
-  <div class="tp-art" style="${baseArt(b)}"><span class="tp-type">${esc(b.status)}</span><span class="tp-art-name">${esc(b.mission)}</span></div>
+  <div class="tp-art tp-photo" style="${baseArt(b)}"><span class="tp-type">${esc(b.status)}</span><span class="tp-art-name">${esc(b.mission)}</span></div>
   <div class="tp-body">
     <div class="tp-row"><b class="tp-name">${esc(b.name)}</b><span class="tp-rating">★ ${avg.toFixed(2)}</span></div>
     <div class="tp-sub">${esc(b.program)} · ${b.lat.toFixed(2)}°, ${b.lon.toFixed(2)}°</div>

@@ -239,10 +239,14 @@ body[data-profile=tourism] .top button.ghost{color:#dfe4ff;border:1px solid var(
 .tp-card:hover{border-color:var(--glass-edge-hi);background:rgba(22,24,60,.62)}
 .tp-base{grid-template-columns:1fr;gap:0;padding:0;overflow:hidden;cursor:default}
 .tp-base:hover{border-color:var(--glass-edge);background:rgba(8,11,30,.52)}
-.tp-art{position:relative;align-self:stretch;min-height:124px;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,transparent 55%,rgba(3,4,15,.7)),var(--img) center/cover}
+.tp-art{--t1:rgba(40,130,190,.7);--t2:#0c2a52;position:relative;align-self:stretch;min-height:124px;border-radius:14px;overflow:hidden;background:radial-gradient(140% 58% at 50% 130%,#d9deec 0,#aeb5ca 86%,#6f7893 97%,transparent 100%),radial-gradient(circle at var(--ex,72%) var(--ey,30%),#bfe0ff 0 4px,#4a8ce8 7px,rgba(90,160,255,.3) 13px,transparent 20px),radial-gradient(90% 100% at 15% 0%,var(--t1),transparent 62%),linear-gradient(180deg,var(--t2),#04061a)}
+.tp-art.food{--t1:rgba(214,120,40,.65);--t2:#2e1a34}
+.tp-art.events{--t1:rgba(140,80,255,.7);--t2:#1a0f46}
+.tp-art.tp-photo{background:linear-gradient(180deg,transparent 55%,rgba(3,4,15,.7)),var(--img) center/cover}
 .tp-base .tp-art{border-radius:0;min-height:140px}
 .tp-type{position:absolute;left:10px;top:10px;background:rgba(16,20,46,.55);border:1px solid rgba(200,190,255,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:999px;padding:3px 11px;font-size:12px;font-weight:600;color:#fff}
-.tp-art-name{position:absolute;left:11px;bottom:8px;font-size:11px;font-weight:600;color:#fff}
+.tp-art-name{position:absolute;left:11px;bottom:8px;font-size:11px;font-weight:600;color:rgba(8,12,30,.78)}
+.tp-photo .tp-art-name{color:#fff}
 .tp-body{display:flex;flex-direction:column;gap:6px;min-width:0;padding:6px 0}
 .tp-base .tp-body{padding:16px;flex:1}
 .tp-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
@@ -364,71 +368,287 @@ body[data-profile=tourism] .top{position:relative;height:auto;padding:14px 16px 
 .tp-gallery{min-height:340px}
 }
 [hidden]{display:none!important}
+
+body[data-profile=business]{background:#03060d;background-image:radial-gradient(90% 60% at 85% -10%,rgba(60,190,230,.16),transparent 60%),radial-gradient(70% 50% at 0% 110%,rgba(130,90,255,.12),transparent 60%);color:#e6eefb}
+body[data-profile=business] .wrap{max-width:1480px;padding:16px 20px 40px}
+body[data-profile=business] .top{border:0;margin:0 0 14px;padding:0;align-items:center;flex-wrap:nowrap;gap:18px}
+body[data-profile=business] .pr-brand{display:flex;align-items:center;gap:12px;white-space:nowrap}
+body[data-profile=business] .top h1{font-size:26px;letter-spacing:0;text-transform:none;font-style:italic;font-weight:700;color:#fff}
+body[data-profile=business] .top h1 span{color:#59e3f7}
+body[data-profile=business] .top button.ghost{color:#dfe9ff;border:1px solid rgba(160,200,255,.3);background:rgba(10,24,48,.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:999px}
+.pr{--ink:#eef5ff;--ink2:#a9bcd6;--ink3:#7d92b2;--cy:#59e3f7;--gl:rgba(160,200,255,.16);--ok:#5eeaa0;--warn:#ff9b8f;color:var(--ink);display:flex;flex-direction:column;gap:14px}
+.pr-tier{font-style:normal;font-weight:700;color:var(--cy);font-size:16px;white-space:nowrap}
+.pr-nav{display:flex;gap:2px;padding:5px;border-radius:999px;background:rgba(10,20,40,.5);border:1px solid var(--gl);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.pr-nav button{color:var(--ink2);background:transparent;border:0;font:inherit;cursor:pointer;padding:8px 16px;border-radius:999px;font-size:14px;white-space:nowrap}
+.pr-nav button:hover{color:#fff}
+.pr-nav button.on{color:#7ef0ff;background:rgba(89,227,247,.12);box-shadow:inset 0 0 0 1px rgba(89,227,247,.5)}
+.pr .glass{background:linear-gradient(160deg,rgba(90,170,220,.12),rgba(10,20,42,.62) 42%,rgba(6,12,28,.72));border:1px solid var(--gl);border-radius:20px;backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 24px 60px -28px rgba(0,0,0,.9);padding:18px;min-width:0}
+.pr h1{margin:0 0 8px;font-size:40px;line-height:1.1;font-weight:600;color:#fff;letter-spacing:0;text-transform:none}
+.pr h2{margin:0 0 12px;font-size:17px;font-weight:600;color:#fff;letter-spacing:0;text-transform:none}
+.pr p{margin:0 0 16px;color:var(--ink2);line-height:1.6;max-width:62ch}
+.pr .note{color:var(--ink3);font-size:12px;margin-top:10px;line-height:1.5}
+.pr .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.pr button{white-space:nowrap;background:rgba(89,227,247,.14);color:#dffaff;border:1px solid rgba(89,227,247,.5);border-radius:12px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer}
+.pr button:hover{background:rgba(89,227,247,.26);filter:none}
+.pr button.ghost{background:transparent;color:var(--ink);border-color:var(--gl)}
+.pr button.sm{padding:4px 10px;font-size:12px}
+.pr select,.pr input[type=date]{background:rgba(6,9,24,.6);color:var(--ink);border:1px solid var(--gl);border-radius:12px;padding:8px 12px;font:inherit;color-scheme:dark}
+.pr select option{background:#0d1530;color:#eef5ff}
+.pr .chip{color:var(--ink2);border:1px solid var(--gl);background:rgba(6,9,24,.45);font-family:inherit;text-decoration:none;border-radius:10px;padding:6px 11px;font-size:12px}
+.pr a.chip:hover{border-color:var(--cy);color:#fff}
+.pr .pill,.pr .bd{display:inline-block;font-size:12px;font-weight:600;border:1px solid var(--gl);border-radius:999px;padding:4px 11px;color:var(--ink2);background:rgba(6,9,24,.5);white-space:nowrap}
+.pr .pill.ok,.pr .bd.ok{color:var(--ok);border-color:rgba(94,234,160,.45)}
+.pr .pill.warn,.pr .bd.warn{color:var(--warn);border-color:rgba(255,155,143,.45)}
+.pr .tbl-wrap{overflow-x:auto;margin-top:10px}
+.pr table{width:100%;border-collapse:collapse;font-size:13px}
+.pr th{text-align:left;color:var(--ink3);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--gl);white-space:nowrap}
+.pr td{padding:10px;border-bottom:1px solid rgba(160,200,255,.1);color:var(--ink2);vertical-align:top}
+.pr td b{color:#fff}
+.pr .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.pr .bar{height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin:6px 0 12px}
+.pr .bar i{display:block;height:100%}
+.pr-sec{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.pr-sec h2{margin:0}
+.pr-sec .note{margin-top:4px}
+.pr-time{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pr-scrub{width:100%;margin:12px 0 16px;accent-color:var(--cy)}
+.pr-grid{display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:14px;align-items:start}
+.pr-main,.pr-stack{display:flex;flex-direction:column;gap:14px;min-width:0}
+.pr-hero{position:relative;isolation:isolate;overflow:hidden;padding:0!important;min-height:300px;display:flex;align-items:stretch}
+.pr-hero-media{position:absolute;inset:0;z-index:-1;background:#0b1830 center/cover no-repeat}
+.pr-hero-media.none{background:radial-gradient(70% 90% at 75% 30%,rgba(89,227,247,.25),transparent 60%),linear-gradient(160deg,#0b1830,#03060d)}
+.pr-hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,6,13,.94) 22%,rgba(3,6,13,.45) 65%,rgba(3,6,13,.1))}
+.pr-hero-body{position:relative;padding:26px 30px;max-width:620px;display:flex;flex-direction:column;justify-content:center}
+.pr-back{display:inline-block;color:var(--ink2);text-decoration:none;font-size:13px;margin-bottom:14px}
+.pr-back:hover{color:#fff}
+.pr-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.pr-sub{color:#8fe9f7;font-size:14px;margin:-4px 0 12px}
+.pr-tabs{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;padding:6px;border-radius:18px;background:rgba(10,20,40,.5);border:1px solid var(--gl)}
+.pr .pr-tab{background:transparent;border:0;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border-radius:14px;color:var(--ink3);font-size:12px;font-weight:500;text-align:center;white-space:normal}
+.pr .pr-tab:hover,.pr .pr-tab.on{color:#fff;background:rgba(89,227,247,.1);filter:none}
+.pr .pr-tab.on{color:#7ef0ff;box-shadow:inset 0 0 0 1px rgba(89,227,247,.45)}
+.pr-tabs svg,.pr-kpi svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.pr-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.pr .pr-kpi{display:flex;align-items:center;gap:14px;padding:14px 16px}
+.pr-kpi svg{width:30px;height:30px;color:var(--cy)}
+.pr-kpi span{display:block;font-size:12px;color:var(--ink2)}
+.pr-kpi b{display:block;font:600 21px ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff;margin:2px 0}
+.pr-kpi small{display:block;color:var(--ink3);font-size:11px}
+.pr-sim-grid{display:grid;grid-template-columns:240px minmax(0,1fr);gap:18px;align-items:start}
+.pr-donut svg{width:150px;height:150px;display:block;margin:0 auto 10px}
+.pr-charts{display:flex;flex-direction:column;gap:12px;min-width:0}
+.pr-chart-head{display:flex;justify-content:space-between;color:var(--ink2);font-size:13px;margin-bottom:4px}
+.pr-chart-head b{color:#fff;font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace}
+.pr-chart svg{height:auto}
+.pr-sky{display:grid;grid-template-columns:200px minmax(0,1fr);gap:18px;align-items:center;background:rgba(6,12,28,.6);border:1px solid var(--gl);border-radius:14px;padding:12px}.pr-sky-fig svg{display:block;width:100%;height:auto}.pr-sky-info{display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--ink2)}.pr-sky-info b{color:#fff;font-size:14px}.pr-sky-info i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
+.pr-readouts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.pr-readouts div{background:rgba(6,12,28,.6);border:1px solid var(--gl);border-radius:14px;padding:10px 12px;min-width:0}
+.pr-readouts span{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+.pr-readouts b{font:600 14px ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff}
+.pr-rows>div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px solid rgba(160,200,255,.1)}
+.pr-rows>div:last-child{border-bottom:0}
+.pr-rows span{color:var(--ink3);white-space:nowrap}
+.pr-rows b{color:#fff;font-weight:600;text-align:right}
+.pr-phase{display:flex;align-items:center;gap:14px;margin-top:14px;padding-top:14px;border-top:1px solid var(--gl)}
+.pr-phase svg{width:64px;height:64px;flex:none}
+.pr-phase-text small{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.pr-phase-text b{display:block;font:600 30px ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff;margin:2px 0}
+.pr-phase-text span{color:var(--ink2);font-size:14px}
+.pr-daybar{height:10px;border-radius:999px;margin:14px 0 6px;background:linear-gradient(90deg,#f5c451 var(--d),#8b5cf6 var(--d))}
+.pr-temps{display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:center}
+.pr-temps div{background:rgba(6,12,28,.55);border:1px solid var(--gl);border-radius:14px;padding:14px 8px}
+.pr-temps b{display:block;font:600 24px ui-monospace,SFMono-Regular,Menlo,monospace}
+.pr-temps .cold{color:#8fd8ff}.pr-temps .hot{color:#ffc56b}
+.pr-temps span{color:var(--ink3);font-size:12px}
+.pr-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;padding:2px}
+.pr-list-tools{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end}
+.pr-list-tools input{min-width:260px}
+.pr section,.pr-kpis{scroll-margin-top:96px}
+.pr-crumb{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:13px;color:var(--ink3);margin-bottom:12px}
+.pr-crumb button{background:transparent;border:0;color:var(--ink2);padding:4px 8px;border-radius:8px;cursor:pointer;font:inherit}
+.pr-crumb button:hover{color:#fff;background:rgba(89,227,247,.08)}
+.pr-crumb b{color:#fff;font-weight:600}
+.pr-tabs{position:sticky;top:8px;z-index:20;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.pr-tab{min-height:64px}
+.pr button:focus-visible,.pr-nav button:focus-visible,.pr-back:focus-visible,.pr input:focus-visible{outline:2px solid #59e3f7;outline-offset:2px}
+.pr-empty{color:var(--ink3);text-align:center;padding:30px;border:1px dashed var(--gl);border-radius:16px}
+.pr-list .pr-sec h2{font-size:22px}
+.pr-list .pr-sec .note{font-size:13px}
+.pr .card{position:relative;background:rgba(6,12,28,.55);border:1px solid var(--gl);border-radius:16px;padding:0 0 12px;overflow:hidden;cursor:pointer}
+.pr .card:hover{border-color:rgba(89,227,247,.5)}
+.pr .card.sel{border-color:var(--cy);box-shadow:0 0 0 1px var(--cy),0 0 30px -8px rgba(89,227,247,.55)}
+.pr .card b{display:block;padding:0 12px;margin-top:10px;color:#fff;font-size:14px}
+.pr .card small{display:block;padding:0 12px;color:var(--ink3);font-size:12px;margin-top:2px}
+.pr .card .chips{padding:0 12px;margin-top:8px}
+.pr .cmp{position:absolute;top:8px;right:8px;font-size:11px;border:1px solid var(--gl);border-radius:6px;padding:2px 8px;background:rgba(3,6,13,.65);color:var(--ink2)}
+.pr .cmp.on{background:var(--cy);border-color:var(--cy);color:#03141a}
+.pr .thumb{height:96px;background:#0b1830 center/cover no-repeat;border-bottom:1px solid var(--gl)}
+.pr .thumb.none{background:radial-gradient(70% 90% at 30% 20%,rgba(89,227,247,.22),transparent 60%),linear-gradient(160deg,#0b1830,#03060d)}
+.pr-foot{margin:0;padding:0 6px}
+.pr-modal{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;gap:12px;padding:18px clamp(14px,3vw,40px);background:rgba(2,5,11,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.pr-modal.closed{visibility:hidden;opacity:0;pointer-events:none}
+.pr-modal{transition:opacity .25s ease,visibility .25s ease}
+.pr-modal-bar{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pr-modal-bar small{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.pr-modal-bar b{font-size:22px;color:#fff;font-weight:600}
+.pr-modal-stage{flex:1;min-height:0;position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--gl);background:#000}
+.pr-modal-stage #moon3d{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:0;background:#000}
+.pr-modal-stage .hud{display:block}
+.pr-modal-stage #moon3d{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:0;background:#000;pointer-events:auto}
+.pr-moon-card{position:relative;width:100%;aspect-ratio:1;border-radius:16px;overflow:hidden;border:1px solid var(--gl);background:#000}
+.pr-moon-card #moon3d{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.pr-moon-card .hud{display:none}
+.pr-reticle{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;fill:none;stroke:rgba(255,255,255,.85);stroke-width:1px}
+.pr-reticle *{vector-effect:non-scaling-stroke}
+.pr-moon-card #moon3d>div{display:none}
+.pr-card-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.pr-card-head h2{margin:0}
+.pr-card-head small{margin-left:auto;color:var(--ink3);font-size:12px}
+.pr-ico{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;border:1px solid var(--gl);background:rgba(89,227,247,.08);flex:none}
+.pr-ico svg{width:18px;height:18px;fill:none;stroke:var(--cy);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pr-ico.sm{width:30px;height:30px;border-radius:9px}
+.pr-ico.sm svg{width:15px;height:15px}
+.pr-split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.pr-chip{display:flex;align-items:center;gap:10px;background:rgba(6,12,28,.55);border:1px solid var(--gl);border-radius:14px;padding:10px 12px}
+.pr-chip small{display:block;color:var(--ink3);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.pr-chip b{font:600 15px ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff}
+.pr-chip.sun .pr-ico svg{stroke:#f5c451}
+.pr-chip.moon .pr-ico svg{stroke:#a78bfa}
+.pr-temps{display:grid;grid-template-columns:1fr 1px 1fr;gap:14px;align-items:center;text-align:center;padding:4px 0}
+.pr-temps-sep{display:block;height:56px;background:var(--gl)}
+.pr-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--ok);vertical-align:1px}
+.pr-dot.warn{background:var(--warn)}
+.pr-rows b{display:flex;align-items:center;justify-content:flex-end}
+.pr-loc2{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:16px;align-items:center}
+.pr-kv>div{display:grid;grid-template-columns:104px minmax(0,1fr);gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(160,200,255,.12)}
+.pr-kv>div:last-child{border-bottom:0}
+.pr-kv span{color:var(--ink3);font-size:13px;white-space:nowrap}
+.pr-kv b{color:#fff;font-weight:600;font-size:14px;line-height:1.35;text-align:left}
+.pr .pr-expand{position:absolute;top:8px;right:8px;width:30px;height:30px;padding:0;display:grid;place-items:center;border-radius:8px;background:rgba(3,6,13,.7);border:1px solid var(--gl);pointer-events:auto;z-index:2}
+.pr-expand svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pr-modal-foot .note{margin:0}
+.pr-hero{flex-wrap:wrap}.pr-hero-body{flex:1 1 440px;min-width:0}
+.pr-opps{position:relative;flex:1 1 340px;max-width:400px;align-self:center;margin:22px 22px 22px auto;padding:18px;border-radius:20px;background:linear-gradient(160deg,rgba(90,170,220,.18),rgba(8,16,34,.8) 46%,rgba(5,10,24,.88));border:1px solid rgba(160,200,255,.3);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 24px 60px -24px rgba(0,0,0,.85);display:flex;flex-direction:column;gap:14px}
+.pr-opps-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.pr-opps-head small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cy)}
+.pr-opps-head b{display:block;font:600 30px ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff;line-height:1.1;margin-top:4px}
+.pr-opps-head b span{font:500 13px system-ui,sans-serif;color:var(--ink2);margin-left:6px}
+.pr-opps-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.pr .pr-opps-tile{display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 2px 8px;border-radius:12px;background:rgba(6,12,28,.6);border:1px solid var(--gl);color:var(--ink2);font-size:10.5px;font-weight:500;white-space:normal;text-align:center;line-height:1.15}
+.pr .pr-opps-tile:hover{border-color:rgba(89,227,247,.6);background:rgba(89,227,247,.12)}
+.pr-opps-tile svg{width:18px;height:18px;fill:none;stroke:var(--cy);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.pr-opps-tile b{font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff}
+.pr-opps-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:12px 0;border-top:1px solid var(--gl);border-bottom:1px solid var(--gl)}
+.pr-opps-stats span{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+.pr-opps-stats b{display:block;font:600 14px ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff;margin-top:3px}
+.pr .pr-opps-cta{width:100%;padding:12px;border-radius:14px;background:linear-gradient(180deg,#1aa5e8,#0a63b8);border-color:#4fd0ff;color:#fff;font-size:15px}
+.pr .pr-opps-cta:hover{background:linear-gradient(180deg,#2cb6f6,#0f72cc)}
+.pr-opp-stage{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:14px;padding:2px 4px 24px 2px}
+.pr-opp-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.pr-opp-kpis div{background:rgba(6,12,28,.6);border:1px solid var(--gl);border-radius:14px;padding:14px 16px}
+.pr-opp-kpis span{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.pr-opp-kpis b{display:block;font:600 24px ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff;margin-top:4px}
+.pr-opp-brief{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;padding:16px 18px;background:rgba(6,12,28,.5);border:1px solid var(--gl);border-radius:16px}
+.pr-opp-brief p{margin:0;color:var(--ink2);line-height:1.55}
+.pr-opp-brief ul{margin:0;padding-left:18px;color:var(--ink2);line-height:1.6;font-size:13px}
+.pr-opp-brief dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:10px 0 0;font-size:12.5px}
+.pr-opp-brief dt{color:var(--ink3)}.pr-opp-brief dd{margin:0;color:#fff}
+.pr-opp-chips{display:flex;flex-wrap:wrap;gap:8px}
+.pr .pr-opp-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:transparent;border-color:var(--gl);color:var(--ink2);font-size:13px}
+.pr .pr-opp-chip.on{background:rgba(89,227,247,.2);border-color:rgba(89,227,247,.65);color:#fff}
+.pr-opp-chip i{font-style:normal;font:600 11px ui-monospace,monospace;color:var(--ink3)}
+.pr-opp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(460px,1fr));gap:12px}
+.pr-opp{display:flex;gap:14px;padding:16px;background:linear-gradient(160deg,rgba(90,170,220,.1),rgba(8,16,34,.7));border:1px solid var(--gl);border-radius:16px}
+.pr-opp-ico{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;border:1px solid var(--gl);background:rgba(89,227,247,.08)}
+.pr-opp-ico svg{width:20px;height:20px;fill:none;stroke:var(--cy);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.pr-opp-main{min-width:0;display:flex;flex-direction:column;gap:8px;flex:1}
+.pr-opp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.pr-opp-top b{color:#fff;font-size:15px;line-height:1.3}
+.pr-opp-main p{margin:0;color:var(--ink2);font-size:13px;line-height:1.5}
+.pr-opp-id{font:11px ui-monospace,monospace;color:var(--ink3)}
+.pr-opp-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 12px;padding-top:8px;border-top:1px solid rgba(160,200,255,.1)}
+.pr-opp-meta span{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+.pr-opp-meta b{display:block;font-size:12.5px;color:#fff;font-weight:600;margin-top:2px}
+.pr-opp ul{margin:0;padding-left:16px;color:var(--ink3);font-size:12px;line-height:1.5}
+.pr .pill.stage-open{color:var(--ok);border-color:rgba(94,234,160,.45)}
+.pr .pill.stage-eval{color:#f5c451;border-color:rgba(245,196,81,.45)}
+@media(max-width:760px){.pr-opps{margin:0 16px 16px;max-width:none}.pr-opp-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.pr-opp-brief{grid-template-columns:minmax(0,1fr)}.pr-opp-list{grid-template-columns:minmax(0,1fr)}.pr-opp-meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1280px){.pr-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1100px){.pr-grid{grid-template-columns:minmax(0,1fr)}.pr-nav{display:none}}
+@media(max-width:760px){body[data-profile=business] .top{flex-wrap:wrap}.pr-sim-grid{grid-template-columns:minmax(0,1fr)}.pr-sky{grid-template-columns:minmax(0,1fr)}.pr-readouts{grid-template-columns:repeat(2,minmax(0,1fr))}.pr-hero-body{padding:20px}.pr h1{font-size:28px}.pr-hero-media::after{background:rgba(3,6,13,.75)}.pr-tabs{grid-template-columns:repeat(7,minmax(104px,1fr));overflow-x:auto}.pr-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.pr-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.pr .thumb{height:72px}}
 </style>
 </head>
 <body>
 <section id="flight-panel" data-for="education"><div id="flight-stage"></div></section>
 <div class="wrap">
-<div class="top"><div><h1>Orbit<span>Pass</span></h1>
-<p class="sub" data-for="business">Lunar landing site comparison: solar power and direct-to-Earth communication windows</p>
-<p class="sub" data-for="education">Learn how a mission travels from Earth to the Moon</p></div><div class="row"><button class="ghost" id="mission-change" data-for="education">Change mission</button><button class="ghost" id="profile-btn">Profile</button></div></div>
+<div class="top"><div class="pr-brand"><h1>Orbit<span>Pass</span></h1><em class="pr-tier" data-for="business">Pro / Business</em><p class="sub" data-for="education">Learn how a mission travels from Earth to the Moon</p></div><nav class="pr-nav" data-for="business"><button type="button" data-goto="bases">Bases</button><button type="button" data-goto="simulation">Simulation</button><button type="button" data-goto="infrastructure">Scenario</button><button type="button" data-goto="access">Windows</button><button type="button" data-goto="projects">Missions</button><button type="button" data-goto="resources">Resources</button></nav><div class="row"><button class="ghost" id="mission-change" data-for="education">Change mission</button><button class="ghost" id="profile-btn">Profile</button></div></div>
+<div class="pr" data-for="business" id="pr-top">
+<section class="glass pr-list" id="pr-bases" data-screen="bases"><div class="pr-sec"><h2>Bases</h2><div class="pr-list-tools"><input type="search" id="base-search" placeholder="Search by name, program or type" aria-label="Search bases"></div></div><div class="pr-strip" id="sites"></div></section>
+<div class="pr-grid" data-screen="base">
+<div class="pr-main">
+<nav class="pr-crumb" data-screen="base" aria-label="Breadcrumb"><button type="button" data-goto="bases">Bases</button><span aria-hidden="true">›</span><b id="crumb-base"></b><span aria-hidden="true">›</span><b id="crumb-tab"></b></nav>
+<section class="glass pr-hero" id="hero"></section>
+<nav class="pr-tabs" role="tablist" aria-label="Base information"><button type="button" role="tab" aria-selected="true" class="pr-tab on" data-goto="overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Overview</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="simulation"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>Simulation</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="infrastructure"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>Infrastructure</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="research"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4 19a1 1 0 0 0 1 2h14a1 1 0 0 0 1-2l-6-10V3"/></svg>Research &amp; Production</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="resources"><svg viewBox="0 0 24 24"><path d="M5 19c0-9 6-14 14-14 0 8-5 14-14 14z"/><path d="M5 19l8-8"/></svg>Resources</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="access"><svg viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Access &amp; Logistics</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="projects"><svg viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></svg>Projects</button></nav>
+<div class="pr-kpis" id="kpis"></div>
+<section class="glass" id="pr-sim">
+<div class="pr-sec"><div><h2>30-day simulation · environmental &amp; operational forecast</h2><div class="note" id="clock"></div></div><div class="pr-time"><input type="date" id="date"><button id="play">Play</button></div></div>
+<input type="range" id="t" class="pr-scrub" min="0" max="719" value="0">
+<div class="pr-sim-grid"><div id="overview"></div><div class="pr-charts" id="charts"></div></div>
+</section>
 
-<div class="panel" data-for="business">
-<div class="row">
-<input type="date" id="date">
-<input type="range" id="t" min="0" max="719" value="0">
-<button id="play">Play</button>
+<section class="glass" id="scenario"></section>
+<section class="glass" id="compare"></section>
+<section class="glass" id="windows-panel"><h2>Operating window finder</h2><div class="row"><button id="find">Find best windows for selected site</button></div><div class="tbl-wrap" id="windows"></div><div class="note">Scans the 12 months after the selected date. Each candidate is a 14-day surface operation period starting 00:00 UTC, ranked by the mean of Sun and Earth availability. Approximate ephemeris; LOLA terrain horizon when available, spherical otherwise.</div></section>
+<section class="glass" id="pr-manifest"><h2>Mission manifest</h2><div class="row"><label class="note" for="prov">Provider</label><select id="prov"></select></div><div class="tbl-wrap" id="manifest"></div><div class="note">Target periods as publicly reported by NASA and operators (as of September 2026). Schedules change often and sources disagree; verify with the operator. Conflict risk: a reported mission within 150 km of the selected site whose target period overlaps the 30-day analysis window. Site coordinates are approximate and this is not an official deconfliction tool.</div></section>
+<section class="glass" id="pr-resources"><h2>NASA and partner resources</h2><div class="row">
+<a class="chip" href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons (ephemerides)</a>
+<a class="chip" href="https://quickmap.lroc.asu.edu/" target="_blank" rel="noopener">Quickmap (LRO / LOLA)</a>
+<a class="chip" href="https://trek.nasa.gov/moon/" target="_blank" rel="noopener">Moon Trek (3D)</a>
+<a class="chip" href="https://www.asc-csa.gc.ca/eng/astronomy/moon-exploration/" target="_blank" rel="noopener">CSA Moon Exploration</a>
+<a class="chip" href="https://threejs.org/" target="_blank" rel="noopener">Three.js (3D engine)</a></div>
+<div class="note">Data: JPL Horizons (ephemerides, queried live in the Docker version) and NASA Moon Trek (LRO WAC imagery tiles). Software: Three.js, an open-source 3D engine used only for rendering. Terrain horizons come from the Moon Trek LOLA elevation model (LRO_LOLA_DEM_Global_128ppd_v04, about 0.67 km per pixel, rays out to 200 km, Docker version).</div></section>
 </div>
-<div class="note" id="clock"></div>
+<aside class="pr-stack">
+<section class="glass" id="location"><div class="pr-card-head"><span class="pr-ico"><svg viewBox="0 0 24 24"><path d="M12 21s6.5-5.6 6.5-11a6.5 6.5 0 1 0-13 0c0 5.4 6.5 11 6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span><h2>Location &amp; Conditions</h2></div><div class="pr-loc2"><div class="pr-kv" id="loc-rows"></div><div class="pr-moon-card" id="moon-card"><div id="moon3d"></div><svg class="pr-reticle" viewBox="0 0 100 100"><circle cx="50" cy="50" r="5"/><path d="M50 0V42M50 58V100M0 50H42M58 50H100"/></svg><button type="button" class="pr-expand" id="moon-expand" aria-label="Expand 3D view"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div></div><div class="pr-phase"><svg id="phase" viewBox="0 0 120 120"></svg><div class="pr-phase-text"><small>Moon, live illumination</small><b id="phase-pct">—</b><span id="phase-name">—</span></div></div></section>
+<section class="glass" id="solar"></section>
+<section class="glass" id="temps"></section>
+<section class="glass" id="env"></section>
+<section class="glass" id="status"></section>
+</aside>
 </div>
-
-<div class="panel" data-for="business"><h2>Moon, live illumination</h2><div id="moon3d"></div><div class="note" id="m3note">3D Moon requires the Docker version (/trek proxy to NASA Moon Trek).</div></div>
-
-<div class="panel" data-for="business"><h2>Sites</h2><div class="grid" id="sites"></div></div>
-
+<div class="pr-modal closed" id="opp-modal"><div class="pr-modal-bar"><div><small>Business opportunities</small><b id="opp-title"></b></div><button type="button" class="ghost" id="opp-close">Close</button></div><div class="pr-opp-stage" id="opp-stage"></div></div>
+<div class="pr-modal closed" id="moon-modal"><div class="pr-modal-bar"><div><small>Lunar view · 3D</small><b id="moon-modal-title"></b></div><button type="button" class="ghost" id="moon-close">Close</button></div><div class="pr-modal-stage" id="moon-stage"></div><div class="pr-modal-foot"><span class="note" id="m3note">3D Moon requires the Docker version (/trek proxy to NASA Moon Trek). Drag to rotate, scroll to zoom.</span></div></div>
+<p class="note pr-foot" data-screen="base">Approximate analytical ephemerides (Meeus). Horizons use LOLA terrain at about 0.67 km per pixel (spherical when the Docker proxy is absent), so small local features are not resolved. Validate with JPL Horizons before operational use. Site coordinates are approximate.</p>
+</div>
 <div class="tp-wrap" id="explore" data-for="tourism"><div id="explore-root"></div></div>
 
 <div class="panel" id="mission-info" data-for="education"><h2>Mission plan</h2><div id="flight-info"></div></div>
 <div class="panel" id="learn" data-for="education"><h2>Learn</h2><div class="grid" id="lessons"></div><h2 style="margin-top:20px">Quick quiz</h2><div id="quiz"></div></div>
-<div class="panel" id="detail" data-for="business"></div>
-<div class="panel" data-for="business"><h2>Mission manifest</h2><div class="row"><label class="note" for="prov">Provider</label><select id="prov"></select></div><div class="tbl-wrap" id="manifest"></div><div class="note">Target periods as publicly reported by NASA and operators (as of September 2026). Schedules change often and sources disagree; verify with the operator. Conflict risk: a reported mission within 150 km of the selected site whose target period overlaps the 30-day analysis window. Site coordinates are approximate and this is not an official deconfliction tool.</div></div>
-<div class="panel" data-for="business"><h2>Operating window finder</h2><div class="row"><button id="find">Find best windows for selected site</button></div><div class="tbl-wrap" id="windows"></div><div class="note">Scans the 12 months after the selected date. Each candidate is a 14-day surface operation period starting 00:00 UTC, ranked by the mean of Sun and Earth availability. Approximate ephemeris; LOLA terrain horizon when available, spherical otherwise.</div></div>
-<div class="panel" id="scenario" data-for="business"></div>
-<div class="panel" id="compare" data-for="business"></div>
 <div class="panel" data-for="education"><h2>Learn more</h2><div class="row">
 <a class="chip" href="https://science.nasa.gov/moon/" target="_blank" rel="noopener">NASA Moon</a>
 <a class="chip" href="https://trek.nasa.gov/moon/" target="_blank" rel="noopener">Moon Trek (3D)</a>
 <a class="chip" href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons (ephemerides)</a>
 <a class="chip" href="https://www.asc-csa.gc.ca/eng/astronomy/moon-exploration/" target="_blank" rel="noopener">CSA Moon Exploration</a></div>
 <div class="note">The simulation uses analytical ephemerides (Meeus) for the Moon, Sun and Earth rotation. Lessons use the selected destination and date.</div></div>
-<div class="panel" data-for="business"><h2>NASA and partner resources</h2><div class="row">
-<a class="chip" href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons (ephemerides)</a>
-<a class="chip" href="https://quickmap.lroc.asu.edu/" target="_blank" rel="noopener">Quickmap (LRO / LOLA)</a>
-<a class="chip" href="https://trek.nasa.gov/moon/" target="_blank" rel="noopener">Moon Trek (3D)</a>
-<a class="chip" href="https://www.asc-csa.gc.ca/eng/astronomy/moon-exploration/" target="_blank" rel="noopener">CSA Moon Exploration</a>
-<a class="chip" href="https://threejs.org/" target="_blank" rel="noopener">Three.js (3D engine)</a></div>
-<div class="note">Data: JPL Horizons (ephemerides, queried live in the Docker version) and NASA Moon Trek (LRO WAC imagery tiles). Software: Three.js, an open-source 3D engine used only for rendering. Terrain horizons come from the Moon Trek LOLA elevation model (LRO_LOLA_DEM_Global_128ppd_v04, about 0.67 km per pixel, rays out to 200 km, Docker version). Quickmap and Moon Trek open to inspect site terrain at full resolution.</div></div>
-<p class="note" data-for="business">Approximate analytical ephemerides (Meeus). Horizons use LOLA terrain at about 0.67 km per pixel (spherical when the Docker proxy is absent), so small local features are not resolved. Validate with JPL Horizons before operational use. Site coordinates are approximate.</p>
-</div>
 <div class="overlay" id="welcome" hidden></div>
 <script src="ephemeris.js"></script>
 <script src="profiles.js"></script>
 <script>
 const HRS=720;
 const SITES=[
-["Shackleton rim","South pole",-89.9,0],
-["Malapert","South pole",-85.99,0.2],
-["Haworth","South pole",-87.5,-5],
-["Nobile rim","South pole",-85.2,53.3],
-["Mons Mouton (IM-2)","CLPS",-84.8,29.2],
-["Reiner Gamma (IM-3)","CLPS",7.5,-59],
-["Mare Crisium (Blue Ghost)","CLPS",18.6,61.8],
-["Apollo 11","Apollo",0.67,23.47],
-["Apollo 12","Apollo",-3.01,-23.42],
-["Apollo 15","Apollo",26.13,3.63],
-["Apollo 16","Apollo",-8.97,15.5],
-["Apollo 17","Apollo",20.19,30.77]
-].map((s,i)=>({id:i,name:s[0],tag:s[1],lat:s[2],lon:s[3]}));
+["Shackleton rim","South pole",-89.9,0,"south-pole"],
+["Malapert","South pole",-85.99,0.2,"malapert"],
+["Haworth","South pole",-87.5,-5,"haworth"],
+["Nobile rim","South pole",-85.2,53.3,"nobile"],
+["Mons Mouton (IM-2)","CLPS",-84.8,29.2,"mons-mouton"],
+["Reiner Gamma (IM-3)","CLPS",7.5,-59,null],
+["Mare Crisium (Blue Ghost)","CLPS",18.6,61.8,null],
+["Apollo 11","Apollo",0.67,23.47,"tranquility"],
+["Apollo 12","Apollo",-3.01,-23.42,"storms"],
+["Apollo 15","Apollo",26.13,3.63,"hadley"],
+["Apollo 16","Apollo",-8.97,15.5,"descartes"],
+["Apollo 17","Apollo",20.19,30.77,"taurus"]
+].map((s,i)=>({id:i,name:s[0],tag:s[1],lat:s[2],lon:s[3],cat:s[4]}));
 let sel=0,cmp=new Set([0,1,2]),start,subs=[],stats=[],timer=null;
 
 const hzAt=(hor,az)=>{if(!hor)return 0;const i=Math.floor(az),k=az-i;return hor[i%360]*(1-k)+hor[(i+1)%360]*k};
@@ -457,10 +677,9 @@ function until(arr,h){const up=arr[h].up;for(let i=h+1;i<HRS;i++)if(arr[i].up!==
 function untilTxt(u,a,b){const x=u.h===null?"over "+Math.floor((HRS-0)/24)+" d":(u.h>=24?Math.floor(u.h/24)+" d "+u.h%24+" h":u.h+" h");
 return u.up?`${a} in ${x}`:`${b} in ${x}`}
 
-function renderSites(){document.getElementById("sites").innerHTML=SITES.map(s=>{const st=stats[s.id];
-return`<div class="card ${s.id===sel?"sel":""}" data-id="${s.id}">
-<span class="cmp ${cmp.has(s.id)?"on":""}" data-c="${s.id}">Compare</span><b>${s.name}</b><small>${s.tag} · ${f(s.lat,1)}°, ${f(s.lon,1)}°</small>
-<div class="chips"><span class="chip">Sun ${f(st.sp)}%</span><span class="chip">Earth ${f(st.ep)}%</span><span class="chip">Score ${st.score}</span></div></div>`}).join("")}
+function renderSites(){const q=document.getElementById("base-search").value.trim().toLowerCase(),list=SITES.filter(s=>`${s.name} ${s.tag} ${info(s)?.program||""}`.toLowerCase().includes(q));
+document.getElementById("sites").innerHTML=list.length?list.map(s=>{const st=stats[s.id],img=info(s)?.image;
+return`<div class="card ${s.id===sel?"sel":""}" data-id="${s.id}" tabindex="0" role="button" aria-label="Open ${s.name}"><span class="cmp ${cmp.has(s.id)?"on":""}" data-c="${s.id}">Compare</span><div class="thumb${img?"":" none"}"${img?` style="background-image:url(${img})"`:""}></div><b>${s.name}</b><small>${s.tag} · ${f(s.lat,1)}°, ${f(s.lon,1)}°</small><div class="chips"><span class="chip">Sun ${f(st.sp)}%</span><span class="chip">Earth ${f(st.ep)}%</span><span class="chip">Score ${st.score}</span></div></div>`}).join(""):'<div class="pr-empty">No base matches your search.</div>'}
 
 function sky(sun,ear,hor){const c=150,r=130,pos=o=>{const k=(90-Math.max(o.el,0))/90*r,a=o.az*R;return[c+k*Math.sin(a),c-k*Math.cos(a)]};
 const body=(o,col,rad)=>{const[x,y]=pos(o),up=o.up;return`<g opacity="${up?1:.3}"><circle cx="${x}" cy="${y}" r="${rad*2}" fill="${col}" opacity=".3"/><circle cx="${x}" cy="${y}" r="${rad}" fill="${col}"/></g>`};
@@ -469,19 +688,78 @@ let g="";[0,30,60].forEach(e=>g+=`<circle cx="${c}" cy="${c}" r="${(90-e)/90*r}"
 return`<svg viewBox="0 0 300 300"><defs><radialGradient id="sk"><stop offset="0" stop-color="#141b2a"/><stop offset="1" stop-color="#06080d"/></radialGradient></defs><circle cx="${c}" cy="${c}" r="${r}" fill="url(#sk)"/>${g}${mask(hor)}
 <g fill="#8590a3" font-size="13" text-anchor="middle"><text x="${c}" y="14">N</text><text x="${c}" y="296">S</text><text x="289" y="${c+5}">E</text><text x="11" y="${c+5}">W</text></g>${body(sun,"#d99a2b",9)}${body(ear,"#3b8fd9",7)}</svg>`}
 
-function timeline(st,h){const W=600,H=170,y=e=>H/2-e/92*(H/2-8),x=i=>i/(HRS-1)*W;
-let bands="",run=-1;st.sun.forEach((s,i)=>{if(!s.up&&run<0)run=i;if((s.up||i===HRS-1)&&run>=0){bands+=`<rect x="${x(run)}" y="0" width="${x(i)-x(run)}" height="${H}" fill="${cssv('--band')}" opacity=".7"/>`;run=-1}});
-const path=a=>a.map((p,i)=>(i?"L":"M")+f(x(i),1)+" "+f(y(p.el),1)).join("");
-return`<svg viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" rx="8" fill="${cssv('--inset')}"/>${bands}<line x1="0" x2="${W}" y1="${H/2}" y2="${H/2}" stroke="${cssv('--axis')}"/>
-<path d="${path(st.sun)}" fill="none" stroke="#d99a2b" stroke-width="2.5"/><path d="${path(st.ear)}" fill="none" stroke="#3b8fd9" stroke-width="2.5"/>
-<line x1="${x(h)}" x2="${x(h)}" y1="0" y2="${H}" stroke="${cssv('--txt')}" stroke-width="1.5"/></svg>`}
+const info=s=>catalog.find(b=>b.id===s.cat);
+const prRow=(a,b)=>`<div><span>${a}</span><b>${b}</b></div>`;
+const regionOf=s=>{const a=Math.abs(s.lat),band=a>=70?"Polar":a>=30?"Mid-latitude":"Equatorial";return`${s.lat<0?"Southern":"Northern"} ${band.toLowerCase()} · ${Math.abs(s.lon)<=90?"Near side":"Far side"}`};
+const coordsOf=s=>`${f(Math.abs(s.lat),2)}° ${s.lat<0?"S":"N"}, ${f(Math.abs(s.lon),2)}° ${s.lon<0?"W":"E"}`;
+const LUNAR_DAY=29.53;
+const PR_CARD_ICON={pin:'<path d="M12 21s6.5-5.6 6.5-11a6.5 6.5 0 1 0-13 0c0 5.4 6.5 11 6.5 11z"/><circle cx="12" cy="10" r="2.4"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',thermo:'<path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0z"/>',leaf:'<path d="M5 19c0-9 6-14 14-14 0 8-5 14-14 14z"/><path d="M5 19l8-8"/>',layers:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>'};
+const cardHead=(icon,title,note)=>`<div class="pr-card-head"><span class="pr-ico"><svg viewBox="0 0 24 24">${PR_CARD_ICON[icon]}</svg></span><h2>${title}</h2>${note?`<small>${note}</small>`:""}</div>`;
 
-function renderDetail(){const s=SITES[sel],st=stats[sel],h=+document.getElementById("t").value,sn=st.sun[h],ea=st.ear[h];
-document.getElementById("detail").innerHTML=`<h2>${s.name} <small style="color:var(--mut)">${s.tag}</small></h2><div class="cols"><div>${sky(sn,ea,s.hor)}<div class="note">Amber: Sun · Blue: Earth · Center: zenith${s.hor?" · Grey: terrain above the horizon":""}</div></div><div>
-<div class="kpis"><div class="kpi"><span>Sun elevation</span><b>${f(sn.el,1)}°</b></div><div class="kpi"><span>Earth elevation</span><b>${f(ea.el,1)}°</b></div>
-<div class="kpi"><span>${sn.up?"Sun up":"Sun down"}</span><b>${untilTxt(until(st.sun,h),"sunset","sunrise")}</b></div><div class="kpi"><span>${ea.up?"Earth visible":"No Earth"}</span><b>${untilTxt(until(st.ear,h),"Earthset","Earthrise")}</b></div>
-<div class="kpi"><span>Max darkness</span><b>${f(st.dark/24,1)} d</b></div><div class="kpi"><span>Avg sun elevation</span><b>${f(st.ae,1)}°</b></div></div>
-<div style="margin-top:12px">${timeline(st,h)}</div><div class="row" style="margin-top:8px"><button onclick="validate()">Load JPL Horizons data</button><span class="note" id="hzs">Source: ${st.source} · Horizon: ${hzState}${st.diff!==undefined?" · max diff vs approx.: "+f(st.diff,2)+"° (sun elevation)":""}</span></div><div class="note">30 days. Amber: Sun elevation. Blue: Earth elevation. Shaded: lunar night.</div></div></div>`}
+const PR_ICON={sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',earth:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',both:'<circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/>',moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',arc:'<path d="M3 18l6-8 4 5 3-3 5 6"/>',terrain:'<path d="M2 20l7-12 4 6 3-4 6 10z"/>',research:'<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/>',manufacturing:'<path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/>',logistics:'<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>',construction:'<path d="M4 21h16M7 21V8l9-4M7 8h12M16 4v6M16 10v3"/>',energy:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',comms:'<path d="M12 12v9M8 21h8M7.5 7.5a6 6 0 0 0 0 9M16.5 7.5a6 6 0 0 1 0 9"/><circle cx="12" cy="12" r="1"/>',life:'<path d="M5 19C5 10 10 5 20 4c0 10-5 15-14 15zM5 19l8-8"/>',commercial:'<path d="M4 9l1-5h14l1 5M4 9v11h16V9M4 9h16M9 20v-6h6v6"/>'};
+const prIcon=k=>`<svg viewBox="0 0 24 24">${PR_ICON[k]}</svg>`;
+const OPP_AREAS={research:["Research & R&D","Research"],manufacturing:["Manufacturing & Production","Manufacturing"],logistics:["Logistics & Supply","Logistics"],construction:["Construction & Infrastructure","Construction"],energy:["Energy & Power","Energy"],comms:["Communications & Data","Comms"],life:["Life Support & Habitats","Life Support"],commercial:["Commercial & Services","Commercial"]};
+let biz=null,oppArea="all";
+const bizOf=s=>biz&&biz.bases[s.cat||({5:"reiner-gamma",6:"mare-crisium"})[s.id]];
+const fmtM=v=>v>=1000?`$${f(v/1000,1)}B`:`$${f(v)}M`;
+const fmtD=d=>new Date(d+"T00:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"});
+const bizStats=b=>{const o=b.opportunities;return{total:o.length,open:o.filter(x=>x.stage==="Open for proposals").length,pipe:o.reduce((a,x)=>a+x.valueMusd[1],0),next:o.map(x=>x.deadline).sort()[0]}};
+const oppCount=(b,a)=>b.opportunities.filter(x=>x.area===a).length;
+function oppPanel(s){const b=bizOf(s);if(!b)return"";const st=bizStats(b);
+return`<aside class="pr-opps" aria-label="Business opportunities"><div class="pr-opps-head"><div><small>Business opportunities</small><b>${st.total}<span>open</span></b></div><span class="pill ok">${b.status}</span></div><div class="pr-opps-grid">${Object.keys(OPP_AREAS).map(a=>`<button type="button" class="pr-opps-tile" data-opp="${a}" title="${OPP_AREAS[a][0]}">${prIcon(a)}<span>${OPP_AREAS[a][1]}</span><b>${oppCount(b,a)}</b></button>`).join("")}</div><div class="pr-opps-stats"><div><span>Pipeline</span><b>${fmtM(st.pipe)}</b></div><div><span>Open RFPs</span><b>${st.open}</b></div><div><span>Next deadline</span><b>${fmtD(st.next).replace(/ \d{4}$/,"")}</b></div></div><button type="button" class="pr-opps-cta" data-opp="all">View opportunities →</button></aside>`}
+function renderOpp(){const s=SITES[sel],b=bizOf(s);if(!b)return;const st=bizStats(b),list=b.opportunities.filter(x=>oppArea==="all"||x.area===oppArea).sort((x,y)=>x.deadline<y.deadline?-1:1);
+document.getElementById("opp-title").textContent=s.name;
+document.getElementById("opp-stage").innerHTML=`<div class="pr-opp-kpis"><div><span>Opportunities</span><b>${st.total}</b></div><div><span>Open for proposals</span><b>${st.open}</b></div><div><span>Pipeline value</span><b>${fmtM(st.pipe)}</b></div><div><span>Next deadline</span><b>${fmtD(st.next)}</b></div></div><div class="pr-opp-brief"><div><p>${b.focus}</p><dl><dt>Status</dt><dd>${b.status}</dd><dt>Established</dt><dd>${b.established}</dd><dt>Crew</dt><dd>${b.crew}</dd><dt>Lead</dt><dd>${b.lead}</dd></dl></div><ul>${b.highlights.map(h=>`<li>${h}</li>`).join("")}</ul></div><div class="pr-opp-chips"><button type="button" class="pr-opp-chip${oppArea==="all"?" on":""}" data-oppf="all">All areas <i>${st.total}</i></button>${Object.keys(OPP_AREAS).map(a=>`<button type="button" class="pr-opp-chip${oppArea===a?" on":""}" data-oppf="${a}">${OPP_AREAS[a][1]} <i>${oppCount(b,a)}</i></button>`).join("")}</div><div class="pr-opp-list">${list.map(x=>`<article class="pr-opp"><span class="pr-opp-ico">${prIcon(x.area)}</span><div class="pr-opp-main"><div class="pr-opp-top"><div><b>${x.title}</b><div class="pr-opp-id">${x.id} · ${OPP_AREAS[x.area][0]}</div></div><span class="pill ${x.stage==="Open for proposals"?"stage-open":x.stage==="Under evaluation"?"stage-eval":""}">${x.stage}</span></div><p>${x.summary}</p><div class="pr-opp-meta"><div><span>Contract</span><b>${x.type}</b></div><div><span>Est. value</span><b>${fmtM(x.valueMusd[0])}–${fmtM(x.valueMusd[1])}</b></div><div><span>Deadline</span><b>${fmtD(x.deadline)}</b></div><div><span>Duration</span><b>${x.months} months</b></div><div><span>Min. readiness</span><b>TRL ${x.trl}+</b></div><div><span>Sponsor</span><b>${x.sponsor}</b></div></div><ul>${x.requirements.map(r=>`<li>${r}</li>`).join("")}</ul></div></article>`).join("")}</div><div class="note">${biz.meta.disclaimer}</div>`}
+function openOpp(a){oppArea=a;renderOpp();document.getElementById("opp-modal").classList.remove("closed");document.getElementById("opp-stage").scrollTop=0}
+function closeOpp(){document.getElementById("opp-modal").classList.add("closed")}
+async function loadBiz(){try{biz=await(await fetch("data/business.json")).json();renderHero()}catch(e){}}
+function renderHero(){const s=SITES[sel],b=info(s),img=b&&b.image,pills=b?[b.status,b.program,s.tag]:[s.tag];
+document.getElementById("hero").innerHTML=`<div class="pr-hero-media${img?"":" none"}"${img?` style="background-image:url(${img})"`:""}></div><div class="pr-hero-body"><a class="pr-back" data-goto="bases">← Back to Bases</a><div class="pr-badges">${pills.map((t,i)=>`<span class="pill${i===0?" ok":""}">${t}</span>`).join("")}</div><h1>${s.name}</h1><div class="pr-sub">${b?b.mission:s.tag} · ${coordsOf(s)}</div><p>${b?b.description:"No catalog record for this site. Metrics come from the ephemeris and the terrain model."}</p><div class="row"><button data-fly>Show on 3D Moon</button><button class="ghost" data-cmp>${cmp.has(sel)?"Remove from compare":"Add to compare"}</button></div></div>${oppPanel(s)}`}
+function renderKpis(){const st=stats[sel],hm=SITES[sel].hor,k=[["sun","Sun above horizon",`${f(st.sp)}%`,"next 30 days"],["earth","Earth in view",`${f(st.ep)}%`,"next 30 days"],["both","Sun and Earth",`${f(st.bp)}%`,"both up"],["moon","Longest night",`${f(st.dark/24,1)} d`,"max darkness"],["arc","Avg sun elevation",`${f(st.ae,1)}°`,"while up"],["terrain","Terrain horizon",hm?`${f(Math.max(...hm),1)}°`:"—",hm?"LOLA maximum":"not loaded"]];
+document.getElementById("kpis").innerHTML=k.map(([i,a,b,c])=>`<div class="glass pr-kpi">${prIcon(i)}<div><span>${a}</span><b>${b}</b><small>${c}</small></div></div>`).join("")}
+function lineChart(series,color,label,h,night){const W=640,H=110,x=i=>i/(HRS-1)*W,y=e=>H/2-e/90*(H/2-10);let bands="",run=-1;
+if(night)series.forEach((p,i)=>{if(!p.up&&run<0)run=i;if((p.up||i===HRS-1)&&run>=0){bands+=`<rect x="${x(run)}" y="0" width="${x(i)-x(run)}" height="${H}" fill="rgba(120,140,190,.16)"/>`;run=-1}});
+const path=series.map((p,i)=>(i?"L":"M")+f(x(i),1)+" "+f(y(p.el),1)).join("");
+return`<div class="pr-chart"><div class="pr-chart-head"><span>${label}</span><b>${f(series[h].el,1)}°</b></div><svg viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" rx="10" fill="rgba(6,12,28,.55)"/>${bands}<line x1="0" x2="${W}" y1="${H/2}" y2="${H/2}" stroke="rgba(160,200,255,.2)" stroke-dasharray="4 4"/><path d="${path}" fill="none" stroke="${color}" stroke-width="2.2"/><line x1="${x(h)}" x2="${x(h)}" y1="0" y2="${H}" stroke="#fff" stroke-opacity=".75"/><circle cx="${x(h)}" cy="${f(y(series[h].el),1)}" r="4" fill="${color}"/></svg></div>`}
+function renderDetail(){const st=stats[sel],h=+document.getElementById("t").value,sn=st.sun[h],ea=st.ear[h],C=2*Math.PI*44;
+document.getElementById("overview").innerHTML=`<div class="pr-donut"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="44" fill="none" stroke="#7c5cf0" stroke-width="12"/><circle cx="60" cy="60" r="44" fill="none" stroke="#f5c451" stroke-width="12" stroke-dasharray="${f(C*st.sp/100,2)} ${f(C,2)}" transform="rotate(-90 60 60)"/><text x="60" y="60" text-anchor="middle" fill="#fff" font-size="20" font-weight="600">${f(st.sp)}%</text><text x="60" y="78" text-anchor="middle" fill="#7d92b2" font-size="9">sun up</text></svg></div><div class="pr-rows">${prRow("Sun up",`≈ ${f(st.sp/100*30,1)} days`)}${prRow("Sun down",`≈ ${f((100-st.sp)/100*30,1)} days`)}${prRow("Longest night",`${f(st.dark/24,1)} days`)}${prRow("Earth in view",`${f(st.ep)}%`)}${prRow("Avg sun elevation",`${f(st.ae,1)}°`)}</div>`;
+document.getElementById("charts").innerHTML=lineChart(st.sun,"#f5c451","Sun elevation",h,true)+lineChart(st.ear,"#3b8fd9","Earth elevation",h,false)+`<div class="pr-readouts"><div><span>${sn.up?"Sun up":"Sun down"}</span><b>${untilTxt(until(st.sun,h),"sunset","sunrise")}</b></div><div><span>${ea.up?"Earth visible":"No Earth"}</span><b>${untilTxt(until(st.ear,h),"Earthset","Earthrise")}</b></div><div><span>Sun elevation</span><b>${f(sn.el,1)}°</b></div><div><span>Earth elevation</span><b>${f(ea.el,1)}°</b></div></div><div class="pr-sky"><div class="pr-sky-fig">${sky(sn,ea,SITES[sel].hor)}</div><div class="pr-sky-info"><b>Sky view · N E S W</b><span><i style="background:#d99a2b"></i>Sun · az ${f(sn.az)}° · el ${f(sn.el,1)}°</span><span><i style="background:#3b8fd9"></i>Earth · az ${f(ea.az)}° · el ${f(ea.el,1)}°</span><span><i style="background:#64748b"></i>${SITES[sel].hor?`Terrain horizon (LOLA) · max ${f(Math.max(...SITES[sel].hor),1)}°`:"Flat horizon · LOLA terrain not loaded"}</span></div></div>`;
+renderPhase(start+h*36e5)}
+const phaseOf=ms=>{const e=lunar(ms/864e5+2440587.5),psi=((e.lam-e.lamS)%360+360)%360;return{k:(1-Math.cos(psi*Math.PI/180))/2,waxing:psi<180}};
+const phaseName=(k,w)=>k<.02?"New moon":k>.98?"Full moon":Math.abs(k-.5)<.02?(w?"First quarter":"Last quarter"):k<.5?(w?"Waxing crescent":"Waning crescent"):(w?"Waxing gibbous":"Waning gibbous");
+function renderPhase(ms){const{k,waxing}=phaseOf(ms),rx=f(50*Math.abs(2*k-1),2),shade=k>=.5?`<ellipse cx="60" cy="60" rx="${rx}" ry="50" fill="#000"/>`:`<ellipse cx="60" cy="60" rx="${rx}" ry="50" fill="#fff"/>`;
+document.getElementById("phase").innerHTML=`<defs><clipPath id="phc"><circle cx="60" cy="60" r="50"/></clipPath><mask id="phm" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120"><rect width="120" height="120" fill="#fff"/><g transform="${waxing?"":"translate(120 0) scale(-1 1)"}"><path d="M60 10A50 50 0 0 1 60 110Z" fill="#000"/>${shade}</g></mask></defs><image href="assets/moon-disc.jpg" x="10" y="10" width="100" height="100" clip-path="url(#phc)"/><rect x="10" y="10" width="100" height="100" fill="#02050b" opacity=".88" mask="url(#phm)"/><circle cx="60" cy="60" r="50" fill="none" stroke="rgba(160,200,255,.35)"/>`;
+document.getElementById("phase-pct").textContent=`${f(k*100,1)}%`;
+document.getElementById("phase-name").textContent=phaseName(k,waxing)}
+const elevOf=s=>s.elev===undefined?"Needs Docker (LOLA)":Number.isFinite(s.elev)?`${s.elev<0?"−":""}${Math.abs(Math.round(s.elev)).toLocaleString("en-US")} m`:"No DEM data";
+function renderSide(){const s=SITES[sel],st=stats[sel],dayD=st.sp/100*LUNAR_DAY,nb=SITES.filter(x=>x.id!==s.id).map(x=>({x,d:km(s,x)})).sort((a,b)=>a.d-b.d)[0],kv=(a,b)=>`<div><span>${a}</span><b>${b}</b></div>`;
+document.getElementById("loc-rows").innerHTML=kv("Region",regionOf(s))+kv("Coordinates",coordsOf(s))+kv("Elevation",elevOf(s))+kv("Nearest landmark",`${nb.x.name} (≈ ${f(nb.d)} km)`);
+document.getElementById("solar").innerHTML=`${cardHead("sun","Solar day cycle","Lunar")}<div class="pr-rows"><div><span>Lunar day</span><b>≈ ${LUNAR_DAY} Earth days</b></div><div><span>Sun up, next 30 d</span><b>${f(st.sp)}%</b></div></div><div class="pr-daybar" style="--d:${f(st.sp,1)}%"></div><div class="pr-split"><div class="pr-chip sun"><span class="pr-ico sm"><svg viewBox="0 0 24 24">${PR_CARD_ICON.sun}</svg></span><div><small>Day</small><b>≈ ${f(dayD,2)} d</b></div></div><div class="pr-chip moon"><span class="pr-ico sm"><svg viewBox="0 0 24 24">${PR_CARD_ICON.moon}</svg></span><div><small>Night</small><b>≈ ${f(LUNAR_DAY-dayD,2)} d</b></div></div></div>`;
+document.getElementById("temps").innerHTML=`${cardHead("thermo","Temperature range","Surface · typical")}<div class="pr-temps"><div><b class="cold">−233 °C</b><span>night, unheated</span></div><i class="pr-temps-sep"></i><div><b class="hot">+127 °C</b><span>day, sunlit surface</span></div></div>`;
+document.getElementById("env").innerHTML=`${cardHead("leaf","Environmental conditions")}<div class="pr-rows">${prRow("Atmosphere","None (vacuum)")}${prRow("Gravity","0.165 g (1/6 Earth)")}${prRow("Regolith","Fine, abrasive, basaltic and anorthositic")}${prRow("Radiation","Unshielded solar and galactic")}</div>`;
+document.getElementById("status").innerHTML=`${cardHead("layers","Data status")}<div class="pr-rows"><div><span>Ephemeris</span><b><i class="pr-dot ok"></i>Meeus, analytical</b></div><div><span>Terrain horizon</span><b><i class="pr-dot ${hzState==="LOLA terrain"?"ok":"warn"}"></i>${hzState}</b></div><div><span>Source</span><b>${st.source}</b></div><div><span>3D texture</span><b><i class="pr-dot ${moon?"ok":"warn"}"></i>${moon?"LRO WAC · LOLA relief":"Loading LRO WAC…"}</b></div><div><span>Scenario 2050</span><b><i class="pr-dot warn"></i>Synthetic</b></div></div><div class="row" style="margin-top:12px"><button onclick="validate()">Load JPL Horizons data</button></div><div class="note" id="hzs">${st.diff!==undefined?"max diff vs approx.: "+f(st.diff,2)+"° (sun elevation)":"Compare the analytical model with JPL Horizons (Docker)."}</div>`}
+async function loadCatalog(){try{catalog=(await(await fetch("data/moon_tourism.json")).json()).bases;renderAll()}catch(e){}}
+function openMoon(){document.getElementById("moon-modal-title").textContent=SITES[sel].name+" · "+coordsOf(SITES[sel]);document.getElementById("moon-stage").appendChild(document.getElementById("moon3d"));document.getElementById("moon-modal").classList.remove("closed");if(moon){fly();update3D()}}
+function closeMoon(){document.getElementById("moon-modal").classList.add("closed");document.getElementById("moon-card").appendChild(document.getElementById("moon3d"));if(moon){fly();update3D()}}
+const TAB_TARGET={overview:"hero",simulation:"pr-sim",infrastructure:"scenario",research:"compare",resources:"pr-resources",access:"windows-panel",projects:"pr-manifest"};
+function setScreen(name){document.querySelectorAll("[data-screen]").forEach(el=>{el.hidden=el.dataset.screen!==name})}
+function markTab(name){document.querySelectorAll(".pr-tab,.pr-nav button").forEach(el=>{const on=el.dataset.goto===name;el.classList.toggle("on",on);if(el.classList.contains("pr-tab"))el.setAttribute("aria-selected",String(on))})}
+function go(target){const bases=target==="bases";setScreen(bases?"bases":"base");markTab(target);
+document.getElementById("crumb-base").textContent=SITES[sel].name;
+document.getElementById("crumb-tab").textContent=bases?"":document.querySelector(`.pr-tab[data-goto="${target}"]`).textContent.trim();
+if(bases){window.scrollTo(0,0);return}
+document.getElementById(TAB_TARGET[target]).scrollIntoView({block:"start",behavior:"smooth"})}
+let spyQueued=false;
+function spy(){spyQueued=false;if(document.querySelector('[data-screen="base"]').hidden)return;let cur="overview";Object.entries(TAB_TARGET).forEach(([name,id])=>{if(document.getElementById(id).getBoundingClientRect().top<=140)cur=name});markTab(cur)}
+window.addEventListener("scroll",()=>{if(!spyQueued){spyQueued=true;requestAnimationFrame(spy)}},{passive:true});
+document.addEventListener("click",e=>{const o=e.target.closest("[data-opp]");if(o)return openOpp(o.dataset.opp);const q=e.target.closest("[data-oppf]");if(q){oppArea=q.dataset.oppf;return renderOpp()}if(e.target.closest("#opp-close"))return closeOpp();if(e.target.closest("[data-fly],#moon-expand"))return openMoon();if(e.target.closest("#moon-close"))return closeMoon();const g=e.target.closest("[data-goto]");if(g)go(g.dataset.goto)});
+document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!document.getElementById("opp-modal").classList.contains("closed"))return closeOpp();if(!document.getElementById("moon-modal").classList.contains("closed"))closeMoon();else if(document.querySelector('[data-screen="base"]').hidden===false)go("bases")});
+
+const TAB_ORDER=["overview","simulation","infrastructure","research","resources","access","projects"];
+document.querySelector(".pr-tabs").addEventListener("keydown",e=>{if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;e.preventDefault();const i=TAB_ORDER.indexOf(document.querySelector(".pr-tab.on").dataset.goto),j=(i+(e.key==="ArrowRight"?1:TAB_ORDER.length-1))%TAB_ORDER.length;go(TAB_ORDER[j]);document.querySelector(`.pr-tab[data-goto="${TAB_ORDER[j]}"]`).focus()});
+document.getElementById("base-search").addEventListener("input",renderSites);
+document.getElementById("sites").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".card"))e.target.click()});
+go("bases");
 
 function renderCompare(){const ids=[...cmp];const rows=[["Power (Sun above horizon)",x=>x.sp,"%","#d99a2b"],["Communication (Earth above horizon)",x=>x.ep,"%","#3b8fd9"],["Sun and Earth simultaneously",x=>x.bp,"%","#0b3d91"]];
 document.getElementById("compare").innerHTML=`<h2>Site comparison</h2>`+(ids.length?rows.map(([t,fn,u,c])=>`<b>${t}</b>`+ids.map(i=>`<div class="note">${SITES[i].name} · ${f(fn(stats[i]))}${u}</div><div class="bar"><i style="width:${fn(stats[i])}%;background:${c}"></i></div>`).join("")).join("")+`<b>Longest night</b>`+ids.map(i=>`<div class="note">${SITES[i].name} · ${f(stats[i].dark/24,1)} days</div><div class="bar"><i style="width:${Math.min(100,stats[i].dark/HRS*100)}%;background:#8a98ad"></i></div>`).join(""):`<div class="note">Select up to three sites with Compare on the cards.</div>`)}
@@ -489,14 +767,14 @@ document.getElementById("compare").innerHTML=`<h2>Site comparison</h2>`+(ids.len
 function clock(){const h=+document.getElementById("t").value;document.getElementById("clock").textContent=new Date(start+h*36e5).toISOString().replace("T"," ").slice(0,16)+" UTC · +"+f(h/24,1)+" d"}
 
 const trek=(layer,ext)=>(z,x,y)=>`/trek/${layer}/1.0.0/default/default028mm/${z}/${y}/${x}.${ext}`;
-let moon=null,hzState="loading LOLA terrain…";
+let moon=null,hzState="loading LOLA terrain…",catalog=[];
 async function init3D(){try{
-moon=(await import("./moon.js")).createMoon(document.getElementById("moon3d"),{sites:SITES,tileUrl:trek("LRO_WAC_Mosaic_Global_303ppd_v02","jpg"),demUrl:trek("LRO_LOLA_DEM_Global_128ppd_v04","png")});
+moon=(await import("./moon.js")).createMoon(document.getElementById("moon3d"),{sites:SITES,tileUrl:trek("LRO_WAC_Mosaic_Global_303ppd_v02","jpg"),demUrl:trek("LRO_LOLA_DEM_Global_128ppd_v04","png"),fallbackUrl:"assets/moon.jpg"});
 await moon.ready;
 document.getElementById("m3note").textContent="Texture: LRO WAC with LOLA relief (Moon Trek, same LRO source as Quickmap), rendered with Three.js. Drag to rotate, scroll or pinch to zoom. Terminator and markers computed for the selected time.";
 fly();update3D()}catch(e){moon=null;document.getElementById("moon3d").replaceChildren();document.getElementById("m3note").textContent="3D Moon requires the Docker version (/trek proxy to NASA Moon Trek)."}}
-async function initHorizons(){try{const hs=await(await import("./horizon.js")).computeHorizons(SITES,trek("LRO_LOLA_DEM_Global_128ppd_v04","png"));SITES.forEach((s,i)=>s.hor=hs[i]);hzState="LOLA terrain";analyze();renderAll()}catch(e){hzState="spherical";renderDetail()}}
-function fly(){if(moon)moon.flyTo(sel)}
+async function initHorizons(){try{const hs=await(await import("./horizon.js")).computeHorizons(SITES,trek("LRO_LOLA_DEM_Global_128ppd_v04","png"));hs.forEach((r,i)=>{SITES[i].hor=r.horizon;SITES[i].elev=r.elevation});hzState="LOLA terrain";analyze();renderAll()}catch(e){hzState="spherical";renderDetail()}}
+function fly(){if(moon)moon.flyTo(sel,document.getElementById("moon-modal").classList.contains("closed")?1.1:undefined)}
 function update3D(){if(!moon)return;const h=+document.getElementById("t").value,p=subs[h],st=stats[sel];
 moon.select(sel);moon.update({sun:p.sun,earth:p.earth,text:`${SITES[sel].name} | Sun ${f(st.sun[h].el,1)}° | Earth ${f(st.ear[h].el,1)}°`})}
 function tick(){renderDetail();renderScenario();clock();update3D();renderProfile()}
@@ -553,14 +831,14 @@ el.innerHTML=head+`<div class="tbl-wrap"><table><tr><th>Base</th><th>Pads in use
 <div class="tbl-wrap" style="margin-top:0"><table><tr><th>Time (UTC)</th><th>Event</th><th>Flight</th><th>Vehicle</th><th>Pad</th><th>ETA</th><th>Status</th></tr>${board}</table></div></div>`+foot}
 async function loadScenario(){try{const r=await fetch("data/scenario2050.json");if(!r.ok)throw new Error("missing");SC=await r.json()}catch(e){const n=document.getElementById("scenario-data");if(n)SC=JSON.parse(n.textContent)}
 if(SC){SC.flightsByBase={};SC.bases.forEach(b=>SC.flightsByBase[b.id]=[]);SC.flights.forEach(x=>SC.flightsByBase[x.base].push(x))}renderScenario()}
-function renderAll(){renderSites();renderDetail();renderCompare();renderManifest();renderWindows();renderScenario();clock();update3D();renderProfile()}
+function renderAll(){renderSites();renderHero();renderKpis();renderDetail();renderSide();renderCompare();renderManifest();renderWindows();renderScenario();clock();update3D();renderProfile()}
 function goMission(date,id){document.getElementById("date").value=date;document.getElementById("t").value=0;if(id!==undefined)sel=id;recompute();if(id!==undefined)fly()}
 function skyAt(ms,s){const p=subPoints(ms/864e5+2440587.5),at=x=>{const a=look(x,s.lat,s.lon);return{...a,up:a.el>hzAt(s.hor,a.az)}};return{sun:at(p.sun),earth:at(p.earth)}}
 function recompute(){start=Date.parse(document.getElementById("date").value+"T00:00:00Z");analyze();renderAll()}
 
 document.getElementById("sites").addEventListener("click",e=>{const c=e.target.closest("[data-c]");
 if(c){const i=+c.dataset.c;cmp.has(i)?cmp.delete(i):cmp.size<3&&cmp.add(i);renderAll();return}
-const k=e.target.closest(".card");if(k){sel=+k.dataset.id;renderAll();fly()}});
+const k=e.target.closest(".card");if(k){sel=+k.dataset.id;renderAll();fly();go("overview")}});
 document.getElementById("date").addEventListener("change",recompute);
 document.getElementById("t").addEventListener("input",tick);
 document.getElementById("play").addEventListener("click",e=>{const t=document.getElementById("t");
@@ -575,8 +853,11 @@ document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",renderAll);
 document.getElementById("t").value=new Date().getUTCHours();
 recompute();
+document.getElementById("play").click();
 init3D();
 loadScenario();
+loadCatalog();
+loadBiz();
 initHorizons();
 import("./explore.js").then(m=>m.createExplorer(document.getElementById("explore-root"),{launchSites:LAUNCH_SITES,sky:skyAt}));
 </script>

@@ -111,5 +111,5 @@ function siteHorizon(site, elevation) {
 
 export async function computeHorizons(sites, tileUrl) {
   const elevation = elevationSampler(await loadTiles(sites, tileUrl));
-  return sites.map((site) => siteHorizon(site, elevation));
+  return sites.map((site) => ({ horizon: siteHorizon(site, elevation), elevation: elevation(site.lat, site.lon) }));
 }
