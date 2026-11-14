@@ -13,7 +13,8 @@
    "mission": "Apollo 11 (1969)",
    "lat": 0.67,
    "lon": 23.47,
-   "description": "Apollo 11 landing site in Mare Tranquillitatis, the first crewed landing and the most visited heritage site on the Moon."
+   "description": "Apollo 11 landing site in Mare Tranquillitatis, the first crewed landing and the most visited heritage site on the Moon.",
+   "image": "assets/bases/tranquility.jpg"
   },
   {
    "id": "storms",
@@ -23,7 +24,8 @@
    "mission": "Apollo 12 (1969)",
    "lat": -3.01,
    "lon": -23.42,
-   "description": "Apollo 12 site in the Ocean of Storms, close to the Surveyor 3 landing and known for its rolling mare terrain."
+   "description": "Apollo 12 site in the Ocean of Storms, close to the Surveyor 3 landing and known for its rolling mare terrain.",
+   "image": "assets/bases/storms.jpg"
   },
   {
    "id": "fra-mauro",
@@ -33,7 +35,8 @@
    "mission": "Apollo 14 (1971)",
    "lat": -3.65,
    "lon": -17.47,
-   "description": "Apollo 14 site on the Fra Mauro Formation, a highland region with ancient ejecta and wide views of the near side."
+   "description": "Apollo 14 site on the Fra Mauro Formation, a highland region with ancient ejecta and wide views of the near side.",
+   "image": "assets/bases/fra-mauro.jpg"
   },
   {
    "id": "hadley",
@@ -43,7 +46,8 @@
    "mission": "Apollo 15 (1971)",
    "lat": 26.13,
    "lon": 3.63,
-   "description": "Apollo 15 site at the foot of the Apennine Mountains beside Hadley Rille, a deep sinuous valley ideal for geology tours."
+   "description": "Apollo 15 site at the foot of the Apennine Mountains beside Hadley Rille, a deep sinuous valley ideal for geology tours.",
+   "image": "assets/bases/hadley.jpg"
   },
   {
    "id": "descartes",
@@ -53,7 +57,8 @@
    "mission": "Apollo 16 (1972)",
    "lat": -8.97,
    "lon": 15.5,
-   "description": "Apollo 16 site in the central highlands, on the bright terrain of the lunar highlands."
+   "description": "Apollo 16 site in the central highlands, on the bright terrain of the lunar highlands.",
+   "image": "assets/bases/descartes.jpg"
   },
   {
    "id": "taurus",
@@ -63,7 +68,8 @@
    "mission": "Apollo 17 (1972)",
    "lat": 20.19,
    "lon": 30.77,
-   "description": "Apollo 17 site in the Taurus–Littrow valley, framed by dark mantle deposits and the Light Mantle."
+   "description": "Apollo 17 site in the Taurus–Littrow valley, framed by dark mantle deposits and the Light Mantle.",
+   "image": "assets/bases/taurus.jpg"
   },
   {
    "id": "south-pole",
@@ -73,7 +79,8 @@
    "mission": "Artemis III (planned)",
    "lat": -89.5,
    "lon": 0.0,
-   "description": "Planned Artemis district near the lunar south pole, with extended sunlight on elevated ridges and shadowed craters nearby."
+   "description": "Planned Artemis district near the lunar south pole, with extended sunlight on elevated ridges and shadowed craters nearby.",
+   "image": "assets/bases/south-pole.jpg"
   },
   {
    "id": "mons-mouton",
@@ -83,7 +90,8 @@
    "mission": "Mission in planning",
    "lat": -84.8,
    "lon": 29.2,
-   "description": "Planned district on a high plateau near the south pole, selected for near-continuous illumination for solar power."
+   "description": "Planned district on a high plateau near the south pole, selected for near-continuous illumination for solar power.",
+   "image": "assets/bases/mons-mouton.jpg"
   },
   {
    "id": "malapert",
@@ -93,7 +101,8 @@
    "mission": "Mission in planning",
    "lat": -85.99,
    "lon": 0.2,
-   "description": "Planned district on the Malapert massif, with a direct view of Earth from the lunar south polar region."
+   "description": "Planned district on the Malapert massif, with a direct view of Earth from the lunar south polar region.",
+   "image": "assets/bases/malapert.jpg"
   },
   {
    "id": "nobile",
@@ -103,7 +112,8 @@
    "mission": "Mission in planning",
    "lat": -85.2,
    "lon": 53.3,
-   "description": "Planned district on the rim of Nobile crater, at the edge of the permanently shadowed regions."
+   "description": "Planned district on the rim of Nobile crater, at the edge of the permanently shadowed regions.",
+   "image": "assets/bases/nobile.jpg"
   },
   {
    "id": "haworth",
@@ -113,7 +123,8 @@
    "mission": "Mission in planning",
    "lat": -87.5,
    "lon": -5.0,
-   "description": "Planned district in the Haworth crater region, offering dark-sky observation opportunities."
+   "description": "Planned district in the Haworth crater region, offering dark-sky observation opportunities.",
+   "image": "assets/bases/haworth.jpg"
   },
   {
    "id": "ilrs",
@@ -123,7 +134,8 @@
    "mission": "Mission in planning",
    "lat": -88.9,
    "lon": 90.0,
-   "description": "Planned International Lunar Research Station district on the south pole, a multinational science and culture hub."
+   "description": "Planned International Lunar Research Station district on the south pole, a multinational science and culture hub.",
+   "image": "assets/bases/ilrs.jpg"
   }
  ],
  "venues": [

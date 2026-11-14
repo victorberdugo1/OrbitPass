@@ -18,16 +18,21 @@ const ICONS = {
   hourglass: '<path d="M7 4h10M7 20h10M8 4c0 4 4 5 4 8s-4 4-4 8M16 4c0 4-4 5-4 8s4 4 4 8"/>',
   nav: '<path d="M20 4L4 11l7 2 2 7z"/>',
   search: '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
-  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>'
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  pin: '<path d="M12 21s6.5-5.6 6.5-11a6.5 6.5 0 0 0-13 0C5.5 15.4 12 21 12 21z"/><circle cx="12" cy="10" r="2.4"/>',
+  calendar: '<rect x="4" y="5.5" width="16" height="14.5" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>',
+  users: '<circle cx="9" cy="9" r="3.2"/><path d="M3.5 19c.6-3.2 3-5 5.5-5s4.9 1.8 5.5 5M16 6.3a3 3 0 0 1 0 5.6M18 14.4c1.7.6 2.8 2.2 3 4.6"/>',
+  dome: '<path d="M3.5 19a8.5 8.5 0 0 1 17 0z"/><path d="M12 10.5V19M7.4 13l2.3 6M16.6 13l-2.3 6"/>',
+  sun: '<circle cx="12" cy="12" r="3.6"/><path d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2M6 6l1.4 1.4M16.6 16.6L18 18M18 6l-1.4 1.4M7.4 16.6L6 18"/>',
+  earth: '<circle cx="12" cy="12" r="8.5"/><path d="M3.8 10c3 .2 4.5-1.4 5-3.5M20 13c-2.6-.4-4.4.6-5 3M12 3.5c-1.4 2.4-1.4 5.6.4 8"/>',
+  tag: '<path d="M3.5 12.2V5.5a2 2 0 0 1 2-2h6.7l8.3 8.3a2 2 0 0 1 0 2.8l-6.2 6.2a2 2 0 0 1-2.8 0z"/><circle cx="8.5" cy="8.5" r="1.2"/>'
 };
+
+const TILES = ["earth", "moon", "night"];
+
+const baseArt = (b) => `--img:url(${b.image})`;
 
 const icon = (name) => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
-
-const artVars = (id) => {
-  let h = 0;
-  for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-  return `--ex:${18 + (h % 62)}%;--ey:${26 + ((h >> 8) % 22)}%`;
-};
 
 const gauss = () => Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(2 * Math.PI * Math.random());
 
@@ -360,7 +365,7 @@ export function createExplorer(root, { launchSites, sky }) {
   function card(v, a) {
     const b = bases.get(v.base);
     return `<article class="tp-card" data-open="${v.id}">
-  <div class="tp-art ${v.group}" style="${artVars(v.id)}"><span class="tp-type">${esc(v.type)}</span><span class="tp-art-name">${esc(GROUP_LABEL[v.group])}</span></div>
+  <div class="tp-art" style="${baseArt(b)}"><span class="tp-type">${esc(v.type)}</span><span class="tp-art-name">${esc(GROUP_LABEL[v.group])}</span></div>
   <div class="tp-body">
     <div class="tp-row"><b class="tp-name">${esc(v.name)}</b><span class="tp-rating"><i>★</i> ${v.rating.toFixed(1)} <small>(${v.reviews.toLocaleString("en-US")})</small></span></div>
     <div class="tp-sub">${esc(b.name)} · ${esc(b.program)}</div>
@@ -397,44 +402,54 @@ export function createExplorer(root, { launchSites, sky }) {
     const bars = v.breakdown.map((n, i) => `<div><span>${labels[i]}</span><div class="tp-bar-track"><i style="width:${(n / total * 100).toFixed(1)}%"></i></div><span>${Math.round(n / total * 100)}%</span></div>`).join("");
     const reviews = v.reviewList.map((r) => `<div class="tp-review"><div class="tp-row"><span class="tp-stars">${"★".repeat(r.stars)}</span><b>${esc(r.author)}</b><span class="tp-sub">${r.travel} · ${r.date}</span></div><p>${esc(r.text)}</p></div>`).join("");
     const sessions = v.sessions.map((s) => `<option value="${s}" ${state.session === s ? "selected" : ""}>${s}</option>`).join("");
-    const menu = v.menu.length
-      ? `<h3>Menu</h3><table class="tp-menu">${v.menu.map((m) => `<tr><td><b>${esc(m.name)}</b><div class="tp-sub">${esc(m.desc)}</div></td><td class="tp-num">${usd(m.priceUsd)}</td></tr>`).join("")}</table>`
-      : `<h3>Programme</h3><ul class="tp-list">${v.sessions.map((s) => `<li><span>${s}</span> ${esc(v.type)} session</li>`).join("")}</ul>`;
+    const groupIcon = CATEGORIES.find((c) => c.id === v.group).icon;
+    const rows = v.menu.length ? v.menu : v.sessions.map((s) => ({ name: s, desc: `${v.type} session`, priceUsd: v.priceUsd }));
+    const menu = rows.map((m) => `<tr><td><b>${esc(m.name)}</b><div class="tp-sub">${esc(m.desc)}</div></td><td class="tp-num">${usd(m.priceUsd)}</td></tr>`).join("");
+    const captions = (v.menu.length ? v.menu.map((m) => m.name) : v.highlights).slice(0, TILES.length);
+    const tiles = captions.map((c, i) => `<div class="tp-tile"><i class="tp-sphere ${TILES[i]}"></i><span>${esc(c)}</span></div>`).join("");
+    const features = [
+      ["hourglass", durationText(v.durationMin), "Duration"],
+      ["nav", `${v.distanceKm} km`, "From base"],
+      ["clock", v.hours, "Hours"],
+      [v.outdoor ? "sun" : "dome", v.outdoor ? "Surface" : "Pressurized", "Environment"],
+      ["earth", v.earthView ? "Yes" : "No", "Earth view"],
+      ["tag", usd(v.priceUsd), "From, per person"]
+    ].map(([i, value, label]) => `<div>${icon(i)}<span><b>${esc(value)}</b><small>${label}</small></span></div>`).join("");
     const siblings = data.venues.filter((x) => x.base === v.base && x.id !== v.id).slice(0, 4)
       .map((x) => `<button class="tp-mini" data-open="${x.id}"><b>${esc(x.name)}</b><span>★ ${x.rating.toFixed(1)} · ${esc(x.type)}</span></button>`).join("");
     const reserved = state.trip.some((t) => t.id === v.id && t.date === state.date);
-    return `<div class="tp-crumb"><button data-nav="explore">← Back to results</button></div>
-<section class="tp-hero ${v.group}">
+    return `<div class="tp-detail ${v.group}">
+<div class="tp-crumb"><button data-nav="explore">← Back to results</button></div>
+<section class="tp-hero">
+  <div class="tp-scene" style="${baseArt(b)}" aria-hidden="true"></div>
   <div class="tp-hero-main">
     <span class="tp-type">${esc(v.type)}</span>
-    <h1>${esc(v.name)}</h1>
-    <div class="tp-sub">${esc(b.name)} · ${esc(b.program)}</div>
-    <div class="tp-rating-line">${stars(v.rating)}<b>${v.rating.toFixed(1)}</b><span>${v.reviews.toLocaleString("en-US")} reviews</span></div>
+    <div class="tp-hero-title"><span class="tp-hero-ico">${icon(groupIcon)}</span><h1>${esc(v.name)}</h1></div>
     <p>${esc(v.description)}</p>
+    <div class="tp-loc">${icon("pin")}<span>${esc(b.name)} · ${esc(b.program)}</span></div>
+    <div class="tp-rating-line">${stars(v.rating)}<b>${v.rating.toFixed(1)}</b><span>(${v.reviews.toLocaleString("en-US")} reviews)</span></div>
   </div>
   <form class="tp-book" id="tp-book">
     <div class="tp-book-title">Book your experience</div>
-    <label>Date<input type="date" id="tp-date" value="${state.date}"></label>
-    <label>Session<select id="tp-session">${sessions}</select></label>
-    <label>Guests<select id="tp-guests">${[1, 2, 3, 4].map((g) => `<option value="${g}" ${state.guests === g ? "selected" : ""}>${g} ${g === 1 ? "guest" : "guests"}</option>`).join("")}</select></label>
+    <label><span>${icon("calendar")}Date</span><input type="date" id="tp-date" value="${state.date}"></label>
+    <label><span>${icon("clock")}Session</span><select id="tp-session">${sessions}</select></label>
+    <label><span>${icon("users")}Guests</span><select id="tp-guests">${[1, 2, 3, 4].map((g) => `<option value="${g}" ${state.guests === g ? "selected" : ""}>${g} ${g === 1 ? "guest" : "guests"}</option>`).join("")}</select></label>
     <div class="tp-total"><span>${usd(v.priceUsd)} × ${state.guests}</span><b>${usd(v.priceUsd * state.guests)}</b></div>
-    <button type="button" class="tp-reserve" data-reserve="${v.id}" ${reserved ? "disabled" : ""}>${reserved ? "Added to My Trip" : "Add to My Trip"}</button>
+    <button type="button" class="tp-reserve" data-reserve="${v.id}" ${reserved ? "disabled" : ""}>${reserved ? "Added to My Trip" : `Add to My Trip${icon("arrow")}`}</button>
     <div class="tp-note">Demo only: nothing is booked or charged.</div>
   </form>
 </section>
-<section class="tp-features">
-  <div><span>${durationText(v.durationMin)}</span><small>Duration</small></div>
-  <div><span>${v.distanceKm} km</span><small>From base</small></div>
-  <div><span>${esc(v.hours)}</span><small>Hours</small></div>
-  <div><span>${v.outdoor ? "Surface" : "Pressurized"}</span><small>Environment</small></div>
-  <div><span>${v.earthView ? "Yes" : "No"}</span><small>Earth view</small></div>
-  <div><span>${usd(v.priceUsd)}</span><small>From, per person</small></div>
+<section class="tp-features">${features}</section>
+<section class="tp-showcase">
+  <div class="tp-media"><div class="tp-scene" style="${baseArt(b)}" aria-hidden="true"></div><div class="tp-media-body"><h3>Highlights</h3><ul class="tp-list">${v.highlights.map((h) => `<li>${esc(h)}</li>`).join("")}</ul></div></div>
+  <div class="tp-panel">
+    <div class="tp-panel-head">${icon(groupIcon)}<b>${v.menu.length ? "Menu" : "Programme"}</b><em>${esc(v.type)}</em></div>
+    <table class="tp-menu">${menu}</table>
+  </div>
+  <div class="tp-gallery">${tiles}</div>
 </section>
 <section class="tp-cols">
   <div class="tp-panel">
-    <h3>Highlights</h3>
-    <ul class="tp-list">${v.highlights.map((h) => `<li>${esc(h)}</li>`).join("")}</ul>
-    ${menu}
     <h3>Availability at ${state.date} ${pad(state.hour)}:00 UTC</h3>
     <div class="tp-note">Sun ${now.sunEl.toFixed(1)}° (${now.sun ? "above" : "below"} horizon) · Earth ${now.earthEl.toFixed(1)}° (${now.earth ? "visible" : "not visible"})</div>
     <div class="tp-avail">${availabilityBadge(a)}<span class="tp-sub">${{ any: "Indoor, runs at any time", sun: "Needs daylight at the base", earth: "Needs Earth above the horizon" }[a.need]}</span></div>
@@ -447,7 +462,8 @@ export function createExplorer(root, { launchSites, sky }) {
     ${reviews}
   </div>
 </section>
-<section class="tp-panel tp-wide"><h3>More at ${esc(b.name)}</h3><div class="tp-minis">${siblings}</div></section>`;
+<section class="tp-panel tp-wide"><h3>More at ${esc(b.name)}</h3><div class="tp-minis">${siblings}</div></section>
+</div>`;
   }
 
   function basesView() {
@@ -458,7 +474,7 @@ export function createExplorer(root, { launchSites, sky }) {
       const max = Math.max(...vs.map((v) => v.priceUsd));
       const top = vs.slice().sort(SORTS.rating)[0];
       return `<article class="tp-card tp-base">
-  <div class="tp-art ${b.status === "Apollo landing site" ? "food" : "events"}" style="${artVars(b.id)}"><span class="tp-type">${esc(b.status)}</span><span class="tp-art-name">${esc(b.mission)}</span></div>
+  <div class="tp-art" style="${baseArt(b)}"><span class="tp-type">${esc(b.status)}</span><span class="tp-art-name">${esc(b.mission)}</span></div>
   <div class="tp-body">
     <div class="tp-row"><b class="tp-name">${esc(b.name)}</b><span class="tp-rating">★ ${avg.toFixed(2)}</span></div>
     <div class="tp-sub">${esc(b.program)} · ${b.lat.toFixed(2)}°, ${b.lon.toFixed(2)}°</div>
