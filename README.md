@@ -1,6 +1,6 @@
 # OrbitPass — Lunar Landing Site Navigator
 
-OrbitPass is a browser-based lunar mission explorer. It combines a real-time 3D Earth–Moon scene, a 30-day Sun/Earth visibility simulation, LOLA terrain-derived horizons, a first-person surface walker and a catalogue of lunar bases, for learners and mission-planning professionals.
+OrbitPass is a browser-based lunar mission explorer. It combines a real-time 3D Earth–Moon scene, a 30-day Sun/Earth visibility simulation, LOLA terrain-derived horizons and a first-person surface walker, for learners and mission-planning professionals.
 
 > **Screening tool only.** Results are approximate and must not be used for landing safety or real mission planning. See [Accuracy and limitations](#accuracy-and-limitations).
 
@@ -16,7 +16,7 @@ OrbitPass is a browser-based lunar mission explorer. It combines a real-time 3D 
 | **Decision tools** | Site comparison, mission site recommender, operating-window finder (next 12 months), mission risk assessment and printable mission report |
 | **Surface walker** | First-person walk over DEM terrain (Apollo-like gait or fast explorer mode) |
 | **Mission flight** | Earth-to-Moon transfer visualisation with launch-instant selection and landing sequence |
-| **Business view** | Base catalogue with mission manifest and a 2050 lunar-traffic scenario (synthetic demonstration data) |
+| **Professional view** | Mission tools, mission manifest and curated NASA resources |
 
 ## Quick start
 
@@ -79,8 +79,8 @@ Browser (ES modules + three.js r160)
     ├── walker.js             Height grid and walker physics
     ├── landing.js            Landing scene
     ├── flight.js             Earth-to-Moon flight scene
-    ├── explore.js            Tourism explorer module (not wired into the UI)
-    ├── data/                 Bases, tourism, scenario datasets and NAC DTM raster
+    ├── explore.js            Legacy tourism explorer (unused, not wired into the UI)
+    ├── data/                 Datasets and NAC DTM raster
     ├── assets/               Textures, base and venue imagery
     └── vendor/               three.js (MIT)
 ```
@@ -98,7 +98,6 @@ Browser (ES modules + three.js r160)
 - The DEM raster has a nominal resolution of about 0.67 km, so obstacles on the order of 100 m cannot be resolved even though rays are sampled at 100 m.
 - PNG red-channel encoding and georeferencing have not been independently validated against the Moon Trek source. Terrain results are not scientifically verified.
 - Terrain computation may be slow or fail when tiles are unavailable; the interface then reports the fallback horizon.
-- Business, tourism and 2050 scenario data are synthetic and illustrative only.
 - Browser/WebGL integration has not been covered by automated tests.
 
 ## Data sources and credits
