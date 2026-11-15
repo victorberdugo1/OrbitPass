@@ -414,6 +414,10 @@ body[data-profile=business] .top button.ghost{color:#dfe9ff;border:1px solid rgb
 .pr-grid{display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:14px;align-items:start}
 .pr-main,.pr-stack{display:flex;flex-direction:column;gap:14px;min-width:0}
 .pr-hero{position:relative;isolation:isolate;overflow:hidden;padding:0!important;min-height:300px;display:flex;align-items:stretch}
+/* Base detail: former tab navigation space is now part of the photo and description. */
+body[data-profile="business"] .pr-grid .pr-hero{min-height:390px}
+body[data-profile="business"] .pr-grid .pr-hero-body{padding-top:34px;padding-bottom:34px}
+@media(max-width:760px){body[data-profile="business"] .pr-grid .pr-hero{min-height:340px}}
 .pr-hero-media{position:absolute;inset:0;z-index:-1;background:#0b1830 center/cover no-repeat}
 .pr-hero-media.none{background:radial-gradient(70% 90% at 75% 30%,rgba(89,227,247,.25),transparent 60%),linear-gradient(160deg,#0b1830,#03060d)}
 .pr-hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,6,13,.94) 22%,rgba(3,6,13,.45) 65%,rgba(3,6,13,.1))}
@@ -704,6 +708,42 @@ body[data-profile=education] .top .orbitpass-logo{width:150px}
 #welcome .ln-stage{pointer-events:none}
 #welcome .ln-mission{pointer-events:auto;isolation:isolate;z-index:10}
 #welcome .ln-mission select,#welcome .ln-mission input{pointer-events:auto;position:relative;z-index:11;cursor:pointer}
+
+/* Base overview: keep the original two-column order, align both column bottoms. */
+@media(min-width:1101px){
+  .pr-grid{align-items:stretch}
+  .pr-grid>.pr-main,.pr-grid>.pr-stack{height:100%}
+  .pr-grid .pr-kpis{flex:1;grid-auto-rows:minmax(76px,1fr)}
+  .pr-grid #env{flex:1}
+}
+.pr-temp-inline{font-size:13px;white-space:normal;text-align:right}
+.pr-temp-inline .cold{color:#8fd8ff}
+.pr-temp-inline .hot{color:#ffc56b}
+/* Base layout: full-width analysis beneath the overview columns */
+.pr-full-width-sections{display:flex;flex-direction:column;gap:14px;min-width:0;margin-top:14px}
+.pr-env-temp{margin-top:16px;padding-top:14px;border-top:1px solid var(--gl)}
+.pr-env-temp .note{margin-bottom:10px}
+/* Compact Mission Manifest table within the half-width panel. */
+#pr-manifest{min-width:0}
+#pr-manifest #manifest{min-width:0;max-width:100%;overflow-x:hidden}
+#pr-manifest #manifest table{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse}
+#pr-manifest #manifest th,#pr-manifest #manifest td{font-size:10px;line-height:1.25;padding:5px 3px;white-space:normal;overflow-wrap:anywhere;word-break:normal;vertical-align:top}
+#pr-manifest #manifest th{font-size:9px;letter-spacing:0}
+#pr-manifest #manifest th:nth-child(1){width:17%}
+#pr-manifest #manifest th:nth-child(2){width:18%}
+#pr-manifest #manifest th:nth-child(3){width:17%}
+#pr-manifest #manifest th:nth-child(4){width:17%}
+#pr-manifest #manifest th:nth-child(5){width:10%}
+#pr-manifest #manifest th:nth-child(6){width:13%}
+#pr-manifest #manifest th:nth-child(7){width:8%}
+#pr-manifest #manifest .note{font-size:9px;line-height:1.2;overflow-wrap:anywhere}
+#pr-manifest #manifest .bd{font-size:9px;padding:2px 3px;white-space:normal;display:inline-block}
+#pr-manifest #manifest button.sm{font-size:9px;padding:4px 2px;min-width:0;max-width:100%;white-space:normal}
+/* Two equal-width rows of Base analysis widgets; stack on smaller screens. */
+.pr-analysis-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch}
+.pr-analysis-pair>.glass{min-width:0}
+@media(max-width:900px){.pr-analysis-pair{grid-template-columns:minmax(0,1fr)}}
+
 </style>
 </head>
 <body>
@@ -723,16 +763,38 @@ body[data-profile=education] .top .orbitpass-logo{width:150px}
 <div class="pr-main">
 <nav class="pr-crumb" data-screen="base" aria-label="Breadcrumb"><button type="button" data-goto="bases">Bases</button><span aria-hidden="true">›</span><b id="crumb-base"></b><span aria-hidden="true">›</span><b id="crumb-tab"></b></nav>
 <section class="glass pr-hero" id="hero"></section>
-<nav class="pr-tabs" role="tablist" aria-label="Base information"><button type="button" role="tab" aria-selected="true" class="pr-tab on" data-goto="overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Overview</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="simulation"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>Simulation</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="infrastructure"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>Infrastructure</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="research"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4 19a1 1 0 0 0 1 2h14a1 1 0 0 0 1-2l-6-10V3"/></svg>Research &amp; Production</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="resources"><svg viewBox="0 0 24 24"><path d="M5 19c0-9 6-14 14-14 0 8-5 14-14 14z"/><path d="M5 19l8-8"/></svg>Resources</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="access"><svg viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Access &amp; Logistics</button><button type="button" role="tab" aria-selected="false" class="pr-tab" data-goto="projects"><svg viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></svg>Projects</button></nav>
+
 <div class="pr-kpis" id="kpis"></div>
+</div>
+<aside class="pr-stack">
+<section class="glass" id="location"><div class="pr-card-head"><span class="pr-ico"><svg viewBox="0 0 24 24"><path d="M12 21s6.5-5.6 6.5-11a6.5 6.5 0 1 0-13 0c0 5.4 6.5 11 6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span><h2>Location &amp; Conditions</h2></div><div class="pr-loc2"><div class="pr-kv" id="loc-rows"></div><div class="pr-moon-card" id="moon-card"><div id="moon3d"></div><svg class="pr-reticle" viewBox="0 0 100 100"><circle cx="50" cy="50" r="5"/><path d="M50 0V42M50 58V100M0 50H42M58 50H100"/></svg><button type="button" class="pr-expand" id="moon-expand" aria-label="Expand 3D view"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div></div><div class="pr-phase"><svg id="phase" viewBox="0 0 120 120"></svg><div class="pr-phase-text"><small>Moon, live illumination</small><b id="phase-pct">—</b><span id="phase-name">—</span></div></div></section>
+
+
+<section class="glass" id="env"></section>
+<section class="glass" id="status" hidden aria-hidden="true" style="display:none!important"></section>
+</aside>
+</div>
+<div class="pr-full-width-sections">
+<div class="pr-analysis-pair">
 <section class="glass" id="pr-sim">
 <div class="pr-sec"><div><h2>30-day simulation · environmental &amp; operational forecast</h2><div class="note" id="clock"></div></div><div class="pr-time"><input type="date" id="date"><button id="play">Play</button></div></div>
 <input type="range" id="t" class="pr-scrub" min="0" max="719" value="0">
 <div class="pr-sim-grid"><div class="pr-charts" id="charts"></div></div>
 </section>
 
+<section class="glass" id="pr-manifest"><h2>Mission manifest</h2><div class="row"><label class="note" for="prov">Provider</label><select id="prov"></select></div><div class="tbl-wrap" id="manifest"></div><div class="note">Target periods as publicly reported by NASA and operators (as of September 2026). Schedules change often and sources disagree; verify with the operator. Conflict risk: a reported mission within 150 km of the selected site whose target period overlaps the 30-day analysis window. Site coordinates are approximate and this is not an official deconfliction tool.</div></section>
+</div>
 <section class="glass" id="scenario" hidden aria-hidden="true" style="display:none!important"></section>
 <section class="glass" id="compare" hidden aria-hidden="true" style="display:none!important"></section>
+<div class="pr-analysis-pair">
+<section class="glass" id="windows-panel"><h2>Operating window finder</h2><div class="row"><button id="find">Find best windows for selected site</button></div><div class="tbl-wrap" id="windows"></div><div class="note">Scans the 12 months after the selected date. Each candidate is a 14-day surface operation period starting 00:00 UTC, ranked by the mean of Sun and Earth availability. Approximate ephemeris; LOLA terrain horizon when available, spherical otherwise.</div></section>
+<section class="glass" id="risk-panel"><h2>Mission Risk Assessment</h2><div class="row" style="margin:8px 0 14px"><button type="button" id="export-mission-report">Export Mission Report (PDF)</button><span class="note">Opens a print-ready report; choose Save as PDF.</span></div>
+<div class="note">Identify operational exposure for the selected base over the simulation period. This is an environmental screening tool, not a mission-safety assessment.</div>
+<div class="row" style="align-items:end;flex-wrap:wrap;gap:12px;margin:14px 0"><label class="note">Assessment duration<br><select id="risk-days"><option value="3">3 days</option><option value="7">7 days</option><option value="14" selected>14 days</option><option value="30">30 days</option></select></label><label class="note">Start day in 30-day simulation<br><select id="risk-offset"></select></label></div>
+<div id="risk-results" aria-live="polite"></div>
+<div class="note" style="margin-top:12px">A dark hour means the Sun is below the modeled local horizon; a communications gap means Earth is below it. These are direct line-of-sight indicators, not estimates of actual electrical power or network connectivity. Does not include battery capacity, relay satellites, eclipses, terrain traversability or thermal survival. LOLA horizon is used only when loaded; otherwise the flat-horizon fallback adds uncertainty.</div>
+</section>
+</div>
 <section class="glass" id="recommend-panel"><h2>Mission Site Recommender</h2>
 <div class="note">Find the best site and UTC start date for a mission in the next 365 days. Includes standard and saved bases. Each site's best window is ranked against the others.</div>
 <div class="row" style="align-items:end;flex-wrap:wrap;gap:12px;margin:14px 0">
@@ -742,14 +804,6 @@ body[data-profile=education] .top .orbitpass-logo{width:150px}
 <div id="rec-results" aria-live="polite"><div class="note">Choose mission settings and run the site recommendation.</div></div>
 <div class="note">Screening only: hourly analytical ephemerides, LOLA terrain horizon when already loaded, otherwise flat spherical horizon. Does not model eclipses, relay satellites, spacecraft power budgets, thermal constraints or landing safety. Terrain-dependent rankings may change after LOLA loads.</div>
 </section>
-<section class="glass" id="risk-panel"><h2>Mission Risk Assessment</h2><div class="row" style="margin:8px 0 14px"><button type="button" id="export-mission-report">Export Mission Report (PDF)</button><span class="note">Opens a print-ready report; choose Save as PDF.</span></div>
-<div class="note">Identify operational exposure for the selected base over the simulation period. This is an environmental screening tool, not a mission-safety assessment.</div>
-<div class="row" style="align-items:end;flex-wrap:wrap;gap:12px;margin:14px 0"><label class="note">Assessment duration<br><select id="risk-days"><option value="3">3 days</option><option value="7">7 days</option><option value="14" selected>14 days</option><option value="30">30 days</option></select></label><label class="note">Start day in 30-day simulation<br><select id="risk-offset"></select></label></div>
-<div id="risk-results" aria-live="polite"></div>
-<div class="note" style="margin-top:12px">A dark hour means the Sun is below the modeled local horizon; a communications gap means Earth is below it. These are direct line-of-sight indicators, not estimates of actual electrical power or network connectivity. Does not include battery capacity, relay satellites, eclipses, terrain traversability or thermal survival. LOLA horizon is used only when loaded; otherwise the flat-horizon fallback adds uncertainty.</div>
-</section>
-<section class="glass" id="windows-panel"><h2>Operating window finder</h2><div class="row"><button id="find">Find best windows for selected site</button></div><div class="tbl-wrap" id="windows"></div><div class="note">Scans the 12 months after the selected date. Each candidate is a 14-day surface operation period starting 00:00 UTC, ranked by the mean of Sun and Earth availability. Approximate ephemeris; LOLA terrain horizon when available, spherical otherwise.</div></section>
-<section class="glass" id="pr-manifest"><h2>Mission manifest</h2><div class="row"><label class="note" for="prov">Provider</label><select id="prov"></select></div><div class="tbl-wrap" id="manifest"></div><div class="note">Target periods as publicly reported by NASA and operators (as of September 2026). Schedules change often and sources disagree; verify with the operator. Conflict risk: a reported mission within 150 km of the selected site whose target period overlaps the 30-day analysis window. Site coordinates are approximate and this is not an official deconfliction tool.</div></section>
 <section class="glass" id="pr-resources"><h2>NASA and partner resources</h2><div class="row">
 <a class="chip" href="https://ssd.jpl.nasa.gov/horizons/" target="_blank" rel="noopener">JPL Horizons (ephemerides)</a>
 <a class="chip" href="https://quickmap.lroc.asu.edu/" target="_blank" rel="noopener">Quickmap (LRO / LOLA)</a>
@@ -757,14 +811,7 @@ body[data-profile=education] .top .orbitpass-logo{width:150px}
 <a class="chip" href="https://www.asc-csa.gc.ca/eng/astronomy/moon-exploration/" target="_blank" rel="noopener">CSA Moon Exploration</a>
 <a class="chip" href="https://threejs.org/" target="_blank" rel="noopener">Three.js (3D engine)</a></div>
 <div class="note">Data: JPL Horizons (ephemerides, queried live in the Docker version) and NASA Moon Trek (LRO WAC imagery tiles). Software: Three.js, an open-source 3D engine used only for rendering. Terrain horizons come from the Moon Trek LOLA elevation model (LRO_LOLA_DEM_Global_128ppd_v04, about 0.67 km per pixel, rays out to 200 km, Docker version).</div></section>
-</div>
-<aside class="pr-stack">
-<section class="glass" id="location"><div class="pr-card-head"><span class="pr-ico"><svg viewBox="0 0 24 24"><path d="M12 21s6.5-5.6 6.5-11a6.5 6.5 0 1 0-13 0c0 5.4 6.5 11 6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span><h2>Location &amp; Conditions</h2></div><div class="pr-loc2"><div class="pr-kv" id="loc-rows"></div><div class="pr-moon-card" id="moon-card"><div id="moon3d"></div><svg class="pr-reticle" viewBox="0 0 100 100"><circle cx="50" cy="50" r="5"/><path d="M50 0V42M50 58V100M0 50H42M58 50H100"/></svg><button type="button" class="pr-expand" id="moon-expand" aria-label="Expand 3D view"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div></div><div class="pr-phase"><svg id="phase" viewBox="0 0 120 120"></svg><div class="pr-phase-text"><small>Moon, live illumination</small><b id="phase-pct">—</b><span id="phase-name">—</span></div></div></section>
 
-<section class="glass" id="temps"></section>
-<section class="glass" id="env"></section>
-<section class="glass" id="status" hidden aria-hidden="true" style="display:none!important"></section>
-</aside>
 </div>
 <div class="pr-modal closed" id="opp-modal" hidden><div class="pr-modal-bar"><div><small>Business opportunities</small><b id="opp-title"></b></div><button type="button" class="ghost" id="opp-close">Close</button></div><div class="pr-opp-stage" id="opp-stage"></div></div>
 <div class="pr-modal closed" id="moon-modal"><div class="pr-modal-bar"><div><small>Lunar view · 3D</small><b id="moon-modal-title"></b></div><button type="button" class="ghost" id="moon-close">Close</button></div><form class="pr-coordinate-search" id="coordinate-search"><label>Latitude <input id="coordinate-lat" type="number" min="-90" max="90" step="any" placeholder="−89" required></label><label>Longitude <input id="coordinate-lon" type="number" min="-180" max="180" step="any" placeholder="0" required></label><button type="submit">Find coordinates</button><span class="note">Degrees · latitude −90…90, longitude −180…180</span></form><div class="pr-modal-stage" id="moon-stage"><div id="surface-stage" hidden></div></div><div id="surface-time-controls" hidden></div><div id="top3-panel" hidden class="pr-top3-bottom"></div><div class="pr-modal-foot"><button type="button" class="ghost" id="surface-toggle">Stand on Surface</button><span class="note" id="surface-status" hidden></span><button type="button" id="pick-save" hidden>Save location</button><button type="button" class="ghost" id="pick-open" hidden>Save &amp; open profile</button><button type="button" class="ghost" id="pick-profile">Open base profile</button><button type="button" class="ghost" id="pick-reset" style="margin-right:12px">Back to saved sites</button><span class="note" id="pick-status" aria-live="polite">Click the Moon to explore any point. Drag to rotate.</span><span class="note" id="m3note">3D Moon requires the Docker version (/trek proxy to NASA Moon Trek). Drag to rotate, scroll to zoom.</span></div></div>
@@ -891,8 +938,8 @@ document.getElementById("phase-name").textContent=phaseName(k,waxing)}
 const elevOf=s=>s.elev===undefined?"Needs Docker (LOLA)":Number.isFinite(s.elev)?`${s.elev<0?"−":""}${Math.abs(Math.round(s.elev)).toLocaleString("en-US")} m`:"No DEM data";
 function renderSide(){const s=SITES[sel],st=stats[sel],nb=SITES.filter(x=>x.id!==s.id).map(x=>({x,d:km(s,x)})).sort((a,b)=>a.d-b.d)[0],kv=(a,b)=>`<div><span>${a}</span><b>${b}</b></div>`;
 document.getElementById("loc-rows").innerHTML=kv("Region",regionOf(s))+kv("Coordinates",coordsOf(s))+kv("Elevation",elevOf(s))+kv("Nearest landmark",`${nb.x.name} (≈ ${f(nb.d)} km)`);
-document.getElementById("temps").innerHTML=`${cardHead("thermo","Temperature range","Surface · typical")}<div class="pr-temps"><div><b class="cold">−233 °C</b><span>night, unheated</span></div><i class="pr-temps-sep"></i><div><b class="hot">+127 °C</b><span>day, sunlit surface</span></div></div>`;
-document.getElementById("env").innerHTML=`${cardHead("leaf","Environmental conditions")}<div class="pr-rows">${prRow("Atmosphere","None (vacuum)")}${prRow("Gravity","0.165 g (1/6 Earth)")}${prRow("Regolith","Fine, abrasive, basaltic and anorthositic")}${prRow("Radiation","Unshielded solar and galactic")}</div>`;
+
+document.getElementById("env").innerHTML=`${cardHead("leaf","Environmental conditions")}<div class="pr-rows">${prRow("Atmosphere","None (vacuum)")}${prRow("Gravity","0.165 g (1/6 Earth)")}${prRow("Regolith","Fine, abrasive, basaltic and anorthositic")}${prRow("Radiation","Unshielded solar and galactic")}${prRow("Temperature range",`<span class="pr-temp-inline"><span class="cold">−233 °C</span> night / <span class="hot">+127 °C</span> day</span>`)}</div>`;
 document.getElementById("status").innerHTML=`${cardHead("layers","Data status")}<div class="pr-rows"><div><span>Ephemeris</span><b><i class="pr-dot ok"></i>Meeus, analytical</b></div><div><span>Terrain horizon</span><b><i class="pr-dot ${hzState==="LOLA terrain"?"ok":"warn"}"></i>${hzState}</b></div><div><span>Source</span><b>${st.source}</b></div><div><span>3D texture</span><b><i class="pr-dot ${moon?"ok":"warn"}"></i>${moon?"LRO WAC · LOLA relief":"Loading LRO WAC…"}</b></div><div><span>Scenario 2050</span><b><i class="pr-dot warn"></i>Synthetic</b></div></div><div class="row" style="margin-top:12px"><button onclick="validate()">Load JPL Horizons data</button></div><div class="note" id="hzs">${st.diff!==undefined?"max diff vs approx.: "+f(st.diff,2)+"° (sun elevation)":"Compare the analytical model with JPL Horizons (Docker)."}</div>`}
 async function loadCatalog(){try{catalog=(await(await fetch("data/moon_tourism.json")).json()).bases;renderAll()}catch(e){}}
 function openMoon(){stopSurface();if(!top3View)document.getElementById("top3-panel").hidden=true;document.getElementById("moon-modal-title").textContent=SITES[sel].name+" · "+coordsOf(SITES[sel]);document.getElementById("moon-stage").appendChild(document.getElementById("moon3d"));document.getElementById("moon-modal").classList.remove("closed");if(moon){fly();update3D()}refreshPickButtons()}
@@ -979,7 +1026,7 @@ function setScreen(name){document.querySelectorAll("[data-screen]").forEach(el=>
 function markTab(name){document.querySelectorAll(".pr-tab,.pr-nav button").forEach(el=>{const on=el.dataset.goto===name;el.classList.toggle("on",on);if(el.classList.contains("pr-tab"))el.setAttribute("aria-selected",String(on))})}
 function go(target){const bases=target==="bases";setScreen(bases?"bases":"base");markTab(target);
 document.getElementById("crumb-base").textContent=SITES[sel].name;
-document.getElementById("crumb-tab").textContent=bases?"":document.querySelector(`.pr-tab[data-goto="${target}"]`).textContent.trim();
+document.getElementById("crumb-tab").textContent=bases?"":({overview:"Overview",simulation:"Simulation",infrastructure:"Infrastructure",research:"Research & Production",resources:"Resources",access:"Access & Logistics",projects:"Projects"}[target]||"Overview");
 if(bases){window.scrollTo(0,0);return}
 document.getElementById(TAB_TARGET[target]).scrollIntoView({block:"start",behavior:"smooth"})}
 let spyQueued=false;
@@ -988,8 +1035,6 @@ window.addEventListener("scroll",()=>{if(!spyQueued){spyQueued=true;requestAnima
 document.addEventListener("click",e=>{const o=e.target.closest("[data-opp]");if(o)return openOpp(o.dataset.opp);const q=e.target.closest("[data-oppf]");if(q){oppArea=q.dataset.oppf;return renderOpp()}if(e.target.closest("#opp-close"))return closeOpp();if(e.target.closest("[data-fly],#moon-expand"))return openMoon();if(e.target.closest("#moon-close"))return closeMoon();const g=e.target.closest("[data-goto]");if(g)go(g.dataset.goto)});
 document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!document.getElementById("opp-modal").classList.contains("closed"))return closeOpp();if(!document.getElementById("moon-modal").classList.contains("closed"))closeMoon();else if(document.querySelector('[data-screen="base"]').hidden===false)go("bases")});
 
-const TAB_ORDER=["overview","simulation","infrastructure","research","resources","access","projects"];
-document.querySelector(".pr-tabs").addEventListener("keydown",e=>{if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;e.preventDefault();const i=TAB_ORDER.indexOf(document.querySelector(".pr-tab.on").dataset.goto),j=(i+(e.key==="ArrowRight"?1:TAB_ORDER.length-1))%TAB_ORDER.length;go(TAB_ORDER[j]);document.querySelector(`.pr-tab[data-goto="${TAB_ORDER[j]}"]`).focus()});
 document.getElementById("base-search").addEventListener("input",renderSites);
 document.getElementById("sites").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".card"))e.target.click()});
 go("bases");
