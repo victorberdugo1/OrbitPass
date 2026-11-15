@@ -1,3 +1,4 @@
+const ORBITPASS_LOGO = `<svg class="orbitpass-logo" viewBox="0 0 250 64" role="img" aria-label="OrbitPass"><path d="M10 44C40 62 150 66 232 26" fill="none" stroke="#59e3f7" stroke-width="2" stroke-linecap="round"/><circle cx="234" cy="25" r="4" fill="#59e3f7"/><text x="8" y="42" font-size="38" font-style="italic" font-weight="700" fill="#fff" font-family="Inter,system-ui,sans-serif">Orbit<tspan fill="#59e3f7">Pass</tspan></text></svg>`;
 const PROFILES={
 education:{label:"Educational",text:"Learn about the Moon, space missions and lunar life"},
 tourism:{label:"Tourist",text:"Plan your lunar trip, discover sights and experiences"},
@@ -35,10 +36,28 @@ let profile=null,landing=null,landingToken=0,flight=null,flightToken=0,mission={
 function visibility(id){document.querySelectorAll("[data-for]").forEach(el=>{el.hidden=!id||!el.dataset.for.split(" ").includes(id)})}
 function stopLanding(){landingToken++;if(landing)landing.dispose();landing=null}
 async function startLanding(){const token=++landingToken;try{const m=await import("./landing.js");if(token!==landingToken||document.getElementById("welcome").hidden)return;landing=m.createLanding(document.getElementById("ln-stage"),missionPreview())}catch(e){}}
-function stopFlight(){flightToken++;if(flight)flight.dispose();flight=null}
-async function startFlight(){stopFlight();const token=flightToken,s=SITES[mission.site],stage=document.getElementById("flight-stage");
+function hideLandingCard(){const card=document.getElementById("edu-landing-card");if(card)card.hidden=true}
+function showLandingCard({plan,sky}){
+ const card=document.getElementById("edu-landing-card");
+ if(!card||!plan)return;
+ const site=plan.site||SITES[mission.site];
+ const angle=(body)=>{
+   const data=sky?.[body];
+   return data&&Number.isFinite(data.el)?`${data.el.toFixed(1)}° · ${data.up?"Above reference horizon":"Below reference horizon"}`:"Not available";
+ };
+ card.querySelector("[data-land-site]").textContent=site?.name||"the Moon";
+ card.querySelector("[data-land-coords]").textContent=site&&Number.isFinite(site.lat)&&Number.isFinite(site.lon)?`${site.lat.toFixed(3)}° latitude · ${site.lon.toFixed(3)}° longitude`:"Not available";
+ card.querySelector("[data-land-time]").textContent=Number.isFinite(plan.tLand)?new Date(plan.tLand*1000).toISOString().slice(0,16).replace("T"," ")+" UTC":"Not available";
+ card.querySelector("[data-land-sun]").textContent=angle("sun");
+ card.querySelector("[data-land-earth]").textContent=angle("earth");
+ card.hidden=false;
+ card.scrollTop=0;
+}
+
+function stopFlight(){hideLandingCard();flightToken++;if(flight)flight.dispose();flight=null}
+async function startFlight(selectedMission=mission){stopFlight();const token=flightToken,s=SITES[selectedMission.site],stage=document.getElementById("flight-stage");
 try{const m=await import("./flight.js");if(token!==flightToken)return;
-flight=m.createFlight({stage,info:document.getElementById("flight-info")},{startMs:start,launch:LAUNCH_SITES[mission.launch],site:s,sky:ms=>skyAt(ms,s)});await flight.ready}
+flight=m.createFlight({stage,info:document.getElementById("flight-info")},{startMs:start,launch:LAUNCH_SITES[selectedMission.launch],site:s,sky:ms=>skyAt(ms,s),onLanded:showLandingCard,onLeaveLanding:hideLandingCard});await flight.ready}
 catch(e){stage.textContent="Simulation unavailable: "+e.message}}
 function setProfile(id){if(id==="tourism")id="business";profile=id;if(id!=="education")stopFlight();document.body.dataset.profile=id;visibility(id);
 document.getElementById("profile-btn").textContent="Profile: "+PROFILES[id].label;
@@ -46,29 +65,61 @@ try{localStorage.setItem("orbitpass.profile",id)}catch(e){}
 lastKey="";renderProfile()}
 function closeWelcome(){document.getElementById("welcome").hidden=true;stopLanding()}
 async function launchMission(){const w=document.getElementById("welcome");if(w.classList.contains("ln-launching"))return;
-mission={launch:+document.getElementById("m-launch").value,site:+document.getElementById("m-site").value};
+const launchIndex=Number(document.getElementById("m-launch").value);
+const siteIndex=Number(document.getElementById("m-site").value);
+if(!LAUNCH_SITES[launchIndex]||!SITES[siteIndex]){console.error("Invalid mission selection",{launchIndex,siteIndex});return}
+mission={launch:launchIndex,site:siteIndex};
+const selectedMission={...mission};
+if(landing)landing.setMission({startMs:Date.parse(document.getElementById("m-date").value+"T00:00:00Z"),launch:LAUNCH_SITES[selectedMission.launch]});
 goMission(document.getElementById("m-date").value,mission.site);
 w.classList.add("ln-launching");
 previewMission();
 if(landing)await landing.focusSite();
 window.scrollTo(0,0);
-setProfile("education");await startFlight();
+setProfile("education");await startFlight(selectedMission);
 w.classList.add("ln-leaving");
 await Promise.all(w.getAnimations().map(a=>a.finished.catch(()=>{})));
 closeWelcome()}
-function openWelcome(){stopLanding();let last=null;try{last=localStorage.getItem("orbitpass.profile")}catch(e){}
+function openWelcome(){stopFlight();stopLanding();let last=null;try{last=localStorage.getItem("orbitpass.profile")}catch(e){}
 const w=document.getElementById("welcome");
 w.classList.remove("ln-launching","ln-leaving");
 w.innerHTML=`<div class="ln-stage" id="ln-stage"></div><div class="ln-ui">
-<div class="ln-logo"><svg viewBox="0 0 250 64" aria-label="OrbitPass"><path d="M10 44C40 62 150 66 232 26" fill="none" stroke="#59e3f7" stroke-width="2" stroke-linecap="round"/><circle cx="234" cy="25" r="4" fill="#59e3f7"/><text x="8" y="42" font-size="38" font-style="italic" font-weight="700" fill="#fff" font-family="Inter,system-ui,sans-serif">Orbit<tspan fill="#59e3f7">Pass</tspan></text></svg></div>
+<div class="ln-logo">${ORBITPASS_LOGO}</div>
 <form class="ln-mission" id="ln-mission" hidden><header><button type="button" class="ln-back" data-back="1" aria-label="Back"><svg viewBox="0 0 28 28"><path d="M17 5l-9 9 9 9"/></svg></button><svg class="ico" viewBox="0 0 48 48">${ICONS.education}</svg><h3>${PROFILES.education.label}</h3></header>
 <label class="ln-field"><svg viewBox="0 0 28 28">${FIELD_ICONS.date}</svg><div><span>Date</span><input type="date" id="m-date" required></div></label>
 <label class="ln-field"><svg viewBox="0 0 28 28">${FIELD_ICONS.launch}</svg><div><span>Launch Site</span><select id="m-launch">${LAUNCH_SITES.map((l,i)=>`<option value="${i}">${l.name}</option>`).join("")}</select></div></label>
 <label class="ln-field"><svg viewBox="0 0 28 28">${FIELD_ICONS.site}</svg><div><span>Destination Base</span><select id="m-site"></select></div></label>
 <button class="ln-go" type="submit">Go<svg viewBox="0 0 26 26"><path d="M3 13h19M14 5l8 8-8 8"/></svg></button></form>
-<div class="ln-tag" id="ln-tag"><small>LUNAR MISSION EXPLORER</small><b>Explore · Learn · Plan Missions</b></div>
-<div class="ln-cards" id="ln-cards">${Object.entries(PROFILES).filter(([id])=>id!=="tourism").map(([id,p])=>`<button class="ln-card" data-profile="${id}"><svg class="ico" viewBox="0 0 48 48">${ICONS[id]}</svg><h3>${p.label}</h3><svg class="go" viewBox="0 0 26 26"><path d="M3 13h19M14 5l8 8-8 8"/></svg><p>${p.text}</p>${id===last?'<span class="last">Last used</span>':""}</button>`).join("")}</div></div>`;
-w.hidden=false;startLanding()}
+<div class="ln-home-actions"><div class="ln-tag" id="ln-tag"><small>LUNAR MISSION EXPLORER</small><b>Explore · Learn · Plan Missions</b></div>
+<div class="ln-cards" id="ln-cards">${Object.entries(PROFILES).filter(([id])=>id!=="tourism").map(([id,p])=>`<button class="ln-card" data-profile="${id}"><svg class="ico" viewBox="0 0 48 48">${ICONS[id]}</svg><h3>${p.label}</h3><svg class="go" viewBox="0 0 26 26"><path d="M3 13h19M14 5l8 8-8 8"/></svg><p>${p.text}</p>${id===last?'<span class="last">Last used</span>':""}</button>`).join("")}</div></div></div>`;
+w.hidden=false;initMissionPickers();startLanding()}
+
+// In-page mission pickers avoid native <select> popups being occluded by the WebGL/composited welcome screen.
+function initMissionPickers(){
+ const form=document.getElementById("ln-mission");
+ if(!form)return;
+ for(const id of ["m-launch","m-site"]){
+  const select=document.getElementById(id);
+  if(!select||select.dataset.pickerReady)continue;
+  select.dataset.pickerReady="1";
+  const shell=document.createElement("div");shell.className="ln-picker";
+  const trigger=document.createElement("button");trigger.type="button";trigger.className="ln-picker-trigger";
+  trigger.setAttribute("aria-haspopup","listbox");trigger.setAttribute("aria-expanded","false");
+  const menu=document.createElement("div");menu.className="ln-picker-menu";menu.setAttribute("role","listbox");menu.hidden=true;
+  const close=()=>{menu.hidden=true;trigger.setAttribute("aria-expanded","false")};
+  const update=()=>{trigger.textContent=select.selectedOptions[0]?.textContent||"Choose";
+   menu.replaceChildren(...Array.from(select.options,(opt)=>{const btn=document.createElement("button");btn.type="button";btn.className="ln-picker-option";btn.setAttribute("role","option");btn.setAttribute("aria-selected",String(opt.value===select.value));btn.textContent=opt.textContent;btn.addEventListener("click",e=>{e.stopPropagation();select.value=opt.value;
+    // Persist the choice immediately; never rely on the previous mission snapshot.
+    mission={...mission,[id==="m-launch"?"launch":"site"]:Number(opt.value)};
+    select.dispatchEvent(new Event("change",{bubbles:true}));update();close()});return btn}))};
+  select.classList.add("ln-native-select");select.after(shell);shell.append(trigger,menu);
+  trigger.addEventListener("click",e=>{e.stopPropagation();const opening=menu.hidden;form.querySelectorAll(".ln-picker-menu").forEach(m=>m.hidden=true);form.querySelectorAll(".ln-picker-trigger").forEach(b=>b.setAttribute("aria-expanded","false"));if(opening){update();menu.hidden=false;trigger.setAttribute("aria-expanded","true")}});
+  trigger.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+  select.addEventListener("change",update);
+  update();
+ }
+}
+document.addEventListener("click",e=>{if(!e.target.closest(".ln-picker")){document.querySelectorAll(".ln-picker-menu").forEach(m=>m.hidden=true);document.querySelectorAll(".ln-picker-trigger").forEach(b=>b.setAttribute("aria-expanded","false"))}});
 
 function renderLessons(){const s=SITES[sel],st=stats[sel],h=+document.getElementById("t").value,sn=st.sun[h],ea=st.ear[h],hmax=s.hor?Math.max(...s.hor):null;
 const L=[
@@ -108,13 +159,19 @@ if(profile==="education"){renderLessons();if(!document.getElementById("quiz").fi
 
 
 function missionPreview(){return{startMs:Date.parse(document.getElementById("date").value+"T00:00:00Z"),launch:LAUNCH_SITES[mission.launch]}}
-function previewMission(){if(!landing)return;landing.setMission({startMs:Date.parse(document.getElementById("m-date").value+"T00:00:00Z"),launch:LAUNCH_SITES[+document.getElementById("m-launch").value]})}
+function previewMission(){if(!landing)return;const launchIndex=Number(document.getElementById("m-launch").value);if(!LAUNCH_SITES[launchIndex])return;landing.setMission({startMs:Date.parse(document.getElementById("m-date").value+"T00:00:00Z"),launch:LAUNCH_SITES[launchIndex]})}
 function showMission(show){document.getElementById("ln-cards").hidden=show;document.getElementById("ln-tag").hidden=show;document.getElementById("ln-mission").hidden=!show;
 if(!show)return;
 document.getElementById("m-date").value=document.getElementById("date").value;
 document.getElementById("m-launch").value=mission.launch;
-const site=document.getElementById("m-site");site.innerHTML=SITES.map(s=>`<option value="${s.id}">${s.name}</option>`).join("");site.value=sel;previewMission()}
-document.getElementById("welcome").addEventListener("click",e=>{const p=e.target.closest("[data-profile]");
+const site=document.getElementById("m-site");site.innerHTML=SITES.map(s=>`<option value="${s.id}">${s.name}</option>`).join("");site.value=sel;site.dispatchEvent(new Event("change",{bubbles:true}));previewMission()}
+document.getElementById("welcome").addEventListener("click",e=>{
+// Mission selection is modal: never activate the underlying Pro/Education cards.
+if(!document.getElementById("ln-mission").hidden){
+ if(e.target.closest("[data-back]"))return showMission(false);
+ return;
+}
+const p=e.target.closest("[data-profile]");
 if(e.target.closest("[data-back]"))return showMission(false);
 if(!p)return;
 if(p.dataset.profile==="education")return showMission(true);
@@ -130,3 +187,14 @@ if(n){if(n.dataset.quiz==="restart")quiz={i:0,score:0,picked:null};else{quiz.i++
 visibility(null);
 openWelcome();
 
+
+// Reuse the identical vector wordmark on welcome, Educational and Pro headers.
+const mainBrand = document.querySelector('.top .pr-brand h1');
+if (mainBrand) mainBrand.innerHTML = ORBITPASS_LOGO;
+
+document.getElementById("edu-explore-surface").addEventListener("click",()=>{
+ window.dispatchEvent(new CustomEvent("orbitpass:education-explore",{detail:{site:mission.site}}));
+});
+document.getElementById("edu-replay-flight").addEventListener("click",()=>{
+ hideLandingCard();document.querySelector('#flight-stage [data-fl="replay"]')?.click();
+});

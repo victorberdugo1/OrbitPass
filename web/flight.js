@@ -376,6 +376,7 @@ export function createFlight({ stage, info }, mission) {
   let speed = DEFAULT_SPEED;
   let raf = 0;
   let last = performance.now();
+  let landingAnnounced = false;
   let t = plan.tL;
   const tile = (k, v) => `<div class="kpi"><span>${k}</span><b>${v}</b></div>`;
   const earthDv = () => ASCENT_DV * smooth((t - plan.tL) / ASCENT_S) + (t >= plan.tTLI ? plan.dvTLI : 0);
@@ -435,6 +436,13 @@ export function createFlight({ stage, info }, mission) {
     last = now;
     if (playing) wall = Math.min(plan.wallTotal, wall + dt * speed);
     const at = phaseAt(plan, wall);
+    if ((at.phase.id === "landed" || wall >= plan.wallTotal - WALL.landed) && !landingAnnounced) {
+      landingAnnounced = true;
+      try { mission.onLanded?.({plan, sky: mission.sky(plan.tLand * 1000)}); } catch (error) { console.error("OrbitPass landing screen:", error); mission.onLanded?.({plan, sky: null}); }
+    } else if (at.phase.id !== "landed" && wall < plan.wallTotal - WALL.landed && landingAnnounced) {
+      landingAnnounced = false;
+      mission.onLeaveLanding?.();
+    }
     t = at.t;
     const st = plan.state(t);
     const m = moonAt(t);

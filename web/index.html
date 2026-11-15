@@ -603,10 +603,113 @@ body[data-profile=business] .top button.ghost{color:#dfe9ff;border:1px solid rgb
 #surface-time-controls:not([hidden]){display:block;flex:0 0 auto}
 #surface-time-controls>div{width:100%;box-sizing:border-box}
 .pr-modal-foot{flex-wrap:wrap}
+
+/* UI/UX pass: centered welcome actions, away from the foreground Earth. */
+#welcome .ln-ui{justify-content:flex-start;align-items:center;padding:clamp(88px,13vh,150px) 24px 24px;gap:0;overflow-y:auto;box-sizing:border-box}
+#welcome .ln-logo{position:fixed;top:max(18px,env(safe-area-inset-top));right:24px;z-index:3}
+#welcome .ln-tag{order:0;align-self:center;width:min(680px,100%);box-sizing:border-box;margin:0 auto 20px;padding:12px 20px;text-align:center;background:rgba(2,8,20,.56);backdrop-filter:blur(9px);border-radius:12px}
+#welcome .ln-tag b{white-space:normal;line-height:1.2;display:block}
+#welcome .ln-cards{order:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;width:min(760px,100%);margin:0 auto}
+#welcome .ln-card{min-height:152px;box-sizing:border-box}
+#welcome .ln-mission{z-index:2}
+#welcome .ln-cards[hidden],#welcome .ln-tag[hidden]{display:none!important}
+.orbitpass-logo{display:block;width:190px;max-width:100%;height:auto;overflow:visible}
+.top .orbitpass-logo{width:168px}
+.top .pr-brand h1{margin:0;line-height:1}
+body[data-profile=education] .top .orbitpass-logo{width:150px}
+@media(max-width:700px){
+ #welcome .ln-ui{padding:clamp(72px,12vh,110px) 16px 20px}
+ #welcome .ln-cards{grid-template-columns:1fr;gap:12px;max-width:460px}
+ #welcome .ln-card{min-height:112px;padding:14px 18px}
+ #welcome .ln-tag{margin-bottom:14px}
+ #welcome .ln-logo{right:16px}
+ .top .orbitpass-logo{width:132px}
+ body[data-profile=education] .top .orbitpass-logo{width:125px}
+}
+@media(max-height:680px) and (min-width:701px){
+ #welcome .ln-ui{padding-top:72px}
+ #welcome .ln-tag{margin-bottom:12px;padding:8px 16px}
+ #welcome .ln-card{min-height:120px;padding:14px 18px}
+}
+
+/* Hidden welcome cards must never remain clickable behind mission controls. */
+#welcome #ln-cards[hidden],#welcome #ln-tag[hidden],#welcome #ln-mission[hidden]{display:none!important;pointer-events:none!important}
+#welcome:has(#ln-mission:not([hidden])) .ln-home-actions{pointer-events:none!important}
+#welcome:has(#ln-mission:not([hidden])) .ln-card{pointer-events:none!important}
+/* Educational landing debrief: compact card over flight, responsive and dismissible via replay. */
+#edu-landing-card{position:absolute;z-index:12;top:50%;left:50%;transform:translate(-50%,-50%);width:min(570px,calc(100% - 32px));max-height:calc(100% - 155px);overflow:auto;box-sizing:border-box;padding:24px;border-radius:22px;background:rgba(6,17,34,.94);border:1px solid rgba(116,214,245,.55);box-shadow:0 18px 70px #000a;backdrop-filter:blur(16px);color:#eaf5ff}
+#edu-landing-card[hidden]{display:none!important}
+/* Accessible button contrast in the Educational landing card and shared lunar modal. */
+#edu-landing-card .edu-land-actions button:not(.ghost){background:#167eac!important;color:#fff!important;border:1px solid #72dcff!important}
+#edu-landing-card .edu-land-actions button.ghost{background:#142b42!important;color:#f0f8ff!important;border:1px solid #7ca8c5!important}
+#edu-landing-card .edu-land-actions button:hover{filter:brightness(1.16)}
+#moon-modal .pr-modal-bar button.ghost,#moon-modal .pr-modal-foot button.ghost{background:#142b42!important;color:#f0f8ff!important;border:1px solid #7ca8c5!important}
+#moon-modal .pr-modal-foot button:not(.ghost),#moon-modal .pr-coordinate-search button{background:#167eac!important;color:#fff!important;border:1px solid #72dcff!important}
+#moon-modal .pr-modal-bar button:hover,#moon-modal .pr-modal-foot button:hover{filter:brightness(1.16)}
+
+#edu-landing-card h2{margin:8px 0;font-size:clamp(25px,4vw,35px);color:white}
+.edu-land-eyebrow{color:#6decc5;font-size:11px;letter-spacing:.16em;font-weight:700}
+.edu-land-sub{margin:0 0 17px;color:#c8d9ee}
+.edu-land-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.edu-land-grid>div{border:1px solid #29455d;border-radius:11px;padding:11px;background:#10263a}
+.edu-land-grid span{display:block;font-size:11px;color:#9cb9d0;margin-bottom:6px}
+.edu-land-grid b{display:block;font-size:13px;overflow-wrap:anywhere;color:#fff}
+.edu-land-note{font-size:11px;line-height:1.5;color:#a9c1d7;margin:14px 0}
+.edu-land-actions{display:flex;flex-wrap:wrap;gap:10px}
+@media(max-width:520px){#edu-landing-card{padding:15px;max-height:calc(100% - 140px)}.edu-land-grid{gap:6px}.edu-land-grid>div{padding:8px}.edu-land-grid b{font-size:11px}}
+/* Welcome: group the slogan and mode buttons directly below the Moon. */
+#welcome .ln-home-actions{position:absolute;left:72%;top:55%;transform:translateX(-50%);width:min(470px,42vw);display:flex;flex-direction:column;align-items:center;gap:14px;pointer-events:none}
+#welcome .ln-home-actions>*{pointer-events:auto}
+#welcome .ln-home-actions .ln-tag{width:100%;margin:0;padding:10px 14px}
+#welcome .ln-home-actions .ln-tag small{font-size:10px;letter-spacing:.24em}
+#welcome .ln-home-actions .ln-tag b{font-size:clamp(18px,1.8vw,26px)}
+#welcome .ln-home-actions .ln-cards{width:100%;gap:10px;margin:0;grid-template-columns:repeat(2,minmax(0,1fr))}
+#welcome .ln-home-actions .ln-card{min-height:126px;padding:15px 17px;border-radius:18px}
+#welcome .ln-home-actions .ln-card h3{font-size:clamp(18px,1.7vw,24px)}
+#welcome .ln-home-actions .ln-card p{font-size:12px;margin-top:9px}
+#welcome .ln-home-actions .ln-card svg.ico{width:29px;height:29px;margin-right:8px}
+#welcome .ln-home-actions .ln-card .go{right:12px;top:14px;width:19px;height:19px}
+@media(max-width:700px){
+ #welcome .ln-home-actions{left:66%;top:41%;width:min(330px,62vw);gap:9px}
+ #welcome .ln-home-actions .ln-cards{grid-template-columns:1fr;gap:8px}
+ #welcome .ln-home-actions .ln-card{min-height:76px;padding:10px 12px}
+ #welcome .ln-home-actions .ln-card p{font-size:11px;margin-top:5px}
+ #welcome .ln-home-actions .ln-card h3{font-size:17px}
+ #welcome .ln-home-actions .ln-tag b{font-size:17px}
+ #welcome .ln-home-actions .ln-tag small{font-size:9px;letter-spacing:.12em}
+}
+@media(max-height:600px) and (min-width:701px){
+ #welcome .ln-home-actions{top:52%;gap:8px}
+ #welcome .ln-home-actions .ln-card{min-height:92px;padding:10px 14px}
+ #welcome .ln-home-actions .ln-card p{margin-top:4px}
+}
+/* Reliable in-page mission dropdowns; native selects remain the form's source of truth. */
+#welcome .ln-native-select{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+#welcome .ln-field>div{position:relative}
+#welcome .ln-picker{position:relative;width:100%;min-width:0}
+#welcome .ln-picker-trigger{width:100%;padding:5px 22px 5px 0;background:transparent;border:0;color:#fff;font:inherit;font-size:16px;text-align:left;cursor:pointer;position:relative}
+#welcome .ln-picker-trigger:after{content:"⌄";position:absolute;right:0;top:0;color:#9fd8e4}
+#welcome .ln-picker-menu{position:absolute;top:calc(100% + 9px);left:-8px;right:-8px;max-height:min(260px,40vh);overflow-y:auto;background:#0b1b31;border:1px solid #65cfe9;border-radius:12px;box-shadow:0 14px 36px #000b;z-index:200;padding:5px}
+#welcome .ln-picker-menu[hidden]{display:none!important}
+#welcome .ln-picker-option{display:block;width:100%;padding:10px 12px;border:0;border-radius:7px;background:transparent;color:#f4faff;text-align:left;font:inherit;font-size:14px;cursor:pointer}
+#welcome .ln-picker-option:hover,#welcome .ln-picker-option[aria-selected=true]{background:#205778}
+#welcome .ln-mission{overflow:visible!important}
+@media(max-height:650px){#welcome .ln-mission{top:72px;transform:none;max-height:calc(100% - 88px);overflow-y:auto!important}}
+/* Mission selection controls must remain interactive after returning from flight. */
+#welcome .ln-stage{pointer-events:none}
+#welcome .ln-mission{pointer-events:auto;isolation:isolate;z-index:10}
+#welcome .ln-mission select,#welcome .ln-mission input{pointer-events:auto;position:relative;z-index:11;cursor:pointer}
 </style>
 </head>
 <body>
-<section id="flight-panel" data-for="education"><div id="flight-stage"></div></section>
+<section id="flight-panel" data-for="education"><div id="flight-stage"></div>
+<aside id="edu-landing-card" hidden role="status" aria-live="polite">
+ <div class="edu-land-eyebrow">MISSION COMPLETE · TOUCHDOWN CONFIRMED</div>
+ <h2>Landing successful!</h2><p class="edu-land-sub">Welcome to <strong data-land-site></strong></p>
+ <div class="edu-land-grid"><div><span>Landing coordinates</span><b data-land-coords></b></div><div><span>Arrival time</span><b data-land-time></b></div><div><span>☀ Sun elevation</span><b data-land-sun></b></div><div><span>🌍 Earth elevation</span><b data-land-earth></b></div><div><span>Moon environment</span><b>Airless · ~1/6 Earth gravity</b></div><div><span>Terrain</span><b>LOLA / NAC where available</b></div></div>
+ <p class="edu-land-note">Sun and Earth angles are approximate, relative to the reference horizon. Local mountains may obstruct visibility; inspect the LOLA horizon in Surface View.</p>
+ <div class="edu-land-actions"><button type="button" id="edu-explore-surface">Explore Surface →</button><button type="button" class="ghost" id="edu-replay-flight">Replay Flight</button></div>
+</aside></section>
 <div class="wrap">
 <div class="top"><div class="pr-brand"><h1>Orbit<span>Pass</span></h1><em class="pr-tier" data-for="business">Pro / Business</em><p class="sub" data-for="education">Learn how a mission travels from Earth to the Moon</p></div><nav class="pr-nav" data-for="business"><button type="button" data-goto="bases">Bases</button><button type="button" data-goto="simulation">Simulation</button><button type="button" data-goto="infrastructure">Scenario</button><button type="button" data-goto="access">Windows</button><button type="button" data-goto="projects">Missions</button><button type="button" data-goto="resources">Resources</button></nav><div class="row"><button class="ghost" id="mission-change" data-for="education">Change mission</button><button class="ghost" id="profile-btn">Profile</button></div></div>
 <div class="pr" data-for="business" id="pr-top">
@@ -844,8 +947,30 @@ async function toggleSurface(){
   }catch(e){if(token!==surfaceSerial)return;stopSurface();status.hidden=false;status.textContent='Surface unavailable: '+e.message+' (Docker /trek required)'}
 }
 document.getElementById('surface-toggle').addEventListener('click',toggleSurface);
+// The shared Moon modal originally lives inside the Pro-only panel.
+// Move it to document.body so Educational Mode can display it even while Pro is hidden.
+const sharedMoonModal=document.getElementById('moon-modal');
+if(sharedMoonModal.parentElement!==document.body)document.body.appendChild(sharedMoonModal);
+let educationalSurfaceActive=false;
+function updateEducationalSurfaceButtons(){
+ const isEdu=educationalSurfaceActive;
+ document.getElementById('pick-reset').hidden=isEdu;
+ document.getElementById('pick-profile').textContent=isEdu?'Back to landing view':'Open base profile';
+}
+window.addEventListener('orbitpass:education-explore',async event=>{
+ const index=Number(event.detail?.site);
+ if(!Number.isInteger(index)||index<0||index>=SITES.length){
+   console.error('Educational surface: invalid mission site',event.detail);
+   return;
+ }
+ sel=index;
+ educationalSurfaceActive=true;
+ openMoon();
+ updateEducationalSurfaceButtons();
+ await toggleSurface();
+});
 
-function closeMoon(){stopSurface();clearTop3();document.getElementById("moon-modal").classList.add("closed");document.getElementById("moon-card").appendChild(document.getElementById("moon3d"));if(moon){fly();update3D()}}
+function closeMoon(){educationalSurfaceActive=false;stopSurface();updateEducationalSurfaceButtons();clearTop3();document.getElementById("moon-modal").classList.add("closed");document.getElementById("moon-card").appendChild(document.getElementById("moon3d"));if(moon){fly();update3D()}}
 const TAB_TARGET={overview:"hero",simulation:"pr-sim",infrastructure:"scenario",research:"compare",resources:"pr-resources",access:"windows-panel",projects:"pr-manifest"};
 function setScreen(name){document.querySelectorAll("[data-screen]").forEach(el=>{el.hidden=el.dataset.screen!==name})}
 function markTab(name){document.querySelectorAll(".pr-tab,.pr-nav button").forEach(el=>{const on=el.dataset.goto===name;el.classList.toggle("on",on);if(el.classList.contains("pr-tab"))el.setAttribute("aria-selected",String(on))})}
@@ -1003,6 +1128,7 @@ function refreshPickButtons(){
   save.hidden=!pendingPoint;
   document.getElementById("pick-open").hidden=!pendingPoint;
   document.getElementById("pick-profile").hidden=!!pendingPoint;
+  if(educationalSurfaceActive)updateEducationalSurfaceButtons();
 }
 async function loadPointTerrain(site){
   const token=++pickSerial;
@@ -1054,7 +1180,11 @@ function openPickedProfile(){
   if(pendingPoint)return;
   closeMoon();go("overview");
 }
-function openSelectedProfile(){closeMoon();go("overview")}
+function openSelectedProfile(){
+ const returnToLanding=educationalSurfaceActive;
+ closeMoon();
+ if(!returnToLanding)go("overview");
+}
 function deleteSavedPoint(){
   const s=SITES[sel];if(!s?.saved||!confirm(`Delete saved base "${s.name}"?`))return;
   ++pickSerial;

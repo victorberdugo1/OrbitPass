@@ -323,7 +323,7 @@ export async function createSurface(host,site,onStatus){
     const base=terrainGrid.at(x,z),detail=nacGrid?nacGrid.at(x,z):NaN;
     return Number.isFinite(detail)?Math.max(base,detail):base;
   };
-  const walker=new Walker(groundHeight,{x:0,z:0,limit:range-200,gait:'apollo'});
+  const walker=new Walker(groundHeight,{x:0,z:0,limit:range-200,gait:'explorer'});
   let yaw=0,pitch=0,drag=false,lastX=0,lastY=0;
   const updateLook=()=>camera.lookAt(camera.position.x+Math.sin(yaw)*Math.cos(pitch)*100,camera.position.y+Math.sin(pitch)*100,camera.position.z-Math.cos(yaw)*Math.cos(pitch)*100);
   const placeCamera=()=>{camera.position.set(walker.x,walker.eyeY,walker.z);updateLook()};
@@ -334,7 +334,7 @@ export async function createSurface(host,site,onStatus){
   renderer.domElement.addEventListener('pointerdown',down);renderer.domElement.addEventListener('pointermove',move);
   renderer.domElement.addEventListener('pointerup',up);renderer.domElement.addEventListener('pointercancel',up);
   renderer.domElement.style.touchAction='none';renderer.domElement.style.cursor='grab';
-  let apolloGait=true;
+  let apolloGait=false;
   const refreshGaitToggle=()=>{gaitToggle.textContent=`🧑‍🚀 Lunar gravity: ${apolloGait?'ON':'OFF'}`};
   gaitToggle.addEventListener('click',()=>{apolloGait=!apolloGait;walker.setGait(apolloGait?'apollo':'explorer');refreshGaitToggle();placeCamera();dirty=true});
   refreshGaitToggle();
