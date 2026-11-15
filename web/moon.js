@@ -168,11 +168,7 @@ export function createLunarSurface(renderer, tileUrl, fallbackUrl) {
   return { material, uniforms, ready };
 }
 
-<<<<<<< HEAD
-export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl }) {
-=======
 export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl, onSurfacePick, fixedSiteCount = sites.length }) {
->>>>>>> 0e71fd3 (Pavel campus)
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.setClearColor(0x000000);

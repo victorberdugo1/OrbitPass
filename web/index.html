@@ -434,11 +434,7 @@ body[data-profile=business] .top button.ghost{color:#dfe9ff;border:1px solid rgb
 .pr-kpi span{display:block;font-size:12px;color:var(--ink2)}
 .pr-kpi b{display:block;font:600 21px ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff;margin:2px 0}
 .pr-kpi small{display:block;color:var(--ink3);font-size:11px}
-<<<<<<< HEAD
-.pr-sim-grid{display:grid;grid-template-columns:240px minmax(0,1fr);gap:18px;align-items:start}
-=======
 .pr-sim-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
->>>>>>> 0e71fd3 (Pavel campus)
 .pr-donut svg{width:150px;height:150px;display:block;margin:0 auto 10px}
 .pr-charts{display:flex;flex-direction:column;gap:12px;min-width:0}
 .pr-chart-head{display:flex;justify-content:space-between;color:var(--ink2);font-size:13px;margin-bottom:4px}
@@ -497,13 +493,10 @@ body[data-profile=business] .top button.ghost{color:#dfe9ff;border:1px solid rgb
 .pr-modal-bar b{font-size:22px;color:#fff;font-weight:600}
 .pr-modal-stage{flex:1;min-height:0;position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--gl);background:#000}
 .pr-modal-stage #moon3d{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:0;background:#000}
-<<<<<<< HEAD
-=======
 /* Keep the existing full-size Moon above the recommendation cards. */
 .pr-top3-bottom{flex:0 0 auto;max-height:34vh;overflow-y:auto;padding:12px 18px;background:#101b2b;border:1px solid #344050;border-radius:12px}
 .pr-modal:has(.pr-top3-bottom:not([hidden])) .pr-modal-stage{min-height:36vh}
 @media(max-height:680px){.pr-top3-bottom{max-height:28vh;padding:8px 12px}.pr-modal:has(.pr-top3-bottom:not([hidden])) .pr-modal-stage{min-height:30vh}}
->>>>>>> 0e71fd3 (Pavel campus)
 .pr-modal-stage .hud{display:block}
 .pr-modal-stage #moon3d{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:0;background:#000;pointer-events:auto}
 .pr-moon-card{position:relative;width:100%;aspect-ratio:1;border-radius:16px;overflow:hidden;border:1px solid var(--gl);background:#000}
@@ -587,8 +580,6 @@ body[data-profile=business] .top button.ghost{color:#dfe9ff;border:1px solid rgb
 @media(max-width:1280px){.pr-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:1100px){.pr-grid{grid-template-columns:minmax(0,1fr)}.pr-nav{display:none}}
 @media(max-width:760px){body[data-profile=business] .top{flex-wrap:wrap}.pr-sim-grid{grid-template-columns:minmax(0,1fr)}.pr-sky{grid-template-columns:minmax(0,1fr)}.pr-readouts{grid-template-columns:repeat(2,minmax(0,1fr))}.pr-hero-body{padding:20px}.pr h1{font-size:28px}.pr-hero-media::after{background:rgba(3,6,13,.75)}.pr-tabs{grid-template-columns:repeat(7,minmax(104px,1fr));overflow-x:auto}.pr-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.pr-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.pr .thumb{height:72px}}
-<<<<<<< HEAD
-=======
 .pr-coordinate-search{display:flex;align-items:end;flex-wrap:wrap;gap:12px;padding:12px 18px;background:rgba(5,10,22,.96);border-bottom:1px solid rgba(160,200,255,.16)}
 .pr-coordinate-search label{display:flex;flex-direction:column;gap:5px;color:var(--ink3);font-size:12px}
 .pr-coordinate-search input{width:125px;min-height:36px;padding:7px 10px;border:1px solid rgba(160,200,255,.24);border-radius:8px;background:#101a2c;color:#fff}
@@ -612,7 +603,6 @@ body[data-profile=business] .top button.ghost{color:#dfe9ff;border:1px solid rgb
 #surface-time-controls:not([hidden]){display:block;flex:0 0 auto}
 #surface-time-controls>div{width:100%;box-sizing:border-box}
 .pr-modal-foot{flex-wrap:wrap}
->>>>>>> 0e71fd3 (Pavel campus)
 </style>
 </head>
 <body>
@@ -620,11 +610,7 @@ body[data-profile=business] .top button.ghost{color:#dfe9ff;border:1px solid rgb
 <div class="wrap">
 <div class="top"><div class="pr-brand"><h1>Orbit<span>Pass</span></h1><em class="pr-tier" data-for="business">Pro / Business</em><p class="sub" data-for="education">Learn how a mission travels from Earth to the Moon</p></div><nav class="pr-nav" data-for="business"><button type="button" data-goto="bases">Bases</button><button type="button" data-goto="simulation">Simulation</button><button type="button" data-goto="infrastructure">Scenario</button><button type="button" data-goto="access">Windows</button><button type="button" data-goto="projects">Missions</button><button type="button" data-goto="resources">Resources</button></nav><div class="row"><button class="ghost" id="mission-change" data-for="education">Change mission</button><button class="ghost" id="profile-btn">Profile</button></div></div>
 <div class="pr" data-for="business" id="pr-top">
-<<<<<<< HEAD
-<section class="glass pr-list" id="pr-bases" data-screen="bases"><div class="pr-sec"><h2>Bases</h2><div class="pr-list-tools"><input type="search" id="base-search" placeholder="Search by name, program or type" aria-label="Search bases"></div></div><div class="pr-strip" id="sites"></div></section>
-=======
 <section class="glass pr-list" id="pr-bases" data-screen="bases"><div class="pr-sec"><h2>Bases</h2><div class="pr-list-tools"><input type="search" id="base-search" placeholder="Search by name, program or type" aria-label="Search bases"><button type="button" id="create-base">+ Create new base</button></div></div><div class="pr-strip" id="sites"></div></section>
->>>>>>> 0e71fd3 (Pavel campus)
 <div class="pr-grid" data-screen="base">
 <div class="pr-main">
 <nav class="pr-crumb" data-screen="base" aria-label="Breadcrumb"><button type="button" data-goto="bases">Bases</button><span aria-hidden="true">›</span><b id="crumb-base"></b><span aria-hidden="true">›</span><b id="crumb-tab"></b></nav>
@@ -634,17 +620,11 @@ body[data-profile=business] .top button.ghost{color:#dfe9ff;border:1px solid rgb
 <section class="glass" id="pr-sim">
 <div class="pr-sec"><div><h2>30-day simulation · environmental &amp; operational forecast</h2><div class="note" id="clock"></div></div><div class="pr-time"><input type="date" id="date"><button id="play">Play</button></div></div>
 <input type="range" id="t" class="pr-scrub" min="0" max="719" value="0">
-<<<<<<< HEAD
-<div class="pr-sim-grid"><div id="overview"></div><div class="pr-charts" id="charts"></div></div>
-=======
 <div class="pr-sim-grid"><div class="pr-charts" id="charts"></div></div>
->>>>>>> 0e71fd3 (Pavel campus)
 </section>
 
 <section class="glass" id="scenario"></section>
 <section class="glass" id="compare"></section>
-<<<<<<< HEAD
-=======
 <section class="glass" id="recommend-panel"><h2>Mission Site Recommender</h2>
 <div class="note">Find the best site and UTC start date for a mission in the next 365 days. Includes standard and saved bases. Each site's best window is ranked against the others.</div>
 <div class="row" style="align-items:end;flex-wrap:wrap;gap:12px;margin:14px 0">
@@ -660,7 +640,6 @@ body[data-profile=business] .top button.ghost{color:#dfe9ff;border:1px solid rgb
 <div id="risk-results" aria-live="polite"></div>
 <div class="note" style="margin-top:12px">A dark hour means the Sun is below the modeled local horizon; a communications gap means Earth is below it. These are direct line-of-sight indicators, not estimates of actual electrical power or network connectivity. Does not include battery capacity, relay satellites, eclipses, terrain traversability or thermal survival. LOLA horizon is used only when loaded; otherwise the flat-horizon fallback adds uncertainty.</div>
 </section>
->>>>>>> 0e71fd3 (Pavel campus)
 <section class="glass" id="windows-panel"><h2>Operating window finder</h2><div class="row"><button id="find">Find best windows for selected site</button></div><div class="tbl-wrap" id="windows"></div><div class="note">Scans the 12 months after the selected date. Each candidate is a 14-day surface operation period starting 00:00 UTC, ranked by the mean of Sun and Earth availability. Approximate ephemeris; LOLA terrain horizon when available, spherical otherwise.</div></section>
 <section class="glass" id="pr-manifest"><h2>Mission manifest</h2><div class="row"><label class="note" for="prov">Provider</label><select id="prov"></select></div><div class="tbl-wrap" id="manifest"></div><div class="note">Target periods as publicly reported by NASA and operators (as of September 2026). Schedules change often and sources disagree; verify with the operator. Conflict risk: a reported mission within 150 km of the selected site whose target period overlaps the 30-day analysis window. Site coordinates are approximate and this is not an official deconfliction tool.</div></section>
 <section class="glass" id="pr-resources"><h2>NASA and partner resources</h2><div class="row">
@@ -673,23 +652,14 @@ body[data-profile=business] .top button.ghost{color:#dfe9ff;border:1px solid rgb
 </div>
 <aside class="pr-stack">
 <section class="glass" id="location"><div class="pr-card-head"><span class="pr-ico"><svg viewBox="0 0 24 24"><path d="M12 21s6.5-5.6 6.5-11a6.5 6.5 0 1 0-13 0c0 5.4 6.5 11 6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span><h2>Location &amp; Conditions</h2></div><div class="pr-loc2"><div class="pr-kv" id="loc-rows"></div><div class="pr-moon-card" id="moon-card"><div id="moon3d"></div><svg class="pr-reticle" viewBox="0 0 100 100"><circle cx="50" cy="50" r="5"/><path d="M50 0V42M50 58V100M0 50H42M58 50H100"/></svg><button type="button" class="pr-expand" id="moon-expand" aria-label="Expand 3D view"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div></div><div class="pr-phase"><svg id="phase" viewBox="0 0 120 120"></svg><div class="pr-phase-text"><small>Moon, live illumination</small><b id="phase-pct">—</b><span id="phase-name">—</span></div></div></section>
-<<<<<<< HEAD
-<section class="glass" id="solar"></section>
-=======
 
->>>>>>> 0e71fd3 (Pavel campus)
 <section class="glass" id="temps"></section>
 <section class="glass" id="env"></section>
 <section class="glass" id="status"></section>
 </aside>
 </div>
-<<<<<<< HEAD
-<div class="pr-modal closed" id="opp-modal"><div class="pr-modal-bar"><div><small>Business opportunities</small><b id="opp-title"></b></div><button type="button" class="ghost" id="opp-close">Close</button></div><div class="pr-opp-stage" id="opp-stage"></div></div>
-<div class="pr-modal closed" id="moon-modal"><div class="pr-modal-bar"><div><small>Lunar view · 3D</small><b id="moon-modal-title"></b></div><button type="button" class="ghost" id="moon-close">Close</button></div><div class="pr-modal-stage" id="moon-stage"></div><div class="pr-modal-foot"><span class="note" id="m3note">3D Moon requires the Docker version (/trek proxy to NASA Moon Trek). Drag to rotate, scroll to zoom.</span></div></div>
-=======
 <div class="pr-modal closed" id="opp-modal" hidden><div class="pr-modal-bar"><div><small>Business opportunities</small><b id="opp-title"></b></div><button type="button" class="ghost" id="opp-close">Close</button></div><div class="pr-opp-stage" id="opp-stage"></div></div>
 <div class="pr-modal closed" id="moon-modal"><div class="pr-modal-bar"><div><small>Lunar view · 3D</small><b id="moon-modal-title"></b></div><button type="button" class="ghost" id="moon-close">Close</button></div><form class="pr-coordinate-search" id="coordinate-search"><label>Latitude <input id="coordinate-lat" type="number" min="-90" max="90" step="any" placeholder="−89" required></label><label>Longitude <input id="coordinate-lon" type="number" min="-180" max="180" step="any" placeholder="0" required></label><button type="submit">Find coordinates</button><span class="note">Degrees · latitude −90…90, longitude −180…180</span></form><div class="pr-modal-stage" id="moon-stage"><div id="surface-stage" hidden></div></div><div id="surface-time-controls" hidden></div><div id="top3-panel" hidden class="pr-top3-bottom"></div><div class="pr-modal-foot"><button type="button" class="ghost" id="surface-toggle">Stand on Surface</button><span class="note" id="surface-status" hidden></span><button type="button" id="pick-save" hidden>Save location</button><button type="button" class="ghost" id="pick-open" hidden>Save &amp; open profile</button><button type="button" class="ghost" id="pick-profile">Open base profile</button><button type="button" class="ghost" id="pick-reset" style="margin-right:12px">Back to saved sites</button><span class="note" id="pick-status" aria-live="polite">Click the Moon to explore any point. Drag to rotate.</span><span class="note" id="m3note">3D Moon requires the Docker version (/trek proxy to NASA Moon Trek). Drag to rotate, scroll to zoom.</span></div></div>
->>>>>>> 0e71fd3 (Pavel campus)
 <p class="note pr-foot" data-screen="base">Approximate analytical ephemerides (Meeus). Horizons use LOLA terrain at about 0.67 km per pixel (spherical when the Docker proxy is absent), so small local features are not resolved. Validate with JPL Horizons before operational use. Site coordinates are approximate.</p>
 </div>
 <div class="tp-wrap" id="explore" data-for="tourism"><div id="explore-root"></div></div>
@@ -719,10 +689,6 @@ const SITES=[
 ["Apollo 12","Apollo",-3.01,-23.42,"storms"],
 ["Apollo 15","Apollo",26.13,3.63,"hadley"],
 ["Apollo 16","Apollo",-8.97,15.5,"descartes"],
-<<<<<<< HEAD
-["Apollo 17","Apollo",20.19,30.77,"taurus"]
-].map((s,i)=>({id:i,name:s[0],tag:s[1],lat:s[2],lon:s[3],cat:s[4]}));
-=======
 ["Apollo 17","Apollo",20.19,30.77,"taurus"],
 ["Shackleton NAC DTM (test)","High-res terrain",-89.7421412,-160.2673105,null]
 ].map((s,i)=>({id:i,name:s[0],tag:s[1],lat:s[2],lon:s[3],cat:s[4]}));
@@ -734,7 +700,6 @@ try {
   if(Array.isArray(stored))savedSites=stored.filter(x=>x&&typeof x.name==="string"&&x.name.length<=80&&Number.isFinite(x.lat)&&Math.abs(x.lat)<=90&&Number.isFinite(x.lon)&&Math.abs(x.lon)<=180).slice(0,100).map(x=>({name:x.name,tag:"Saved exploration",lat:x.lat,lon:x.lon,cat:null,saved:true}));
 } catch(e){console.warn("Saved sites unavailable",e)}
 savedSites.forEach(x=>SITES.push({...x,id:SITES.length}));
->>>>>>> 0e71fd3 (Pavel campus)
 let sel=0,cmp=new Set([0,1,2]),start,subs=[],stats=[],timer=null;
 function persistSites(){try{localStorage.setItem(SAVED_KEY,JSON.stringify(SITES.filter(s=>s.saved).map(({name,lat,lon})=>({name,lat,lon})))) ;return true}catch(e){console.warn("Cannot save locations",e);return false}}
 const escSite=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
@@ -767,11 +732,7 @@ return u.up?`${a} in ${x}`:`${b} in ${x}`}
 
 function renderSites(){const q=document.getElementById("base-search").value.trim().toLowerCase(),list=SITES.filter(s=>`${s.name} ${s.tag} ${info(s)?.program||""}`.toLowerCase().includes(q));
 document.getElementById("sites").innerHTML=list.length?list.map(s=>{const st=stats[s.id],img=info(s)?.image;
-<<<<<<< HEAD
-return`<div class="card ${s.id===sel?"sel":""}" data-id="${s.id}" tabindex="0" role="button" aria-label="Open ${s.name}"><span class="cmp ${cmp.has(s.id)?"on":""}" data-c="${s.id}">Compare</span><div class="thumb${img?"":" none"}"${img?` style="background-image:url(${img})"`:""}></div><b>${s.name}</b><small>${s.tag} · ${f(s.lat,1)}°, ${f(s.lon,1)}°</small><div class="chips"><span class="chip">Sun ${f(st.sp)}%</span><span class="chip">Earth ${f(st.ep)}%</span><span class="chip">Score ${st.score}</span></div></div>`}).join(""):'<div class="pr-empty">No base matches your search.</div>'}
-=======
 return`<div class="card ${s.id===sel?"sel":""}" data-id="${s.id}" tabindex="0" role="button" aria-label="Open ${escSite(s.name)}"><span class="cmp ${cmp.has(s.id)?"on":""}" data-c="${s.id}">Compare</span><div class="thumb${img?"":" none"}"${img?` style="background-image:url(${img})"`:""}></div><b>${escSite(s.name)}</b><small>${s.tag} · ${f(s.lat,1)}°, ${f(s.lon,1)}°</small><div class="chips"><span class="chip">Sun ${f(st.sp)}%</span><span class="chip">Earth ${f(st.ep)}%</span><span class="chip">Score ${st.score}</span></div></div>`}).join(""):'<div class="pr-empty">No base matches your search.</div>'}
->>>>>>> 0e71fd3 (Pavel campus)
 
 function sky(sun,ear,hor){const c=150,r=130,pos=o=>{const k=(90-Math.max(o.el,0))/90*r,a=o.az*R;return[c+k*Math.sin(a),c-k*Math.cos(a)]};
 const body=(o,col,rad)=>{const[x,y]=pos(o),up=o.up;return`<g opacity="${up?1:.3}"><circle cx="${x}" cy="${y}" r="${rad*2}" fill="${col}" opacity=".3"/><circle cx="${x}" cy="${y}" r="${rad}" fill="${col}"/></g>`};
@@ -784,10 +745,6 @@ const info=s=>catalog.find(b=>b.id===s.cat);
 const prRow=(a,b)=>`<div><span>${a}</span><b>${b}</b></div>`;
 const regionOf=s=>{const a=Math.abs(s.lat),band=a>=70?"Polar":a>=30?"Mid-latitude":"Equatorial";return`${s.lat<0?"Southern":"Northern"} ${band.toLowerCase()} · ${Math.abs(s.lon)<=90?"Near side":"Far side"}`};
 const coordsOf=s=>`${f(Math.abs(s.lat),2)}° ${s.lat<0?"S":"N"}, ${f(Math.abs(s.lon),2)}° ${s.lon<0?"W":"E"}`;
-<<<<<<< HEAD
-const LUNAR_DAY=29.53;
-=======
->>>>>>> 0e71fd3 (Pavel campus)
 const PR_CARD_ICON={pin:'<path d="M12 21s6.5-5.6 6.5-11a6.5 6.5 0 1 0-13 0c0 5.4 6.5 11 6.5 11z"/><circle cx="12" cy="10" r="2.4"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',thermo:'<path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0z"/>',leaf:'<path d="M5 19c0-9 6-14 14-14 0 8-5 14-14 14z"/><path d="M5 19l8-8"/>',layers:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>'};
 const cardHead=(icon,title,note)=>`<div class="pr-card-head"><span class="pr-ico"><svg viewBox="0 0 24 24">${PR_CARD_ICON[icon]}</svg></span><h2>${title}</h2>${note?`<small>${note}</small>`:""}</div>`;
 
@@ -809,23 +766,14 @@ function openOpp(a){oppArea=a;renderOpp();document.getElementById("opp-modal").c
 function closeOpp(){document.getElementById("opp-modal").classList.add("closed")}
 async function loadBiz(){try{biz=await(await fetch("data/business.json")).json();renderHero()}catch(e){}}
 function renderHero(){const s=SITES[sel],b=info(s),img=b&&b.image,pills=b?[b.status,b.program,s.tag]:[s.tag];
-<<<<<<< HEAD
-document.getElementById("hero").innerHTML=`<div class="pr-hero-media${img?"":" none"}"${img?` style="background-image:url(${img})"`:""}></div><div class="pr-hero-body"><a class="pr-back" data-goto="bases">← Back to Bases</a><div class="pr-badges">${pills.map((t,i)=>`<span class="pill${i===0?" ok":""}">${t}</span>`).join("")}</div><h1>${s.name}</h1><div class="pr-sub">${b?b.mission:s.tag} · ${coordsOf(s)}</div><p>${b?b.description:"No catalog record for this site. Metrics come from the ephemeris and the terrain model."}</p><div class="row"><button data-fly>Show on 3D Moon</button><button class="ghost" data-cmp>${cmp.has(sel)?"Remove from compare":"Add to compare"}</button></div></div>${oppPanel(s)}`}
-=======
 document.getElementById("hero").innerHTML=`<div class="pr-hero-media${img?"":" none"}"${img?` style="background-image:url(${img})"`:""}></div><div class="pr-hero-body"><a class="pr-back" data-goto="bases">← Back to Bases</a><div class="pr-badges">${pills.map((t,i)=>`<span class="pill${i===0?" ok":""}">${t}</span>`).join("")}</div><h1>${escSite(s.name)}</h1><div class="pr-sub">${b?b.mission:s.tag} · ${coordsOf(s)}</div><p>${b?b.description:"No catalog record for this site. Metrics come from the ephemeris and the terrain model."}</p><div class="row"><button data-fly>Show on 3D Moon</button><button class="ghost" data-cmp>${cmp.has(sel)?"Remove from compare":"Add to compare"}</button>${s.saved?`<button class="ghost" data-delete-site>Delete saved base</button>`:""}</div></div>`}
->>>>>>> 0e71fd3 (Pavel campus)
 function renderKpis(){const st=stats[sel],hm=SITES[sel].hor,k=[["sun","Sun above horizon",`${f(st.sp)}%`,"next 30 days"],["earth","Earth in view",`${f(st.ep)}%`,"next 30 days"],["both","Sun and Earth",`${f(st.bp)}%`,"both up"],["moon","Longest night",`${f(st.dark/24,1)} d`,"max darkness"],["arc","Avg sun elevation",`${f(st.ae,1)}°`,"while up"],["terrain","Terrain horizon",hm?`${f(Math.max(...hm),1)}°`:"—",hm?"LOLA maximum":"not loaded"]];
 document.getElementById("kpis").innerHTML=k.map(([i,a,b,c])=>`<div class="glass pr-kpi">${prIcon(i)}<div><span>${a}</span><b>${b}</b><small>${c}</small></div></div>`).join("")}
 function lineChart(series,color,label,h,night){const W=640,H=110,x=i=>i/(HRS-1)*W,y=e=>H/2-e/90*(H/2-10);let bands="",run=-1;
 if(night)series.forEach((p,i)=>{if(!p.up&&run<0)run=i;if((p.up||i===HRS-1)&&run>=0){bands+=`<rect x="${x(run)}" y="0" width="${x(i)-x(run)}" height="${H}" fill="rgba(120,140,190,.16)"/>`;run=-1}});
 const path=series.map((p,i)=>(i?"L":"M")+f(x(i),1)+" "+f(y(p.el),1)).join("");
 return`<div class="pr-chart"><div class="pr-chart-head"><span>${label}</span><b>${f(series[h].el,1)}°</b></div><svg viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" rx="10" fill="rgba(6,12,28,.55)"/>${bands}<line x1="0" x2="${W}" y1="${H/2}" y2="${H/2}" stroke="rgba(160,200,255,.2)" stroke-dasharray="4 4"/><path d="${path}" fill="none" stroke="${color}" stroke-width="2.2"/><line x1="${x(h)}" x2="${x(h)}" y1="0" y2="${H}" stroke="#fff" stroke-opacity=".75"/><circle cx="${x(h)}" cy="${f(y(series[h].el),1)}" r="4" fill="${color}"/></svg></div>`}
-<<<<<<< HEAD
-function renderDetail(){const st=stats[sel],h=+document.getElementById("t").value,sn=st.sun[h],ea=st.ear[h],C=2*Math.PI*44;
-document.getElementById("overview").innerHTML=`<div class="pr-donut"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="44" fill="none" stroke="#7c5cf0" stroke-width="12"/><circle cx="60" cy="60" r="44" fill="none" stroke="#f5c451" stroke-width="12" stroke-dasharray="${f(C*st.sp/100,2)} ${f(C,2)}" transform="rotate(-90 60 60)"/><text x="60" y="60" text-anchor="middle" fill="#fff" font-size="20" font-weight="600">${f(st.sp)}%</text><text x="60" y="78" text-anchor="middle" fill="#7d92b2" font-size="9">sun up</text></svg></div><div class="pr-rows">${prRow("Sun up",`≈ ${f(st.sp/100*30,1)} days`)}${prRow("Sun down",`≈ ${f((100-st.sp)/100*30,1)} days`)}${prRow("Longest night",`${f(st.dark/24,1)} days`)}${prRow("Earth in view",`${f(st.ep)}%`)}${prRow("Avg sun elevation",`${f(st.ae,1)}°`)}</div>`;
-=======
 function renderDetail(){const st=stats[sel],h=+document.getElementById("t").value,sn=st.sun[h],ea=st.ear[h];
->>>>>>> 0e71fd3 (Pavel campus)
 document.getElementById("charts").innerHTML=lineChart(st.sun,"#f5c451","Sun elevation",h,true)+lineChart(st.ear,"#3b8fd9","Earth elevation",h,false)+`<div class="pr-readouts"><div><span>${sn.up?"Sun up":"Sun down"}</span><b>${untilTxt(until(st.sun,h),"sunset","sunrise")}</b></div><div><span>${ea.up?"Earth visible":"No Earth"}</span><b>${untilTxt(until(st.ear,h),"Earthset","Earthrise")}</b></div><div><span>Sun elevation</span><b>${f(sn.el,1)}°</b></div><div><span>Earth elevation</span><b>${f(ea.el,1)}°</b></div></div><div class="pr-sky"><div class="pr-sky-fig">${sky(sn,ea,SITES[sel].hor)}</div><div class="pr-sky-info"><b>Sky view · N E S W</b><span><i style="background:#d99a2b"></i>Sun · az ${f(sn.az)}° · el ${f(sn.el,1)}°</span><span><i style="background:#3b8fd9"></i>Earth · az ${f(ea.az)}° · el ${f(ea.el,1)}°</span><span><i style="background:#64748b"></i>${SITES[sel].hor?`Terrain horizon (LOLA) · max ${f(Math.max(...SITES[sel].hor),1)}°`:"Flat horizon · LOLA terrain not loaded"}</span></div></div>`;
 renderPhase(start+h*36e5)}
 const phaseOf=ms=>{const e=lunar(ms/864e5+2440587.5),psi=((e.lam-e.lamS)%360+360)%360;return{k:(1-Math.cos(psi*Math.PI/180))/2,waxing:psi<180}};
@@ -835,41 +783,12 @@ document.getElementById("phase").innerHTML=`<defs><clipPath id="phc"><circle cx=
 document.getElementById("phase-pct").textContent=`${f(k*100,1)}%`;
 document.getElementById("phase-name").textContent=phaseName(k,waxing)}
 const elevOf=s=>s.elev===undefined?"Needs Docker (LOLA)":Number.isFinite(s.elev)?`${s.elev<0?"−":""}${Math.abs(Math.round(s.elev)).toLocaleString("en-US")} m`:"No DEM data";
-<<<<<<< HEAD
-function renderSide(){const s=SITES[sel],st=stats[sel],dayD=st.sp/100*LUNAR_DAY,nb=SITES.filter(x=>x.id!==s.id).map(x=>({x,d:km(s,x)})).sort((a,b)=>a.d-b.d)[0],kv=(a,b)=>`<div><span>${a}</span><b>${b}</b></div>`;
-document.getElementById("loc-rows").innerHTML=kv("Region",regionOf(s))+kv("Coordinates",coordsOf(s))+kv("Elevation",elevOf(s))+kv("Nearest landmark",`${nb.x.name} (≈ ${f(nb.d)} km)`);
-document.getElementById("solar").innerHTML=`${cardHead("sun","Solar day cycle","Lunar")}<div class="pr-rows"><div><span>Lunar day</span><b>≈ ${LUNAR_DAY} Earth days</b></div><div><span>Sun up, next 30 d</span><b>${f(st.sp)}%</b></div></div><div class="pr-daybar" style="--d:${f(st.sp,1)}%"></div><div class="pr-split"><div class="pr-chip sun"><span class="pr-ico sm"><svg viewBox="0 0 24 24">${PR_CARD_ICON.sun}</svg></span><div><small>Day</small><b>≈ ${f(dayD,2)} d</b></div></div><div class="pr-chip moon"><span class="pr-ico sm"><svg viewBox="0 0 24 24">${PR_CARD_ICON.moon}</svg></span><div><small>Night</small><b>≈ ${f(LUNAR_DAY-dayD,2)} d</b></div></div></div>`;
-=======
 function renderSide(){const s=SITES[sel],st=stats[sel],nb=SITES.filter(x=>x.id!==s.id).map(x=>({x,d:km(s,x)})).sort((a,b)=>a.d-b.d)[0],kv=(a,b)=>`<div><span>${a}</span><b>${b}</b></div>`;
 document.getElementById("loc-rows").innerHTML=kv("Region",regionOf(s))+kv("Coordinates",coordsOf(s))+kv("Elevation",elevOf(s))+kv("Nearest landmark",`${nb.x.name} (≈ ${f(nb.d)} km)`);
->>>>>>> 0e71fd3 (Pavel campus)
 document.getElementById("temps").innerHTML=`${cardHead("thermo","Temperature range","Surface · typical")}<div class="pr-temps"><div><b class="cold">−233 °C</b><span>night, unheated</span></div><i class="pr-temps-sep"></i><div><b class="hot">+127 °C</b><span>day, sunlit surface</span></div></div>`;
 document.getElementById("env").innerHTML=`${cardHead("leaf","Environmental conditions")}<div class="pr-rows">${prRow("Atmosphere","None (vacuum)")}${prRow("Gravity","0.165 g (1/6 Earth)")}${prRow("Regolith","Fine, abrasive, basaltic and anorthositic")}${prRow("Radiation","Unshielded solar and galactic")}</div>`;
 document.getElementById("status").innerHTML=`${cardHead("layers","Data status")}<div class="pr-rows"><div><span>Ephemeris</span><b><i class="pr-dot ok"></i>Meeus, analytical</b></div><div><span>Terrain horizon</span><b><i class="pr-dot ${hzState==="LOLA terrain"?"ok":"warn"}"></i>${hzState}</b></div><div><span>Source</span><b>${st.source}</b></div><div><span>3D texture</span><b><i class="pr-dot ${moon?"ok":"warn"}"></i>${moon?"LRO WAC · LOLA relief":"Loading LRO WAC…"}</b></div><div><span>Scenario 2050</span><b><i class="pr-dot warn"></i>Synthetic</b></div></div><div class="row" style="margin-top:12px"><button onclick="validate()">Load JPL Horizons data</button></div><div class="note" id="hzs">${st.diff!==undefined?"max diff vs approx.: "+f(st.diff,2)+"° (sun elevation)":"Compare the analytical model with JPL Horizons (Docker)."}</div>`}
 async function loadCatalog(){try{catalog=(await(await fetch("data/moon_tourism.json")).json()).bases;renderAll()}catch(e){}}
-<<<<<<< HEAD
-function openMoon(){document.getElementById("moon-modal-title").textContent=SITES[sel].name+" · "+coordsOf(SITES[sel]);document.getElementById("moon-stage").appendChild(document.getElementById("moon3d"));document.getElementById("moon-modal").classList.remove("closed");if(moon){fly();update3D()}}
-function closeMoon(){document.getElementById("moon-modal").classList.add("closed");document.getElementById("moon-card").appendChild(document.getElementById("moon3d"));if(moon){fly();update3D()}}
-const TAB_TARGET={overview:"hero",simulation:"pr-sim",infrastructure:"scenario",research:"compare",resources:"pr-resources",access:"windows-panel",projects:"pr-manifest"};
-function setScreen(name){document.querySelectorAll("[data-screen]").forEach(el=>{el.hidden=el.dataset.screen!==name})}
-function markTab(name){document.querySelectorAll(".pr-tab,.pr-nav button").forEach(el=>{const on=el.dataset.goto===name;el.classList.toggle("on",on);if(el.classList.contains("pr-tab"))el.setAttribute("aria-selected",String(on))})}
-function go(target){const bases=target==="bases";setScreen(bases?"bases":"base");markTab(target);
-document.getElementById("crumb-base").textContent=SITES[sel].name;
-document.getElementById("crumb-tab").textContent=bases?"":document.querySelector(`.pr-tab[data-goto="${target}"]`).textContent.trim();
-if(bases){window.scrollTo(0,0);return}
-document.getElementById(TAB_TARGET[target]).scrollIntoView({block:"start",behavior:"smooth"})}
-let spyQueued=false;
-function spy(){spyQueued=false;if(document.querySelector('[data-screen="base"]').hidden)return;let cur="overview";Object.entries(TAB_TARGET).forEach(([name,id])=>{if(document.getElementById(id).getBoundingClientRect().top<=140)cur=name});markTab(cur)}
-window.addEventListener("scroll",()=>{if(!spyQueued){spyQueued=true;requestAnimationFrame(spy)}},{passive:true});
-document.addEventListener("click",e=>{const o=e.target.closest("[data-opp]");if(o)return openOpp(o.dataset.opp);const q=e.target.closest("[data-oppf]");if(q){oppArea=q.dataset.oppf;return renderOpp()}if(e.target.closest("#opp-close"))return closeOpp();if(e.target.closest("[data-fly],#moon-expand"))return openMoon();if(e.target.closest("#moon-close"))return closeMoon();const g=e.target.closest("[data-goto]");if(g)go(g.dataset.goto)});
-document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!document.getElementById("opp-modal").classList.contains("closed"))return closeOpp();if(!document.getElementById("moon-modal").classList.contains("closed"))closeMoon();else if(document.querySelector('[data-screen="base"]').hidden===false)go("bases")});
-
-const TAB_ORDER=["overview","simulation","infrastructure","research","resources","access","projects"];
-document.querySelector(".pr-tabs").addEventListener("keydown",e=>{if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;e.preventDefault();const i=TAB_ORDER.indexOf(document.querySelector(".pr-tab.on").dataset.goto),j=(i+(e.key==="ArrowRight"?1:TAB_ORDER.length-1))%TAB_ORDER.length;go(TAB_ORDER[j]);document.querySelector(`.pr-tab[data-goto="${TAB_ORDER[j]}"]`).focus()});
-document.getElementById("base-search").addEventListener("input",renderSites);
-document.getElementById("sites").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".card"))e.target.click()});
-go("bases");
-=======
 function openMoon(){stopSurface();if(!top3View)document.getElementById("top3-panel").hidden=true;document.getElementById("moon-modal-title").textContent=SITES[sel].name+" · "+coordsOf(SITES[sel]);document.getElementById("moon-stage").appendChild(document.getElementById("moon3d"));document.getElementById("moon-modal").classList.remove("closed");if(moon){fly();update3D()}refreshPickButtons()}
 function createNewBase(){
   stopSurface();clearTop3();
@@ -897,7 +816,6 @@ document.getElementById("coordinate-search").addEventListener("submit",e=>{
   if(moon){moon.select(sel);moon.flyTo(sel,1.75)}
   document.getElementById("moon-modal-title").textContent=`Selected point · ${coordsOf(SITES[sel])}`;
 });
->>>>>>> 0e71fd3 (Pavel campus)
 
 let surfaceViewer=null,surfaceSerial=0;
 function stopSurface(){
@@ -1078,10 +996,6 @@ function clock(){const h=+document.getElementById("t").value;document.getElement
 
 const trek=(layer,ext)=>(z,x,y)=>`/trek/${layer}/1.0.0/default/default028mm/${z}/${y}/${x}.${ext}`;
 let moon=null,hzState="loading LOLA terrain…",catalog=[];
-<<<<<<< HEAD
-async function init3D(){try{
-moon=(await import("./moon.js")).createMoon(document.getElementById("moon3d"),{sites:SITES,tileUrl:trek("LRO_WAC_Mosaic_Global_303ppd_v02","jpg"),demUrl:trek("LRO_LOLA_DEM_Global_128ppd_v04","png"),fallbackUrl:"assets/moon.jpg"});
-=======
 let pickSerial=0;
 let pendingPoint=null;
 function refreshPickButtons(){
@@ -1165,19 +1079,12 @@ document.addEventListener("click",e=>{if(e.target.closest("[data-delete-site]"))
 refreshPickButtons();
 async function init3D(){try{
 moon=(await import("./moon.js")).createMoon(document.getElementById("moon3d"),{sites:SITES,tileUrl:trek("LRO_WAC_Mosaic_Global_303ppd_v02","jpg"),demUrl:trek("LRO_LOLA_DEM_Global_128ppd_v04","png"),fallbackUrl:"assets/moon.jpg",onSurfacePick:selectMoonPoint,fixedSiteCount:ORIGINAL_SITE_COUNT});
->>>>>>> 0e71fd3 (Pavel campus)
 await moon.ready;
 document.getElementById("m3note").textContent="Texture: LRO WAC with LOLA relief (Moon Trek, same LRO source as Quickmap), rendered with Three.js. Click to select a point, drag to rotate, scroll or pinch to zoom. Terminator and markers computed for the selected time.";
 fly();update3D()}catch(e){moon=null;document.getElementById("moon3d").replaceChildren();document.getElementById("m3note").textContent="3D Moon requires the Docker version (/trek proxy to NASA Moon Trek)."}}
-<<<<<<< HEAD
-async function initHorizons(){try{const hs=await(await import("./horizon.js")).computeHorizons(SITES,trek("LRO_LOLA_DEM_Global_128ppd_v04","png"));hs.forEach((r,i)=>{SITES[i].hor=r.horizon;SITES[i].elev=r.elevation});hzState="LOLA terrain";analyze();renderAll()}catch(e){hzState="spherical";renderDetail()}}
-function fly(){if(moon)moon.flyTo(sel,document.getElementById("moon-modal").classList.contains("closed")?1.1:undefined)}
-function update3D(){if(!moon)return;const h=+document.getElementById("t").value,p=subs[h],st=stats[sel];
-=======
 async function initHorizons(){try{const hs=await(await import("./horizon.js")).computeHorizons(SITES.slice(0,ORIGINAL_SITE_COUNT),trek("LRO_LOLA_DEM_Global_128ppd_v04","png"));hs.forEach((r,i)=>{SITES[i].hor=r.horizon;SITES[i].elev=r.elevation});hzState="LOLA terrain";analyze();renderAll()}catch(e){hzState="spherical";renderDetail()}}
 function fly(){if(moon)moon.flyTo(sel,document.getElementById("moon-modal").classList.contains("closed")?1.1:undefined)}
 function update3D(){if(surfaceViewer&&stats[sel]){const hour=+document.getElementById("t").value;surfaceViewer.setTimeline({hour,start,horizon:SITES[sel].hor,onHourChange:h=>{document.getElementById("t").value=h;tick()}});surfaceViewer.setSun(stats[sel].sun[hour]);surfaceViewer.setEarth(stats[sel].ear[hour]);}if(!moon)return;const h=+document.getElementById("t").value,p=subs[h],st=stats[sel];
->>>>>>> 0e71fd3 (Pavel campus)
 moon.select(sel);moon.update({sun:p.sun,earth:p.earth,text:`${SITES[sel].name} | Sun ${f(st.sun[h].el,1)}° | Earth ${f(st.ear[h].el,1)}°`})}
 function tick(){renderDetail();renderScenario();clock();update3D();renderProfile()}
 
@@ -1233,9 +1140,6 @@ el.innerHTML=head+`<div class="tbl-wrap"><table><tr><th>Base</th><th>Pads in use
 <div class="tbl-wrap" style="margin-top:0"><table><tr><th>Time (UTC)</th><th>Event</th><th>Flight</th><th>Vehicle</th><th>Pad</th><th>ETA</th><th>Status</th></tr>${board}</table></div></div>`+foot}
 async function loadScenario(){try{const r=await fetch("data/scenario2050.json");if(!r.ok)throw new Error("missing");SC=await r.json()}catch(e){const n=document.getElementById("scenario-data");if(n)SC=JSON.parse(n.textContent)}
 if(SC){SC.flightsByBase={};SC.bases.forEach(b=>SC.flightsByBase[b.id]=[]);SC.flights.forEach(x=>SC.flightsByBase[x.base].push(x))}renderScenario()}
-<<<<<<< HEAD
-function renderAll(){renderSites();renderHero();renderKpis();renderDetail();renderSide();renderCompare();renderManifest();renderWindows();renderScenario();clock();update3D();renderProfile()}
-=======
 // Mission Risk Assessment: all indicators reuse the selected base's hourly ephemeris.
 let riskDays=14,riskOffset=0;
 function riskRuns(flags){
@@ -1304,18 +1208,13 @@ document.getElementById('risk-days').addEventListener('change',e=>{riskDays=+e.t
 document.getElementById('risk-offset').addEventListener('change',e=>{riskOffset=+e.target.value;renderRisk()});
 document.getElementById('risk-results').addEventListener('click',e=>{const b=e.target.closest('[data-risk-hour]');if(!b)return;document.getElementById('t').value=+b.dataset.riskHour;go('simulation');renderDetail();clock();update3D()});
 function renderAll(){renderSites();renderHero();renderKpis();renderDetail();renderSide();renderCompare();renderRisk();renderManifest();renderWindows();renderScenario();clock();update3D();renderProfile()}
->>>>>>> 0e71fd3 (Pavel campus)
 function goMission(date,id){document.getElementById("date").value=date;document.getElementById("t").value=0;if(id!==undefined)sel=id;recompute();if(id!==undefined)fly()}
 function skyAt(ms,s){const p=subPoints(ms/864e5+2440587.5),at=x=>{const a=look(x,s.lat,s.lon);return{...a,up:a.el>hzAt(s.hor,a.az)}};return{sun:at(p.sun),earth:at(p.earth)}}
 function recompute(){start=Date.parse(document.getElementById("date").value+"T00:00:00Z");analyze();renderAll()}
 
 document.getElementById("sites").addEventListener("click",e=>{const c=e.target.closest("[data-c]");
 if(c){const i=+c.dataset.c;cmp.has(i)?cmp.delete(i):cmp.size<3&&cmp.add(i);renderAll();return}
-<<<<<<< HEAD
-const k=e.target.closest(".card");if(k){sel=+k.dataset.id;renderAll();fly();go("overview")}});
-=======
 const k=e.target.closest(".card");if(k){++pickSerial;sel=+k.dataset.id;renderAll();fly();go("overview");if(SITES[sel].saved&&!SITES[sel].hor)loadPointTerrain(SITES[sel])}});
->>>>>>> 0e71fd3 (Pavel campus)
 document.getElementById("date").addEventListener("change",recompute);
 document.getElementById("t").addEventListener("input",tick);
 document.getElementById("play").addEventListener("click",e=>{const t=document.getElementById("t");
@@ -1333,15 +1232,10 @@ recompute();
 document.getElementById("play").click();
 init3D();
 loadScenario();
-<<<<<<< HEAD
-loadCatalog();
-loadBiz();
-=======
 // Load base metadata and photos from business.json; opportunity UI remains disabled.
 loadBiz();
 // The site image/description catalog is shared data, independent of Tourism UI.
 loadCatalog();
->>>>>>> 0e71fd3 (Pavel campus)
 initHorizons();
 // Tourism explorer disabled in mission-focused UI.
 </script>
