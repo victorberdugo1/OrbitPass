@@ -716,7 +716,7 @@ body[data-profile=education] .top .orbitpass-logo{width:150px}
  <div class="edu-land-actions"><button type="button" id="edu-explore-surface">Explore Surface →</button><button type="button" class="ghost" id="edu-replay-flight">Replay Flight</button></div>
 </aside></section>
 <div class="wrap">
-<div class="top"><div class="pr-brand"><h1>Orbit<span>Pass</span></h1><em class="pr-tier" data-for="business">Pro / Business</em><p class="sub" data-for="education">Learn how a mission travels from Earth to the Moon</p></div><nav class="pr-nav" data-for="business"><button type="button" data-goto="bases">Bases</button><button type="button" data-goto="simulation">Simulation</button><button type="button" data-goto="infrastructure">Scenario</button><button type="button" data-goto="access">Windows</button><button type="button" data-goto="projects">Missions</button><button type="button" data-goto="resources">Resources</button></nav><div class="row"><button class="ghost" id="mission-change" data-for="education">Change mission</button><button class="ghost" id="profile-btn">Profile</button></div></div>
+<div class="top"><div class="pr-brand"><h1>Orbit<span>Pass</span></h1><p class="sub" data-for="education">Learn how a mission travels from Earth to the Moon</p></div><div class="row"><button class="ghost" id="mission-change" data-for="education">Change mission</button><button class="ghost" id="profile-btn">Profile</button></div></div>
 <div class="pr" data-for="business" id="pr-top">
 <section class="glass pr-list" id="pr-bases" data-screen="bases"><div class="pr-sec"><h2>Bases</h2><div class="pr-list-tools"><input type="search" id="base-search" placeholder="Search by name, program or type" aria-label="Search bases"><button type="button" id="create-base">+ Create new base</button></div></div><div class="pr-strip" id="sites"></div></section>
 <div class="pr-grid" data-screen="base">
@@ -790,14 +790,13 @@ const SITES=[
 ["Haworth","South pole",-87.5,-5,"haworth"],
 ["Nobile rim","South pole",-85.2,53.3,"nobile"],
 ["Mons Mouton (IM-2)","CLPS",-84.8,29.2,"mons-mouton"],
-["Reiner Gamma (IM-3)","CLPS",7.5,-59,null],
-["Mare Crisium (Blue Ghost)","CLPS",18.6,61.8,null],
+["Reiner Gamma (IM-3)","CLPS",7.5,-59,"reiner-gamma"],
+["Mare Crisium (Blue Ghost)","CLPS",18.6,61.8,"mare-crisium"],
 ["Apollo 11","Apollo",0.67,23.47,"tranquility"],
 ["Apollo 12","Apollo",-3.01,-23.42,"storms"],
 ["Apollo 15","Apollo",26.13,3.63,"hadley"],
 ["Apollo 16","Apollo",-8.97,15.5,"descartes"],
-["Apollo 17","Apollo",20.19,30.77,"taurus"],
-["Shackleton NAC DTM (test)","High-res terrain",-89.7421412,-160.2673105,null]
+["Apollo 17","Apollo",20.19,30.77,"taurus"]
 ].map((s,i)=>({id:i,name:s[0],tag:s[1],lat:s[2],lon:s[3],cat:s[4]}));
 const SAVED_KEY="orbitpass.savedSites.v1";
 const ORIGINAL_SITE_COUNT=SITES.length;
@@ -839,7 +838,7 @@ return u.up?`${a} in ${x}`:`${b} in ${x}`}
 
 function renderSites(){const q=document.getElementById("base-search").value.trim().toLowerCase(),list=SITES.filter(s=>`${s.name} ${s.tag} ${info(s)?.program||""}`.toLowerCase().includes(q));
 document.getElementById("sites").innerHTML=list.length?list.map(s=>{const st=stats[s.id],img=info(s)?.image;
-return`<div class="card ${s.id===sel?"sel":""}" data-id="${s.id}" tabindex="0" role="button" aria-label="Open ${escSite(s.name)}"><span class="cmp ${cmp.has(s.id)?"on":""}" data-c="${s.id}">Compare</span><div class="thumb${img?"":" none"}"${img?` style="background-image:url(${img})"`:""}></div><b>${escSite(s.name)}</b><small>${s.tag} · ${f(s.lat,1)}°, ${f(s.lon,1)}°</small><div class="chips"><span class="chip">Sun ${f(st.sp)}%</span><span class="chip">Earth ${f(st.ep)}%</span><span class="chip">Score ${st.score}</span></div></div>`}).join(""):'<div class="pr-empty">No base matches your search.</div>'}
+return`<div class="card ${s.id===sel?"sel":""}" data-id="${s.id}" tabindex="0" role="button" aria-label="Open ${escSite(s.name)}"><div class="thumb${img?"":" none"}"${img?` style="background-image:url(${img})"`:""}></div><b>${escSite(s.name)}</b><small>${s.tag} · ${f(s.lat,1)}°, ${f(s.lon,1)}°</small><div class="chips"><span class="chip">Sun ${f(st.sp)}%</span><span class="chip">Earth ${f(st.ep)}%</span><span class="chip">Score ${st.score}</span></div></div>`}).join(""):'<div class="pr-empty">No base matches your search.</div>'}
 
 function sky(sun,ear,hor){const c=150,r=130,pos=o=>{const k=(90-Math.max(o.el,0))/90*r,a=o.az*R;return[c+k*Math.sin(a),c-k*Math.cos(a)]};
 const body=(o,col,rad)=>{const[x,y]=pos(o),up=o.up;return`<g opacity="${up?1:.3}"><circle cx="${x}" cy="${y}" r="${rad*2}" fill="${col}" opacity=".3"/><circle cx="${x}" cy="${y}" r="${rad}" fill="${col}"/></g>`};
