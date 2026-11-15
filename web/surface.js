@@ -1,8 +1,7 @@
 import * as THREE from './vendor/three.module.min.js';
 import { DEM_MIN_M, DEM_MAX_M, MOON_RADIUS_M } from './dem.js';
+import { HeightGrid, Walker } from './walker.js';
 
-// Ground-level scientific preview. Native LOLA pixels are ~0.67 km in latitude;
-// the mesh is interpolated, not additional measured detail.
 const RAD=Math.PI/180, LEVEL=5, WIDTH=256*(2<<LEVEL), HEIGHT=WIDTH/2;
 const wrap=(v,n)=>((v%n)+n)%n;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -12,19 +11,16 @@ const tileUrl=(x,y)=>`/trek/LRO_LOLA_DEM_Global_128ppd_v04/1.0.0/default/default
 export async function createSurface(host,site,onStatus){
   let stopped=false,raf=0;
   const scene=new THREE.Scene();scene.background=new THREE.Color(0x020409);
-  const camera=new THREE.PerspectiveCamera(68,1,0.5,55000);
+  const camera=new THREE.PerspectiveCamera(68,1,0.3,55000);
   const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));
+  renderer.shadowMap.enabled=true;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
   host.replaceChildren(renderer.domElement);
-  // Heads-up navigation overlay; no new 3D scene or invented terrain data.
   const hud=document.createElement('div');
   hud.style.cssText='position:absolute;top:12px;left:12px;right:12px;z-index:5;display:flex;flex-wrap:wrap;gap:8px;pointer-events:none;font:12px system-ui,sans-serif;color:#fff;text-shadow:0 1px 3px #000';
   const compass=document.createElement('div'),solar=document.createElement('div'),earthLabel=document.createElement('div');
   for(const el of [compass,solar,earthLabel]){el.style.cssText='background:#071422d9;border:1px solid #ffffff44;border-radius:8px;padding:7px 10px';hud.appendChild(el)}
   host.appendChild(hud);
-  // Project ephemeris directions onto the same surface camera. These are
-  // directional annotations, not photographs or actual angular-size discs.
   const skyLayer=document.createElement('div');
   skyLayer.style.cssText='position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden;font:12px system-ui,sans-serif';
   const makeMarker=(emoji,name,color)=>{
@@ -43,8 +39,7 @@ export async function createSurface(host,site,onStatus){
   horizonToggle.style.cssText='position:absolute;bottom:14px;left:14px;z-index:6;padding:7px 11px;background:#071422e8;border:1px solid #76d6ff88;border-radius:7px;color:white;cursor:pointer;font:12px system-ui';
   host.appendChild(horizonToggle);
   let showHorizon=true;
-  horizonToggle.addEventListener('click',()=>{showHorizon=!showHorizon;horizonToggle.textContent=`◡ LOLA horizon: ${showHorizon?'ON':'OFF'}`});
-  // Surface time travel is linked to the existing 30-day mission simulation.
+  horizonToggle.addEventListener('click',()=>{showHorizon=!showHorizon;horizonToggle.textContent=`◡ LOLA horizon: ${showHorizon?'ON':'OFF'}`;dirty=true});
   const timePanel=document.createElement('div');
   timePanel.style.cssText='display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#071422;border:1px solid #ffffff35;border-radius:10px;padding:9px 12px;color:white;font:12px system-ui,sans-serif';
   timePanel.innerHTML=`<b style="white-space:nowrap">⏱ Time Travel</b><button type="button" data-time-pause style="background:#142d43;border:1px solid #76d6ff88;border-radius:7px;color:#fff;padding:7px 12px;cursor:pointer;min-width:72px">⏸ Pause</button><input data-time-range aria-label="Simulation hour" type="range" min="0" max="719" value="0" step="1" style="flex:1;min-width:130px;accent-color:#78d6ff"><span data-time-label style="white-space:nowrap">—</span><span data-visibility style="flex-basis:100%;font-size:11px">Waiting for ephemeris…</span><span data-coverage style="font-size:11px;color:#a5b5c9">Horizon: local ≤12 km</span>`;
@@ -61,22 +56,24 @@ export async function createSurface(host,site,onStatus){
   const coverageLabel=timePanel.querySelector('[data-coverage]');
   let timeStart=NaN,onTimeChange=null,farHorizon=null;
   timeSlider.addEventListener('input',()=>{if(onTimeChange)onTimeChange(Number(timeSlider.value))});
-  const raycaster=new THREE.Raycaster();
   const direction=(az,el)=>{const a=az*RAD,e=el*RAD;return new THREE.Vector3(Math.sin(a)*Math.cos(e),Math.sin(e),-Math.cos(a)*Math.cos(e))};
-  let terrain=null,nacTerrain=null,nacGeometry=null,nacMaterial=null,nacValidCount=0;
-  let nacSampler=null,nacBorder=null,nacReady=false;
+  let terrain=null,nacTerrain=null,nacGeometry=null,nacMaterial=null,nacValidCount=0,dirty=true;
+  let nacSampler=null,nacGrid=null,nacBorder=null,nacReady=false;
   const debug=document.createElement('div');
   debug.style.cssText='position:absolute;right:12px;top:12px;z-index:7;pointer-events:none;background:#071422e8;border:1px solid #76d6ff88;border-radius:8px;color:#fff;padding:8px 11px;font:12px system-ui;max-width:260px;line-height:1.55';
   debug.textContent='Terrain: loading…';host.appendChild(debug);
   const moveHelp=document.createElement('div');
   moveHelp.style.cssText='position:absolute;right:12px;bottom:12px;z-index:6;background:#071422dd;border:1px solid #ffffff44;border-radius:7px;color:#fff;padding:7px 10px;font:12px system-ui;pointer-events:none';
-  moveHelp.textContent='W A S D · move  |  Shift · faster  |  Drag · look';host.appendChild(moveHelp);
+  moveHelp.textContent='W A S D · move  |  Shift · lope  |  Space · jump  |  Drag · look';host.appendChild(moveHelp);
+  const gaitToggle=document.createElement('button');
+  gaitToggle.style.cssText='position:absolute;bottom:14px;left:190px;z-index:6;padding:7px 11px;background:#071422e8;border:1px solid #76d6ff88;border-radius:7px;color:white;cursor:pointer;font:12px system-ui';
+  host.appendChild(gaitToggle);
+  const setText=(el,text)=>{if(el.textContent!==text)el.textContent=text};
   const positionMarker=(el,data,name)=>{
     if(!data||!Number.isFinite(data.az)||!Number.isFinite(data.el)){el.style.display='none';return}
     const dir=direction(data.az,data.el),distance=9000;
     const world=camera.position.clone().addScaledVector(dir,distance);
     const view=world.clone().project(camera);
-    // Keep an edge indicator visible even when the object is outside the camera frustum.
     const forward=new THREE.Vector3();camera.getWorldDirection(forward);
     const inFront=forward.dot(dir)>0;
     const onScreen=inFront&&view.z>-1&&view.z<1&&Math.abs(view.x)<.86&&Math.abs(view.y)<.76;
@@ -85,10 +82,7 @@ export async function createSurface(host,site,onStatus){
     const arrow=relativeAz>=0?'→':'←';
     const x=onScreen?(view.x+1)*50:(relativeAz>=0?92:8);
     const y=onScreen?(1-view.y)*50:Math.max(20,Math.min(80,50-(dir.y*35)));
-    raycaster.set(camera.position,dir);raycaster.far=distance;
-    const blocked=terrain&&raycaster.intersectObject(terrain,false).length>0;
-    const horizonAngle=terrainHorizonAt(data.az);
-    const visible=Number.isFinite(horizonAngle)?data.el>horizonAngle:(!blocked&&data.el>0);
+    const visible=data.el>terrainHorizonAt(data.az);
     el.style.display='block';
     el.style.left=`${x}%`;el.style.top=`${y}%`;
     el.style.opacity=visible?'1':'.7';
@@ -139,7 +133,6 @@ export async function createSurface(host,site,onStatus){
     const lon=degLon(site.lon+x/(MOON_RADIUS_M*cosLat)/RAD);
     return {lat:clamp(lat,-89.9999,89.9999),lon};
   };
-  // Fetch only the DEM tiles touched by the local patch, rather than the 200 km horizon set.
   const keys=new Set();
   for(let j=0;j<=segments;j++)for(let i=0;i<=segments;i++){
     const {lat,lon}=coords(-range+i*step,-range+j*step);
@@ -185,14 +178,12 @@ export async function createSurface(host,site,onStatus){
   for(let i=0;i<positions.count;i++){
     const x=positions.getX(i),z=positions.getZ(i),h=height(x,z);
     if(!Number.isFinite(h))missing++;
-    // Account for lunar curvature. This is a local tangent-plane approximation.
     const curvature=(x*x+z*z)/(2*MOON_RADIUS_M);
     positions.setY(i,(Number.isFinite(h)?h:center)-center-curvature);
   }
   if(missing>positions.count*.05)throw new Error('LOLA terrain incomplete for this area.');
   geometry.computeVertexNormals();
-  // Deterministic, tileable visual regolith microtexture. This changes shading
-  // only: elevation, horizon and line-of-sight still use measured LOLA heights.
+  const terrainGrid=HeightGrid.fromPositions(positions,range,segments);
   function makeRegolithBump(){
     const size=256,canvas=document.createElement('canvas');canvas.width=canvas.height=size;
     const ctx=canvas.getContext('2d'),img=ctx.createImageData(size,size);
@@ -219,9 +210,6 @@ export async function createSurface(host,site,onStatus){
   const material=new THREE.MeshStandardMaterial({color:0xa5a19a,roughness:1,metalness:0,side:THREE.DoubleSide,bumpMap:regolithBump,bumpScale:0.32,flatShading:false});
   terrain=new THREE.Mesh(geometry,material);terrain.receiveShadow=true;terrain.castShadow=true;scene.add(terrain);
 
-  // LROC NAC DTM ESALL SR12, original 2 m/pixel, south-polar stereographic.
-  // The overlay is restricted to its true footprint. The global LOLA mesh
-  // and the distant horizon remain unchanged.
   const nacSite=site.name==='Shackleton NAC DTM (test)';
   if(nacSite){
     try{
@@ -233,7 +221,6 @@ export async function createSurface(host,site,onStatus){
       const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(bitmap,0,0);bitmap.close?.();
       const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
       const lon0=site.lon*RAD,lat0=site.lat*RAD;
-      // Radius on a south polar stereographic plane; x = r sin(lon), y = r cos(lon).
       const r0=2*MOON_RADIUS_M*Math.tan((Math.PI/2+lat0)/2);
       const px0=r0*Math.sin(lon0),py0=r0*Math.cos(lon0);
       const sample=(x,z)=>{
@@ -266,13 +253,13 @@ export async function createSurface(host,site,onStatus){
         const shade=valid?0.92:0.8;
         colors[3*i]=shade;colors[3*i+1]=shade;colors[3*i+2]=shade;
       }
+      nacGrid=HeightGrid.fromPositions(attr,patch,detail);
       nacGeometry.setAttribute('color',new THREE.BufferAttribute(colors,3));
       nacGeometry.computeVertexNormals();
       nacMaterial=new THREE.MeshStandardMaterial({color:0xb5b0a7,roughness:1,metalness:0,side:THREE.DoubleSide,vertexColors:true,bumpMap:regolithBump,bumpScale:0.22});
       nacTerrain=new THREE.Mesh(nacGeometry,nacMaterial);
       nacTerrain.receiveShadow=true;nacTerrain.castShadow=true;scene.add(nacTerrain);
       nacValidCount=good;nacReady=good>0;
-      // Outline the true sampled NAC footprint, not the entire 5 km square.
       const borderPositions=[];
       const borderStep=25;
       for(let z=-patch;z<patch;z+=borderStep)for(let x=-patch;x<patch;x+=borderStep){
@@ -297,8 +284,6 @@ export async function createSurface(host,site,onStatus){
     }catch(e){onStatus('NAC unavailable; LOLA fallback: '+e.message)}
   }
 
-  // Sample a 24 km terrain horizon. Values are interpolated from the loaded DEM,
-  // not a claim about distant peaks beyond the local patch.
   const horizonSamples=[];
   for(let az=0;az<360;az+=2){
     const a=az*RAD,dx=Math.sin(a),dz=-Math.cos(a);
@@ -318,7 +303,6 @@ export async function createSurface(host,site,onStatus){
     const w=horizonCanvas.width,h=horizonCanvas.height;ctx.clearRect(0,0,w,h);
     if(!showHorizon)return;
     ctx.strokeStyle='#71dcff';ctx.lineWidth=2;ctx.setLineDash([6,5]);
-    // Draw only visible segments; avoid connecting discontinuities behind camera.
     let drawing=false;
     const samples=farHorizon&&farHorizon.length===360?Array.from({length:181},(_,i)=>({az:i*2,el:terrainHorizonAt(i*2)})):horizonSamples;
     for(const sample of [...samples,samples[0]]){
@@ -336,68 +320,81 @@ export async function createSurface(host,site,onStatus){
     ctx.fillStyle='#8ce6ff';ctx.font='12px system-ui';ctx.fillText(farHorizon?'LOLA terrain horizon · up to 200 km':'LOLA local terrain horizon · ≤12 km',12,h-53);
   }
   const groundHeight=(x,z)=>{
-    const lola=height(x,z),base=Number.isFinite(lola)?lola:center;
-    const nac=nacSampler?.(x,z);
-    const feather=clamp(Math.min(2500-Math.abs(x),2500-Math.abs(z))/240,0,1);
-    const w=Number.isFinite(nac)?feather:0;
-    return base*(1-w)+(Number.isFinite(nac)?nac:base)*w-center-(x*x+z*z)/(2*MOON_RADIUS_M);
+    const base=terrainGrid.at(x,z),detail=nacGrid?nacGrid.at(x,z):NaN;
+    return Number.isFinite(detail)?Math.max(base,detail):base;
   };
-  camera.position.set(0,groundHeight(0,0)+1.7,0);
+  const walker=new Walker(groundHeight,{x:0,z:0,limit:range-200,gait:'apollo'});
   let yaw=0,pitch=0,drag=false,lastX=0,lastY=0;
   const updateLook=()=>camera.lookAt(camera.position.x+Math.sin(yaw)*Math.cos(pitch)*100,camera.position.y+Math.sin(pitch)*100,camera.position.z-Math.cos(yaw)*Math.cos(pitch)*100);
-  updateLook();refreshHud();
+  const placeCamera=()=>{camera.position.set(walker.x,walker.eyeY,walker.z);updateLook()};
+  placeCamera();refreshHud();
   const down=e=>{drag=true;lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)};
-  const move=e=>{if(!drag)return;yaw-=(e.clientX-lastX)*.004;pitch=clamp(pitch+(e.clientY-lastY)*.004,-1.45,1.45);lastX=e.clientX;lastY=e.clientY;updateLook();refreshHud();refreshMarkers()};
+  const move=e=>{if(!drag)return;yaw-=(e.clientX-lastX)*.004;pitch=clamp(pitch+(e.clientY-lastY)*.004,-1.45,1.45);lastX=e.clientX;lastY=e.clientY;updateLook();dirty=true};
   const up=()=>drag=false;
   renderer.domElement.addEventListener('pointerdown',down);renderer.domElement.addEventListener('pointermove',move);
   renderer.domElement.addEventListener('pointerup',up);renderer.domElement.addEventListener('pointercancel',up);
   renderer.domElement.style.touchAction='none';renderer.domElement.style.cursor='grab';
+  let apolloGait=true;
+  const refreshGaitToggle=()=>{gaitToggle.textContent=`🧑‍🚀 Lunar gravity: ${apolloGait?'ON':'OFF'}`};
+  gaitToggle.addEventListener('click',()=>{apolloGait=!apolloGait;walker.setGait(apolloGait?'apollo':'explorer');refreshGaitToggle();placeCamera();dirty=true});
+  refreshGaitToggle();
   const keysDown=new Set();
+  const CONTROL_KEYS=['KeyW','KeyA','KeyS','KeyD','ShiftLeft','ShiftRight','Space'];
   const onKeyDown=e=>{
-    if(stopped||!['KeyW','KeyA','KeyS','KeyD','ShiftLeft','ShiftRight'].includes(e.code))return;
+    if(stopped||!CONTROL_KEYS.includes(e.code))return;
     if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;
     keysDown.add(e.code);e.preventDefault();
   };
   const onKeyUp=e=>keysDown.delete(e.code);
   const onBlur=()=>keysDown.clear();
   window.addEventListener('keydown',onKeyDown);window.addEventListener('keyup',onKeyUp);window.addEventListener('blur',onBlur);
-  let lastFrame=performance.now();
-  const moveCamera=now=>{
-    const dt=Math.min((now-lastFrame)/1000,0.05);lastFrame=now;
-    const forward=Number(keysDown.has('KeyW'))-Number(keysDown.has('KeyS'));
-    const side=Number(keysDown.has('KeyD'))-Number(keysDown.has('KeyA'));
-    if(forward||side){
-      const speed=keysDown.has('ShiftLeft')||keysDown.has('ShiftRight')?100:25;
-      const factor=speed*dt/Math.hypot(forward,side);
-      const x=camera.position.x+(Math.sin(yaw)*forward+Math.cos(yaw)*side)*factor;
-      const z=camera.position.z+(-Math.cos(yaw)*forward+Math.sin(yaw)*side)*factor;
-      if(Math.abs(x)<range-200&&Math.abs(z)<range-200){
-        const y=groundHeight(x,z);
-        if(Number.isFinite(y)){camera.position.set(x,y+1.7,z);updateLook()}
-      }
-    }
-    const x=camera.position.x,z=camera.position.z;
+  const readInput=()=>({
+    forward:Number(keysDown.has('KeyW'))-Number(keysDown.has('KeyS')),
+    side:Number(keysDown.has('KeyD'))-Number(keysDown.has('KeyA')),
+    lope:keysDown.has('ShiftLeft')||keysDown.has('ShiftRight'),
+    jump:keysDown.has('Space'),
+    yaw
+  });
+  const TELEMETRY_INTERVAL_MS=200;
+  let lastFrame=performance.now(),lastTelemetry=0;
+  const refreshTelemetry=now=>{
+    if(now-lastTelemetry<TELEMETRY_INTERVAL_MS)return;
+    lastTelemetry=now;
+    const x=walker.x,z=walker.z;
     const measured=Number.isFinite(nacSampler?.(x,z));
     const blend=clamp(Math.min(2500-Math.abs(x),2500-Math.abs(z))/240,0,1);
     const active=nacReady&&measured&&blend>0.01;
-    debug.innerHTML=`<b style="color:${active?'#55efb2':'#ffd27e'}">${active?'● NAC ACTIVE':'● LOLA FALLBACK'}</b><div>${active?'Measured NAC + LOLA blend':'LOLA terrain at observer'}</div><div>NAC footprint: ${nacReady?'green outline':'unavailable'} · ${nacValidCount?'valid mesh '+Math.round(nacValidCount/((513)*(513))*100)+'%':''}</div><div>Position: ${Math.round(x)} m E, ${Math.round(-z)} m N</div>`;
+    const html=`<b style="color:${active?'#55efb2':'#ffd27e'}">${active?'● NAC ACTIVE':'● LOLA FALLBACK'}</b><div>${active?'Measured NAC + LOLA blend':'LOLA terrain at observer'}</div><div>NAC footprint: ${nacReady?'green outline':'unavailable'} · ${nacValidCount?'valid mesh '+Math.round(nacValidCount/((513)*(513))*100)+'%':''}</div><div>Position: ${Math.round(x)} m E, ${Math.round(-z)} m N</div><div>${apolloGait?`Gravity 1.62 m/s² · ${walker.speed.toFixed(1)} m/s · ${walker.grounded?'on ground':'airborne '+(walker.y-groundHeight(x,z)).toFixed(1)+' m'}`:'Free exploration speed'}</div>`;
+    if(debug.innerHTML!==html)debug.innerHTML=html;
   };
-  const resize=()=>{if(stopped)return;const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);horizonCanvas.width=w;horizonCanvas.height=h};
+  const resize=()=>{if(stopped)return;const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);horizonCanvas.width=w;horizonCanvas.height=h;dirty=true};
   const observer=new ResizeObserver(resize);observer.observe(host);resize();
-  const frame=now=>{if(stopped)return;moveCamera(now);refreshHud();refreshMarkers();drawHorizon();renderer.render(scene,camera);raf=requestAnimationFrame(frame)};raf=requestAnimationFrame(frame);
+  const frame=now=>{
+    if(stopped)return;
+    raf=requestAnimationFrame(frame);
+    const dt=(now-lastFrame)/1000;lastFrame=now;
+    if(walker.step(dt,readInput())){placeCamera();dirty=true}
+    if(!dirty)return;
+    dirty=false;
+    refreshHud();refreshMarkers();drawHorizon();refreshTelemetry(now);
+    renderer.render(scene,camera);
+  };
+  renderer.shadowMap.needsUpdate=true;
+  raf=requestAnimationFrame(frame);
   onStatus(`${nacTerrain?'NAC DTM 2 m source / 512×512 local mesh + ':'LOLA only · '}LOLA 24 km context · horizon from LOLA · drag to look around`);
   return {
     setTimeline({hour,start,onHourChange,horizon}){
       if(stopped)return;timeStart=start;onTimeChange=onHourChange;farHorizon=horizon&&horizon.length===360?horizon:null;
       timeSlider.value=String(clamp(hour,0,719));
       timeLabel.textContent=Number.isFinite(timeStart)?new Date(timeStart+Number(timeSlider.value)*3600000).toISOString().slice(0,16).replace('T',' ')+' UTC':'Hour '+timeSlider.value;
-      syncPause();refreshMarkers();
+      syncPause();dirty=true;
     },
-    setSun({az,el,up}){if(stopped)return;currentSun={az,el,up};refreshHud();refreshMarkers();const a=az*RAD,e=el*RAD;
+    setSun({az,el,up}){if(stopped)return;currentSun={az,el,up};dirty=true;const a=az*RAD,e=el*RAD;
       sun.position.set(Math.sin(a)*Math.cos(e)*24000,Math.sin(e)*24000,-Math.cos(a)*Math.cos(e)*24000);
       sun.intensity=el>0?2.1:.08;
+      renderer.shadowMap.needsUpdate=true;
     },
-    setEarth(data){if(stopped)return;currentEarth=data;refreshHud();refreshMarkers()},
-    dispose(){stopped=true;cancelAnimationFrame(raf);window.removeEventListener('keydown',onKeyDown);window.removeEventListener('keyup',onKeyUp);window.removeEventListener('blur',onBlur);observer.disconnect();renderer.domElement.removeEventListener('pointerdown',down);renderer.domElement.removeEventListener('pointermove',move);renderer.domElement.removeEventListener('pointerup',up);renderer.domElement.removeEventListener('pointercancel',up);geometry.dispose();material.dispose();nacGeometry?.dispose();nacMaterial?.dispose();nacBorder?.geometry.dispose();nacBorder?.material.dispose();regolithBump.dispose();renderer.dispose();renderer.domElement.remove();hud.remove();skyLayer.remove();horizonCanvas.remove();horizonToggle.remove();timePanel.remove();debug.remove();moveHelp.remove()}
+    setEarth(data){if(stopped)return;currentEarth=data;dirty=true},
+    dispose(){stopped=true;cancelAnimationFrame(raf);window.removeEventListener('keydown',onKeyDown);window.removeEventListener('keyup',onKeyUp);window.removeEventListener('blur',onBlur);observer.disconnect();renderer.domElement.removeEventListener('pointerdown',down);renderer.domElement.removeEventListener('pointermove',move);renderer.domElement.removeEventListener('pointerup',up);renderer.domElement.removeEventListener('pointercancel',up);geometry.dispose();material.dispose();nacGeometry?.dispose();nacMaterial?.dispose();nacBorder?.geometry.dispose();nacBorder?.material.dispose();regolithBump.dispose();renderer.dispose();renderer.domElement.remove();hud.remove();skyLayer.remove();horizonCanvas.remove();horizonToggle.remove();gaitToggle.remove();timePanel.remove();debug.remove();moveHelp.remove()}
   };
 }
