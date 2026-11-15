@@ -731,8 +731,8 @@ body[data-profile=education] .top .orbitpass-logo{width:150px}
 <div class="pr-sim-grid"><div class="pr-charts" id="charts"></div></div>
 </section>
 
-<section class="glass" id="scenario"></section>
-<section class="glass" id="compare"></section>
+<section class="glass" id="scenario" hidden aria-hidden="true" style="display:none!important"></section>
+<section class="glass" id="compare" hidden aria-hidden="true" style="display:none!important"></section>
 <section class="glass" id="recommend-panel"><h2>Mission Site Recommender</h2>
 <div class="note">Find the best site and UTC start date for a mission in the next 365 days. Includes standard and saved bases. Each site's best window is ranked against the others.</div>
 <div class="row" style="align-items:end;flex-wrap:wrap;gap:12px;margin:14px 0">
@@ -763,7 +763,7 @@ body[data-profile=education] .top .orbitpass-logo{width:150px}
 
 <section class="glass" id="temps"></section>
 <section class="glass" id="env"></section>
-<section class="glass" id="status"></section>
+<section class="glass" id="status" hidden aria-hidden="true" style="display:none!important"></section>
 </aside>
 </div>
 <div class="pr-modal closed" id="opp-modal" hidden><div class="pr-modal-bar"><div><small>Business opportunities</small><b id="opp-title"></b></div><button type="button" class="ghost" id="opp-close">Close</button></div><div class="pr-opp-stage" id="opp-stage"></div></div>
@@ -872,7 +872,7 @@ function openOpp(a){oppArea=a;renderOpp();document.getElementById("opp-modal").c
 function closeOpp(){document.getElementById("opp-modal").classList.add("closed")}
 async function loadBiz(){try{biz=await(await fetch("data/business.json")).json();renderHero()}catch(e){}}
 function renderHero(){const s=SITES[sel],b=info(s),img=b&&b.image,pills=b?[b.status,b.program,s.tag]:[s.tag];
-document.getElementById("hero").innerHTML=`<div class="pr-hero-media${img?"":" none"}"${img?` style="background-image:url(${img})"`:""}></div><div class="pr-hero-body"><a class="pr-back" data-goto="bases">← Back to Bases</a><div class="pr-badges">${pills.map((t,i)=>`<span class="pill${i===0?" ok":""}">${t}</span>`).join("")}</div><h1>${escSite(s.name)}</h1><div class="pr-sub">${b?b.mission:s.tag} · ${coordsOf(s)}</div><p>${b?b.description:"No catalog record for this site. Metrics come from the ephemeris and the terrain model."}</p><div class="row"><button data-fly>Show on 3D Moon</button><button class="ghost" data-cmp>${cmp.has(sel)?"Remove from compare":"Add to compare"}</button>${s.saved?`<button class="ghost" data-delete-site>Delete saved base</button>`:""}</div></div>`}
+document.getElementById("hero").innerHTML=`<div class="pr-hero-media${img?"":" none"}"${img?` style="background-image:url(${img})"`:""}></div><div class="pr-hero-body"><a class="pr-back" data-goto="bases">← Back to Bases</a><div class="pr-badges">${pills.map((t,i)=>`<span class="pill${i===0?" ok":""}">${t}</span>`).join("")}</div><h1>${escSite(s.name)}</h1><div class="pr-sub">${b?b.mission:s.tag} · ${coordsOf(s)}</div><p>${b?b.description:"No catalog record for this site. Metrics come from the ephemeris and the terrain model."}</p><div class="row"><button data-fly>Show on 3D Moon</button>${s.saved?`<button class="ghost" data-delete-site>Delete saved base</button>`:""}</div></div>`}
 function renderKpis(){const st=stats[sel],hm=SITES[sel].hor,k=[["sun","Sun above horizon",`${f(st.sp)}%`,"next 30 days"],["earth","Earth in view",`${f(st.ep)}%`,"next 30 days"],["both","Sun and Earth",`${f(st.bp)}%`,"both up"],["moon","Longest night",`${f(st.dark/24,1)} d`,"max darkness"],["arc","Avg sun elevation",`${f(st.ae,1)}°`,"while up"],["terrain","Terrain horizon",hm?`${f(Math.max(...hm),1)}°`:"—",hm?"LOLA maximum":"not loaded"]];
 document.getElementById("kpis").innerHTML=k.map(([i,a,b,c])=>`<div class="glass pr-kpi">${prIcon(i)}<div><span>${a}</span><b>${b}</b><small>${c}</small></div></div>`).join("")}
 function lineChart(series,color,label,h,night){const W=640,H=110,x=i=>i/(HRS-1)*W,y=e=>H/2-e/90*(H/2-10);let bands="",run=-1;
@@ -974,7 +974,7 @@ window.addEventListener('orbitpass:education-explore',async event=>{
 });
 
 function closeMoon(){educationalSurfaceActive=false;stopSurface();updateEducationalSurfaceButtons();clearTop3();document.getElementById("moon-modal").classList.add("closed");document.getElementById("moon-card").appendChild(document.getElementById("moon3d"));if(moon){fly();update3D()}}
-const TAB_TARGET={overview:"hero",simulation:"pr-sim",infrastructure:"scenario",research:"compare",resources:"pr-resources",access:"windows-panel",projects:"pr-manifest"};
+const TAB_TARGET={overview:"hero",simulation:"pr-sim",infrastructure:"recommend-panel",research:"risk-panel",resources:"pr-resources",access:"windows-panel",projects:"pr-manifest"};
 function setScreen(name){document.querySelectorAll("[data-screen]").forEach(el=>{el.hidden=el.dataset.screen!==name})}
 function markTab(name){document.querySelectorAll(".pr-tab,.pr-nav button").forEach(el=>{const on=el.dataset.goto===name;el.classList.toggle("on",on);if(el.classList.contains("pr-tab"))el.setAttribute("aria-selected",String(on))})}
 function go(target){const bases=target==="bases";setScreen(bases?"bases":"base");markTab(target);
