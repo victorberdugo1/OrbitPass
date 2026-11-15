@@ -168,7 +168,11 @@ export function createLunarSurface(renderer, tileUrl, fallbackUrl) {
   return { material, uniforms, ready };
 }
 
+<<<<<<< HEAD
 export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl }) {
+=======
+export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl, onSurfacePick, fixedSiteCount = sites.length }) {
+>>>>>>> 0e71fd3 (Pavel campus)
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.setClearColor(0x000000);
@@ -191,12 +195,11 @@ export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl }) {
     uEarth: { value: new THREE.Vector3() },
     uRelief: { value: RELIEF_SCALE }
   };
-  moon.add(
-    new THREE.Mesh(
+  const surface = new THREE.Mesh(
       new THREE.SphereGeometry(1, 128, 96),
       new THREE.ShaderMaterial({ uniforms, vertexShader: SURFACE_VERT, fragmentShader: SURFACE_FRAG })
-    )
-  );
+    );
+  moon.add(surface);
 
   const hud = document.createElement("div");
   hud.className = "hud";
@@ -232,11 +235,34 @@ export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl }) {
     return { sprite, label, size };
   };
 
-  const siteMarkers = sites.map((s) => {
+  const siteMarkers = sites.slice(0, fixedSiteCount).map((s) => {
     const m = marker(COLORS.site, 0.016, s.name);
     m.sprite.position.copy(direction(s.lat, s.lon, SURFACE));
     return m;
   });
+  const customMarkers=[];
+  function syncCustomMarkers(){
+    const count=Math.max(0,sites.length-siteMarkers.length);
+    while(customMarkers.length<count)customMarkers.push(marker("#34d399",0.027,"Saved location"));
+    customMarkers.forEach((m,i)=>{
+      const site=sites[siteMarkers.length+i];
+      m.sprite.visible=!!site;
+      if(site){m.label.textContent=site.name;place(m,site)}
+    });
+  }
+  const rankedMarkers=[];
+  const rankColors=["#f5c451","#60a5fa","#34d399"];
+  function setRankedSites(ranks){
+    while(rankedMarkers.length<ranks.length)rankedMarkers.push(marker(rankColors[rankedMarkers.length],0.046,""));
+    rankedMarkers.forEach((m,i)=>{
+      const r=ranks[i],site=r&&sites[r.id];
+      m.sprite.visible=!!site;
+      m.rankActive=!!site;
+      if(site){place(m,site);m.label.textContent=`#${i+1} ${site.name}`;m.sprite.material.color.set(rankColors[i]);m.sprite.scale.setScalar(0.046)}
+      else m.label.style.display="none";
+    });
+    dirty=true;
+  }
   const sunMarker = marker(COLORS.sun, 0.032, "Subsolar point");
   const earthMarker = marker(COLORS.earth, 0.028, "Sub-Earth point");
 
@@ -254,6 +280,8 @@ export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl }) {
     const h = container.clientHeight;
     const entries = [
       ...siteMarkers.map((m, i) => ({ m, show: i === selected || dist <= LABEL_MAX_DIST })),
+      ...customMarkers.filter((m,i)=>!!sites[siteMarkers.length+i]).map((m,i)=>({m,show:selected===siteMarkers.length+i||dist<=LABEL_MAX_DIST})),
+      ...rankedMarkers.filter(m=>m.rankActive).map(m=>({m,show:true})),
       { m: sunMarker, show: true },
       { m: earthMarker, show: true }
     ];
@@ -295,11 +323,31 @@ export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl }) {
     dirty = true;
   };
 
+  const raycaster = new THREE.Raycaster();
+  const pointerNdc = new THREE.Vector2();
+  const pickSurface = (e) => {
+    if (typeof onSurfacePick !== "function") return;
+    const rect = canvas.getBoundingClientRect();
+    pointerNdc.set(((e.clientX - rect.left) / rect.width) * 2 - 1,
+      -((e.clientY - rect.top) / rect.height) * 2 + 1);
+    camera.position.set(0, 0, dist);
+    camera.updateMatrixWorld();
+    moon.updateMatrixWorld(true);
+    raycaster.setFromCamera(pointerNdc, camera);
+    const hit = raycaster.intersectObject(surface, false)[0];
+    if (!hit) return;
+    const local = moon.worldToLocal(hit.point.clone()).normalize();
+    const lat = Math.asin(THREE.MathUtils.clamp(local.y, -1, 1)) / RAD;
+    const lon = Math.atan2(-local.z, local.x) / RAD;
+    onSurfacePick({ lat, lon });
+  };
   const pointers = new Map();
+  const pointerStart = new Map();
   let pinch = 0;
   canvas.addEventListener("pointerdown", (e) => {
     canvas.setPointerCapture(e.pointerId);
     pointers.set(e.pointerId, e);
+    pointerStart.set(e.pointerId, { x: e.clientX, y: e.clientY, moved: false });
     canvas.style.cursor = "grabbing";
     pinch = 0;
   });
@@ -307,6 +355,9 @@ export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl }) {
     const prev = pointers.get(e.pointerId);
     if (!prev) return;
     pointers.set(e.pointerId, e);
+    const start = pointerStart.get(e.pointerId);
+    if (start && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 6) start.moved = true;
+    if (pointers.size > 1) for (const entry of pointerStart.values()) entry.moved = true;
     if (pointers.size === 1) return rotate(e.clientX - prev.clientX, e.clientY - prev.clientY);
     const [a, b] = [...pointers.values()];
     const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
@@ -314,7 +365,11 @@ export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl }) {
     pinch = d;
   });
   const release = (e) => {
+    const start = pointerStart.get(e.pointerId);
+    const click = e.type === "pointerup" && pointers.size === 1 && start && !start.moved;
     pointers.delete(e.pointerId);
+    pointerStart.delete(e.pointerId);
+    if (click) pickSurface(e);
     pinch = 0;
     canvas.style.cursor = "grab";
   };
@@ -378,8 +433,15 @@ export function createMoon(container, { sites, tileUrl, demUrl, fallbackUrl }) {
       hud.textContent = text;
       dirty = true;
     },
+    setRankedSites,
     select(index) {
       selected = index;
+      syncCustomMarkers();
+      customMarkers.forEach((m,i)=>{
+        const isSelected=siteMarkers.length+i===index;
+        m.sprite.material.color.set(isSelected?COLORS.selected:"#34d399");
+        m.sprite.scale.setScalar(isSelected?0.036:0.027);
+      });
       siteMarkers.forEach((m, i) => {
         m.sprite.material.color.set(i === index ? COLORS.selected : COLORS.site);
         m.sprite.scale.setScalar(i === index ? m.size * 1.6 : m.size);

@@ -7,8 +7,8 @@ const WIDTH = TILE_PX * (2 << LEVEL);
 const HEIGHT = WIDTH / 2;
 const DEM_STEP_M = (DEM_MAX_M - DEM_MIN_M) / 254;
 const MAX_RANGE_M = 200000;
-const MIN_RANGE_M = 3000;
-const RAY_STEP_M = 500;
+const MIN_RANGE_M = 100;
+const RAY_STEP_M = 250;
 const AZIMUTHS = 360;
 const CONCURRENCY = 12;
 
@@ -86,23 +86,37 @@ function siteHorizon(site, elevation) {
   const texelDeg = 360 / WIDTH;
   const around = [-1, 0, 1].flatMap((i) => [-1, 0, 1].map((j) => elevation(site.lat + i * texelDeg, site.lon + j * texelDeg)));
   const valid = around.filter(Number.isFinite);
-  const base = MOON_RADIUS_M + valid.reduce((a, b) => a + b, 0) / valid.length;
+  // Do not silently substitute zero or an average when the landing site is missing.
+  const siteHeight = elevation(site.lat, site.lon);
+  if (!Number.isFinite(siteHeight) || valid.length !== around.length) {
+    throw new Error(`Insufficient DEM data at site ${site.lat},${site.lon}`);
+  }
+  const base = MOON_RADIUS_M + siteHeight;
   const sinLat = Math.sin(site.lat * RAD);
   const cosLat = Math.cos(site.lat * RAD);
   const horizon = new Float32Array(AZIMUTHS);
   for (let az = 0; az < AZIMUTHS; az++) {
     const sinAz = Math.sin(az * RAD);
     const cosAz = Math.cos(az * RAD);
-    let best = 0;
+    // A lunar horizon can lie below the local tangent plane.
+    let best = -90;
+    let samples = 0;
+    let missing = 0;
     for (let d = MIN_RANGE_M; d <= MAX_RANGE_M; d += RAY_STEP_M) {
       const delta = d / MOON_RADIUS_M;
       const sinLat2 = sinLat * Math.cos(delta) + cosLat * Math.sin(delta) * cosAz;
       const lat2 = Math.asin(sinLat2);
       const lon2 = site.lon * RAD + Math.atan2(sinAz * Math.sin(delta) * cosLat, Math.cos(delta) - sinLat * sinLat2);
       const h = elevation(lat2 / RAD, lon2 / RAD);
-      if (!Number.isFinite(h)) continue;
+      if (!Number.isFinite(h)) { missing++; continue; }
+      samples++;
       const r = MOON_RADIUS_M + h;
       best = Math.max(best, Math.atan2(r * Math.cos(delta) - base, r * Math.sin(delta)) / RAD);
+    }
+    // A missing sample might conceal the highest obstacle along this ray.
+    // Refuse to label an incomplete profile as verified terrain visibility.
+    if (!samples || missing) {
+      throw new Error(`Incomplete DEM ray az=${az}: ${missing} missing samples`);
     }
     horizon[az] = best;
   }

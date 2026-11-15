@@ -40,7 +40,7 @@ async function startFlight(){stopFlight();const token=flightToken,s=SITES[missio
 try{const m=await import("./flight.js");if(token!==flightToken)return;
 flight=m.createFlight({stage,info:document.getElementById("flight-info")},{startMs:start,launch:LAUNCH_SITES[mission.launch],site:s,sky:ms=>skyAt(ms,s)});await flight.ready}
 catch(e){stage.textContent="Simulation unavailable: "+e.message}}
-function setProfile(id){profile=id;if(id!=="education")stopFlight();document.body.dataset.profile=id;visibility(id);
+function setProfile(id){if(id==="tourism")id="business";profile=id;if(id!=="education")stopFlight();document.body.dataset.profile=id;visibility(id);
 document.getElementById("profile-btn").textContent="Profile: "+PROFILES[id].label;
 try{localStorage.setItem("orbitpass.profile",id)}catch(e){}
 lastKey="";renderProfile()}
@@ -66,18 +66,17 @@ w.innerHTML=`<div class="ln-stage" id="ln-stage"></div><div class="ln-ui">
 <label class="ln-field"><svg viewBox="0 0 28 28">${FIELD_ICONS.launch}</svg><div><span>Launch Site</span><select id="m-launch">${LAUNCH_SITES.map((l,i)=>`<option value="${i}">${l.name}</option>`).join("")}</select></div></label>
 <label class="ln-field"><svg viewBox="0 0 28 28">${FIELD_ICONS.site}</svg><div><span>Destination Base</span><select id="m-site"></select></div></label>
 <button class="ln-go" type="submit">Go<svg viewBox="0 0 26 26"><path d="M3 13h19M14 5l8 8-8 8"/></svg></button></form>
-<div class="ln-tag" id="ln-tag"><small>THE MOON TRAVEL PLATFORM</small><b>Explore · Learn · Travel · Work</b></div>
-<div class="ln-cards" id="ln-cards">${Object.entries(PROFILES).map(([id,p])=>`<button class="ln-card" data-profile="${id}"><svg class="ico" viewBox="0 0 48 48">${ICONS[id]}</svg><h3>${p.label}</h3><svg class="go" viewBox="0 0 26 26"><path d="M3 13h19M14 5l8 8-8 8"/></svg><p>${p.text}</p>${id===last?'<span class="last">Last used</span>':""}</button>`).join("")}</div></div>`;
+<div class="ln-tag" id="ln-tag"><small>LUNAR MISSION EXPLORER</small><b>Explore · Learn · Plan Missions</b></div>
+<div class="ln-cards" id="ln-cards">${Object.entries(PROFILES).filter(([id])=>id!=="tourism").map(([id,p])=>`<button class="ln-card" data-profile="${id}"><svg class="ico" viewBox="0 0 48 48">${ICONS[id]}</svg><h3>${p.label}</h3><svg class="go" viewBox="0 0 26 26"><path d="M3 13h19M14 5l8 8-8 8"/></svg><p>${p.text}</p>${id===last?'<span class="last">Last used</span>':""}</button>`).join("")}</div></div>`;
 w.hidden=false;startLanding()}
 
 function renderLessons(){const s=SITES[sel],st=stats[sel],h=+document.getElementById("t").value,sn=st.sun[h],ea=st.ear[h],hmax=s.hor?Math.max(...s.hor):null;
 const L=[
-["A lunar day lasts about 29.5 Earth days",`Over the next 30 days ${s.name} has the Sun above the horizon ${f(st.sp)}% of the time. Its longest continuous darkness is ${f(st.dark/24,1)} days.`],
-["Why the poles are special",`The Moon’s axis is tilted only about 1.5°, so near the poles the Sun skims the horizon instead of climbing high. At this site (latitude ${f(s.lat,1)}°) the Sun averages ${f(st.ae,1)}° of elevation while it is up.`],
-["Earth stays put in the sky",`The same face of the Moon always points at Earth. At this site Earth is above the horizon ${f(st.ep)}% of the next 30 days. Right now it is at azimuth ${f(ea.az)}° and elevation ${f(ea.el,1)}°.`],
-["Terrain sets the real horizon",hmax===null?"Terrain data is still loading, so a flat spherical horizon is used for now.":`A terrain model built from LRO laser altimetry puts the highest horizon at ${f(hmax,1)}° of elevation for this site, which delays sunrise and brings sunset forward.`],
-["No atmosphere, no twilight",`Without air there is no refraction or twilight, so light turns to dark abruptly. ${sn.up?"The Sun is up now":"The Sun is down now"}: ${untilTxt(until(st.sun,h),"sunset","sunrise")}.`],
-["Why dates matter",`Moving a landing by a few days changes both sunlight and Earth contact. At this site the Sun and Earth are both up ${f(st.bp)}% of the next 30 days, and their overlap shifts with the date.`]];
+["Lunar daylight & mission power",`Over the next 30 days ${s.name} has the Sun above the horizon ${f(st.sp)}% of the time. Its longest continuous darkness is ${f(st.dark/24,1)} days.`],
+["Why polar sites matter",`The Moon’s axis is tilted only about 1.5°, so near the poles the Sun skims the horizon instead of climbing high. At this site (latitude ${f(s.lat,1)}°) the Sun averages ${f(st.ae,1)}° of elevation while it is up.`],
+["Earth visibility & communications",`The same face of the Moon always points at Earth. At this site Earth is above the horizon ${f(st.ep)}% of the next 30 days. Right now it is at azimuth ${f(ea.az)}° and elevation ${f(ea.el,1)}°.`],
+["Terrain horizon (LOLA)",hmax===null?"Terrain data is still loading, so a flat spherical horizon is used for now.":`A terrain model built from LRO laser altimetry puts the highest horizon at ${f(hmax,1)}° of elevation for this site, which delays sunrise and brings sunset forward.`],
+["Choosing a mission window",`At ${s.name}, Sun and Earth are simultaneously visible ${f(st.bp)}% of the next 30 days. Compare dates using the Operating Window Finder in Pro mode.`]];
 document.getElementById("lessons").innerHTML=L.map(([t,b])=>`<div class="card" style="cursor:default"><b>${t}</b><small style="display:block;margin-top:6px;line-height:1.5">${b}</small></div>`).join("")}
 
 function renderQuiz(){const el=document.getElementById("quiz");
