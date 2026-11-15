@@ -96,7 +96,6 @@ body[data-profile=education] .panel{animation:rise .7s cubic-bezier(.2,.7,.2,1) 
 #flight-stage .fl-kpis .kpi{background:rgba(10,24,48,.55);border-color:rgba(160,200,255,.35);backdrop-filter:blur(10px);color:#fff;padding:6px 10px}
 #flight-stage .fl-kpis .kpi span{color:#9db8d8}
 #flight-stage .fl-kpis .kpi b{font-size:14px}
-.fl-plan td:first-child{color:var(--mut);white-space:nowrap}
 .ln-logo{position:absolute;top:max(14px,env(safe-area-inset-top));right:22px}
 .ln-logo svg{height:46px;width:auto;display:block}
 .ln-cards[hidden]{display:none}
@@ -639,6 +638,12 @@ body[data-profile=education] .top .orbitpass-logo{width:150px}
 /* Educational landing debrief: compact card over flight, responsive and dismissible via replay. */
 #edu-landing-card{position:absolute;z-index:12;top:50%;left:50%;transform:translate(-50%,-50%);width:min(570px,calc(100% - 32px));max-height:calc(100% - 155px);overflow:auto;box-sizing:border-box;padding:24px;border-radius:22px;background:rgba(6,17,34,.94);border:1px solid rgba(116,214,245,.55);box-shadow:0 18px 70px #000a;backdrop-filter:blur(16px);color:#eaf5ff}
 #edu-landing-card[hidden]{display:none!important}
+@keyframes edu-fade{from{opacity:0}to{opacity:1}}
+#edu-landing-card:not([hidden]){animation:edu-fade 2.4s ease-out both}
+#edu-landing-card:not([hidden])>*,#edu-landing-card:not([hidden]) .edu-land-grid>div{animation:edu-fade 1.8s ease-out both;animation-delay:calc(var(--i,0)*.7s + 1.2s)}
+#edu-landing-card>:nth-child(1){--i:0}#edu-landing-card>:nth-child(2){--i:1}#edu-landing-card>:nth-child(3){--i:2}#edu-landing-card>:nth-child(4){--i:3}#edu-landing-card>:nth-child(5){--i:4}
+#edu-landing-card .edu-land-grid>:nth-child(1){--i:3}#edu-landing-card .edu-land-grid>:nth-child(2){--i:3.5}#edu-landing-card .edu-land-grid>:nth-child(3){--i:4}#edu-landing-card .edu-land-grid>:nth-child(4){--i:4.5}#edu-landing-card .edu-land-grid>:nth-child(5){--i:5}#edu-landing-card .edu-land-grid>:nth-child(6){--i:5.5}
+@media(prefers-reduced-motion:reduce){#edu-landing-card:not([hidden]),#edu-landing-card:not([hidden]) *{animation:none!important}}
 /* Accessible button contrast in the Educational landing card and shared lunar modal. */
 #edu-landing-card .edu-land-actions button:not(.ghost){background:#167eac!important;color:#fff!important;border:1px solid #72dcff!important}
 #edu-landing-card .edu-land-actions button.ghost{background:#142b42!important;color:#f0f8ff!important;border:1px solid #7ca8c5!important}
@@ -767,7 +772,6 @@ body[data-profile=education] .top .orbitpass-logo{width:150px}
 </div>
 <div class="tp-wrap" id="explore" data-for="tourism"><div id="explore-root"></div></div>
 
-<div class="panel" id="mission-info" data-for="education"><h2>Mission plan</h2><div id="flight-info"></div></div>
 <div class="panel" id="learn" data-for="education"><h2>Learn</h2><div class="grid" id="lessons"></div><h2 style="margin-top:20px">Quick quiz</h2><div id="quiz"></div></div>
 <div class="panel" data-for="education"><h2>Learn more</h2><div class="row">
 <a class="chip" href="https://science.nasa.gov/moon/" target="_blank" rel="noopener">NASA Moon</a>

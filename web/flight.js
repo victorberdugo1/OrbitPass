@@ -21,6 +21,7 @@ const SPEEDS = [0.5, 1, 2, 4, 8];
 const DEFAULT_SPEED = 4;
 const WORLD_UP = new V3(0, 1, 0);
 const INTRO_WALL = 4;
+const CLEARANCE = 1.01;
 const FLIGHT_FOV = 40;
 const MOON_FALLBACK = "assets/moon.jpg";
 const moonTile = (z, x, y) => `/trek/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/default/default028mm/${z}/${y}/${x}.jpg`;
@@ -283,27 +284,10 @@ const fmtMet = (s) => {
 };
 const fmtKm = (x) => Math.round(x).toLocaleString("en-US") + " km";
 
-function planTable(plan, sky) {
-  const land = sky(plan.tLand * 1000);
-  const rows = [
-    ["Launch", `${fmtClock(plan.tL)} UTC from ${plan.launch.name}`],
-    ["Orbit insertion", `${LEO_ALT} km circular parking orbit, ${fmtClock(plan.tIns)} UTC`],
-    ["Trans-lunar injection", `${fmtClock(plan.tTLI)} UTC, Δv ${plan.dvTLI.toFixed(2)} km/s`],
-    ["Earth–Moon distance at arrival", fmtKm(moonPos(plan.tA).length())],
-    ["Lunar orbit insertion", `${fmtClock(plan.tA)} UTC, Δv ${plan.dvLOI.toFixed(2)} km/s, ${LLO_ALT} km orbit`],
-    ["Landing", `${plan.site.name} (${plan.site.lat.toFixed(2)}°, ${plan.site.lon.toFixed(2)}°), ${fmtClock(plan.tLand)} UTC`],
-    ["Sky at landing", `Sun ${land.sun.el.toFixed(1)}° (${land.sun.up ? "above" : "below"} the horizon) · Earth ${land.earth.el.toFixed(1)}° (${land.earth.up ? "visible" : "not visible"})`]
-  ];
-  return `<table>${rows.map(([k, v]) => `<tr><td>${k}</td><td class="mono">${v}</td></tr>`).join("")}</table>`;
-}
-
-export function createFlight({ stage, info }, mission) {
+export function createFlight({ stage }, mission) {
   stage.innerHTML = `<div class="fl-kpis"></div><div class="row fl-bar"><button class="sm" data-fl="play">Pause</button><select data-fl="speed">${SPEEDS.map((s) => `<option value="${s}"${s === DEFAULT_SPEED ? " selected" : ""}>${s}×</option>`).join("")}</select><input type="range" data-fl="scrub" min="0" max="1000" value="0"><button class="sm ghost" data-fl="replay">Replay</button></div>`;
-  info.innerHTML = `<div class="tbl-wrap fl-plan"></div>
-<div class="note">Real data: Moon and Sun positions and Earth rotation from analytical ephemerides (Meeus), Moon orientation from optical libration, site coordinates from NASA/LRO. Trajectory: two-body Lambert transfer from a ${LEO_ALT} km parking orbit to a ${LLO_ALT} km lunar orbit (patched conics, impulsive burns); ascent, lunar orbit and descent are scripted. Not for operational use.</div>`;
   const kpiBox = stage.querySelector(".fl-kpis");
   const plan = planMission(mission);
-  info.querySelector(".fl-plan").innerHTML = planTable(plan, mission.sky);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -381,6 +365,8 @@ export function createFlight({ stage, info }, mission) {
   const tile = (k, v) => `<div class="kpi"><span>${k}</span><b>${v}</b></div>`;
   const earthDv = () => ASCENT_DV * smooth((t - plan.tL) / ASCENT_S) + (t >= plan.tTLI ? plan.dvTLI : 0);
 
+  const lunarEye = (m) => m.clone().addScaledVector(plan.normalL.clone().multiplyScalar(0.97).addScaledVector(plan.u, 0.22).normalize(), 14);
+
   function desiredCamera(phase, st, tNow) {
     const sc = st.pos.clone().multiplyScalar(1 / UNIT);
     const eps = 1e-4;
@@ -403,9 +389,9 @@ export function createFlight({ stage, info }, mission) {
       const mid = moonEnd.clone().multiplyScalar(0.5);
       const near = { pos: sc.clone().multiplyScalar(0.5).addScaledVector(sc.clone().normalize(), 24).addScaledVector(plan.n, 24).addScaledVector(fwd, -16), look: sc.clone().multiplyScalar(0.5) };
       const wide = { pos: mid.clone().addScaledVector(plan.n, 300).addScaledVector(moonEnd.clone().normalize(), -120), look: mid };
-      const approach = { pos: m.clone().addScaledVector(sc.clone().sub(m).normalize(), 18).addScaledVector(plan.n, 10), look: m.clone().lerp(sc, 0.3) };
+      const approach = { pos: lunarEye(m), look: m.clone().lerp(sc, 0.3) };
       const a = smooth(k / 0.12);
-      const b = smooth((k - 0.8) / 0.2);
+      const b = smooth((k - 0.55) / 0.3);
       const tangent = plan.n.clone().cross(moonEnd.clone().normalize());
       return {
         pos: near.pos.lerp(wide.pos, a).lerp(approach.pos, b),
@@ -415,8 +401,7 @@ export function createFlight({ stage, info }, mission) {
     }
     const rel = sc.clone().sub(m);
     if (phase.id === "lunar") {
-      const dir = plan.normalL.clone().multiplyScalar(0.55).addScaledVector(rel.clone().normalize().cross(plan.normalL), 0.9).normalize();
-      return { pos: m.clone().addScaledVector(dir, 14), look: m };
+      return { pos: lunarEye(m), look: m };
     }
     const alt = st.alt || 0;
     const radial = rel.clone().normalize();
@@ -424,6 +409,35 @@ export function createFlight({ stage, info }, mission) {
     const s = phase.id === "descent" ? 0.05 + 0.002 * alt : 0.08;
     const lookAt = sc.clone();
     return { pos: sc.clone().addScaledVector(radial, 0.55 * s).addScaledVector(fwd, -0.8 * s).addScaledVector(side, 0.35 * s), look: lookAt };
+  }
+
+  const bodies = [
+    { center: earth.root.position, radius: RE / UNIT },
+    { center: moonRoot.position, radius: RM / UNIT }
+  ];
+
+  function clearView(pos, target) {
+    bodies.forEach(({ center, radius }) => {
+      const limit = radius * CLEARANCE;
+      const out = target.clone().sub(center);
+      const reach = out.length();
+      if (reach > 1e-9) {
+        out.divideScalar(reach);
+        const offset = pos.clone().sub(target);
+        const dist = offset.length();
+        const hidden = -offset.dot(out) / dist;
+        const cut = reach > limit ? Math.sqrt(1 - (limit / reach) ** 2) : 0;
+        if (hidden > cut) {
+          const side = offset.addScaledVector(out, -offset.dot(out));
+          if (side.lengthSq() < 1e-12) side.copy(out).cross(WORLD_UP);
+          side.normalize();
+          pos.copy(target).addScaledVector(out, -cut * dist).addScaledVector(side, Math.sqrt(1 - cut * cut) * dist);
+        }
+      }
+      const away = pos.clone().sub(center);
+      if (away.length() < limit) pos.copy(center).addScaledVector(away.normalize(), limit);
+    });
+    return pos;
   }
 
   function nearestSurface(p, e, m) {
@@ -486,11 +500,11 @@ export function createFlight({ stage, info }, mission) {
     camPos.lerp(goalPos, ease);
     camLook.lerp(goalLook, ease);
     camera.up.lerp(want.up || WORLD_UP, ease).normalize();
-    camera.position.copy(camPos);
+    camera.position.copy(clearView(camPos.clone(), sc));
     camera.lookAt(camLook);
-    const toCraft = camPos.distanceTo(sc);
+    const toCraft = camera.position.distanceTo(sc);
     camera.fov = FOCUS_FOV + (FLIGHT_FOV - FOCUS_FOV) * intro;
-    camera.near = clamp(Math.min(nearestSurface(camPos, new V3(), moonRoot.position), toCraft) * 0.2, 0.0002, 5);
+    camera.near = clamp(Math.min(nearestSurface(camera.position, new V3(), moonRoot.position), toCraft) * 0.2, 0.0002, 5);
     camera.updateProjectionMatrix();
     craft.scale.setScalar(Math.max(toCraft * 0.012 * Math.tan((camera.fov * RAD) / 2) / Math.tan((FLIGHT_FOV * RAD) / 2), 0.00005));
     const burn = at.phase.id === "ascent" || at.phase.id === "descent" || Math.abs(t - plan.tTLI) < 240 || Math.abs(t - plan.tA) < 240;
@@ -562,7 +576,6 @@ export function createFlight({ stage, info }, mission) {
       renderer.dispose();
       renderer.forceContextLoss();
       stage.replaceChildren();
-      info.replaceChildren();
     }
   };
 }

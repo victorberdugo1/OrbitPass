@@ -57,7 +57,7 @@ function showLandingCard({plan,sky}){
 function stopFlight(){hideLandingCard();flightToken++;if(flight)flight.dispose();flight=null}
 async function startFlight(selectedMission=mission){stopFlight();const token=flightToken,s=SITES[selectedMission.site],stage=document.getElementById("flight-stage");
 try{const m=await import("./flight.js");if(token!==flightToken)return;
-flight=m.createFlight({stage,info:document.getElementById("flight-info")},{startMs:start,launch:LAUNCH_SITES[selectedMission.launch],site:s,sky:ms=>skyAt(ms,s),onLanded:showLandingCard,onLeaveLanding:hideLandingCard});await flight.ready}
+flight=m.createFlight({stage},{startMs:start,launch:LAUNCH_SITES[selectedMission.launch],site:s,sky:ms=>skyAt(ms,s),onLanded:showLandingCard,onLeaveLanding:hideLandingCard});await flight.ready}
 catch(e){stage.textContent="Simulation unavailable: "+e.message}}
 function setProfile(id){if(id==="tourism")id="business";profile=id;if(id!=="education")stopFlight();document.body.dataset.profile=id;visibility(id);
 document.getElementById("profile-btn").textContent="Profile: "+PROFILES[id].label;

@@ -39,8 +39,8 @@ void main() {
   float dh2 = textureCube(uHeight, normalize(n + RELIEF_SPAN * t2)).r - textureCube(uHeight, normalize(n - RELIEF_SPAN * t2)).r;
   vec3 relief = normalize(n - uRelief * (dh1 * t1 + dh2 * t2) / (2.0 * RELIEF_SPAN));
   float day = pow(smoothstep(-0.12, 0.3, dot(relief, uSun)), 0.7);
-  float earthshine = 0.08 * max(dot(normalize(vObj), uEarth), 0.0);
-  vec3 color = albedo * (0.035 + 1.75 * day + earthshine);
+  float earthshine = 0.12 * max(dot(normalize(vObj), uEarth), 0.0);
+  vec3 color = albedo * (0.085 + 1.75 * day + earthshine);
   gl_FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0);
 }`;
 
